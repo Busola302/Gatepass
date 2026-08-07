@@ -1,0 +1,78 @@
+/* ==========================================
+              GOOGLE FONTS
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+
+/* ==========================================
+              ROOT VARIABLES
+========================================== */
+
+:root{
+
+    /* ========= BRAND COLORS ========= */
+
+    --primary-color: #0A2342;
+    --primary-dark: #081B33;
+    --secondary-color: #1E4E8C;
+    --accent-color: #4DA8FF;
+
+    /* ========= BACKGROUND COLORS ========= */
+
+    --body-bg: #F5F9FF;
+    --section-bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+
+    /* ========= TEXT COLORS ========= */
+
+    --heading-color: #1F2937;
+    --body-text: #6B7280;
+    --white-text: #FFFFFF;
+
+    /* ========= BORDER COLORS ========= */
+
+    --border-color: #E5E7EB;
+
+    /* ========= STATUS COLORS ========= */
+
+    --success-color: #22C55E;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+
+    /* ========= SHADOWS ========= */
+
+    --shadow-sm: 0 4px 10px rgba(0,0,0,.05);
+    --shadow-md: 0 10px 30px rgba(0,0,0,.08);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,.12);
+
+    /* ========= BORDER RADIUS ========= */
+
+    --radius-sm: .5rem;      /* 8px */
+    --radius-md: .75rem;     /* 12px */
+    --radius-lg: 1rem;       /* 16px */
+    --radius-xl: 1.5rem;     /* 24px */
+    --radius-round: 50%;
+
+    /* ========= SPACING ========= */
+
+    --section-padding: 5rem;
+    --container-width: 1200px;
+
+    /* ========= TRANSITION ========= */
+
+    --transition: .3s ease-in-out;
+
+    /* ========= TYPOGRAPHY ========= */
+
+    --heading-font: "Poppins", sans-serif;
+    --body-font: "Inter", sans-serif;
+
+    /* ========= FONT WEIGHT ========= */
+
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+}
