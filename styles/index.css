@@ -67,7 +67,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   gap: 50px;
-  padding: 16px;
+  padding: 24px;
 }
 
 .hero-text {
@@ -104,4 +104,51 @@ a:hover {
 .hero-text button:hover {
   background: var(--primary-color);
   color: var(--white-text);
+}
+/* Intro Styles */
+.intro-container{
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px;
+}
+
+.intro-card{
+  align-items: center;
+  max-width: 250px;
+  text-align: center;
+  padding: 16px;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-md);
+  border-bottom-left-radius: 48px;
+  border-top-right-radius: 48px;
+}
+.intro-card h2{
+  color: var(--primary-dark);
+  font-family: var(--heading-font);
+  line-height: 1.0;
+  font-size: 16px;
+}
+.intro-card p{
+  color: #000;
+  font-family: var(--body-font);
+  font-size: 14px;
+  line-height: 1.5;
+}
+/* Intro Card Text Only */
+.intro-card-text{
+   max-width: 250px;
+  text-align: left;
+}
+.intro-card-text h2{
+  font-family: var(--heading-font);
+  color: var(--primary-dark);
+  line-height: 1.1;
+  font-size: 18px;
+}
+.intro-card-text p{
+  font-family: var(--body-font);
+  color: #000;
+  line-height: 1.5;
+  font-size: 14px;
 }
