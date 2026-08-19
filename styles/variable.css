@@ -1,78 +1,21 @@
-/* ==========================================
-              GOOGLE FONTS
-========================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
-
-
-/* ==========================================
-              ROOT VARIABLES
-========================================== */
-
-:root{
-
-    /* ========= BRAND COLORS ========= */
-
-    --primary-color: #0A2342;
-    --primary-dark: #081B33;
-    --secondary-color: #1E4E8C;
-    --accent-color: #4DA8FF;
-
-    /* ========= BACKGROUND COLORS ========= */
-
-    --section-bg: #F5F9FF;
-    --body-bg: #FFFFFF;
-    --card-bg: #F5F9FF;
-
-    /* ========= TEXT COLORS ========= */
-
-    --heading-color: #1F2937;
-    --body-text: #6B7280;
-    --white-text: #FFFFFF;
-
-    /* ========= BORDER COLORS ========= */
-
-    --border-color: #E5E7EB;
-
-    /* ========= STATUS COLORS ========= */
-
-    --success-color: #22C55E;
-    --warning-color: #F59E0B;
-    --danger-color: #EF4444;
-
-    /* ========= SHADOWS ========= */
-
-    --shadow-sm: 0 4px 10px rgba(0,0,0,.05);
-    --shadow-md: 0 10px 30px rgba(0,0,0,.08);
-    --shadow-lg: 0 20px 40px rgba(0,0,0,.12);
-
-    /* ========= BORDER RADIUS ========= */
-
-    --radius-sm: .5rem;      /* 8px */
-    --radius-md: .75rem;     /* 12px */
-    --radius-lg: 1rem;       /* 16px */
-    --radius-xl: 1.5rem;     /* 24px */
-    --radius-round: 50%;
-
-    /* ========= SPACING ========= */
-
-    --section-padding: 5rem;
-    --container-width: 1200px;
-
-    /* ========= TRANSITION ========= */
-
-    --transition: .3s ease-in-out;
-
-    /* ========= TYPOGRAPHY ========= */
-
-    --heading-font: "Poppins", sans-serif;
-    --body-font: "Inter", sans-serif;
-
-    /* ========= FONT WEIGHT ========= */
-
-    --fw-light: 300;
-    --fw-regular: 400;
-    --fw-medium: 500;
-    --fw-semibold: 600;
-    --fw-bold: 700;
-}
+footer{
+    background:var(--navy); color:rgba(221,226,234,0.75); padding:72px 0 28px; margin-top:60px;
+  }
+  .footer-top{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:48px; padding-bottom:52px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand .logo{color:#fff;}
+  .footer-brand p{margin-top:14px; font-size:14px; max-width:280px; color:rgba(221,226,234,0.6);}
+  .social-row{display:flex; gap:10px; margin-top:22px;}
+  .social-row a{
+    width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center; transition:.2s var(--ease);
+  }
+  .social-row a:hover{background:var(--purple); transform:translateY(-2px);}
+  .footer-col h5{color:#fff; font-family:'Inter',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:18px;}
+  .footer-col a{display:block; font-size:14.5px; color:rgba(221,226,234,0.68); margin-bottom:12px; transition:color .2s var(--ease);}
+  .footer-col a:hover{color:var(--lavender);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center; padding-top:26px; font-size:13px; color:rgba(221,226,234,0.5); flex-wrap:wrap; gap:12px;
+  }
