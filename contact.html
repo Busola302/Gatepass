@@ -11,27 +11,47 @@
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/contact.css">
+    <link rel="stylesheet" href="styles/footer.css">
 </head>
 
 <body>
 
     <!-- NAV -->
     <header class="nav">
-        <div class="nav-inner">
-            <a href="#" class="logo"><span class="logo-mark"></span>Rafara</a>
-            <nav class="nav-links" id="navLinks">
-                <a href="#">Home</a>
-                <a href="#">Features</a>
-                <a href="#">How It Works</a>
-                <a href="#">About</a>
-                <a href="#" class="active">Contact</a>
-            </nav>
-            <a href="#demo" class="btn btn-primary nav-cta">Get Started</a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </header>
+  <div class="wrap">
+
+    <a href="#" class="brand-lockup">
+      <span class="brand-rafara">RAFARA</span>
+      <span class="brand-sep"></span>
+      <span class="brand-product">GatePass</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+   <div class="nav-cta-group">
+  <a href="#demo" class="btn btn-primary">
+    Request a demo <span class="btn-arrow">→</span>
+  </a>
+
+  <a href="resident-login.html" class="btn btn-primary">
+    Get Started <span class="btn-arrow">→</span>
+  </a>
+</div>
+
+    <button class="menu-btn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
 
     <!-- HERO -->
     <section class="hero">
@@ -324,56 +344,248 @@
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <a href="#" class="logo"><span class="logo-mark"></span>Rafara</a>
-                    <p>Smart visitor management and gate-pass verification for modern residential estates — built to
-                        make access safer, faster, and more organized.</p>
-                    <div class="social-row">
-                        <a href="#" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24"
-                                fill="none">
-                                <path d="M4 4l16 16M20 4L4 20" stroke="#fff" stroke-width="1.6" />
-                            </svg></a>
-                        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                <rect x="3" y="3" width="18" height="18" rx="3" stroke="#fff" stroke-width="1.6" />
-                                <path d="M7 10v7M7 7v.01M11 17v-4.5a2 2 0 0 1 4 0V17" stroke="#fff" stroke-width="1.6"
-                                    stroke-linecap="round" />
-                            </svg></a>
-                        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                <rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6" />
-                                <circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.6" />
-                            </svg></a>
+    <footer class="rf-root">
+
+        <!-- ================= CTA BAND ================= -->
+        <section class="rf-cta">
+            <svg class="rf-grid-svg" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <pattern id="rf-dots" width="34" height="34" patternUnits="userSpaceOnUse">
+                        <circle cx="1.2" cy="1.2" r="1.2" fill="rgba(169,152,255,0.28)" />
+                    </pattern>
+                </defs>
+                <rect width="1200" height="320" fill="url(#rf-dots)" />
+                <circle cx="880" cy="90" r="3" fill="#A998FF" class="rf-node-pulse" />
+                <circle cx="880" cy="90" r="3" fill="none" stroke="#A998FF" stroke-width="1.4" class="rf-node-ring" />
+                <circle cx="220" cy="230" r="2.4" fill="#A998FF" opacity="0.5" />
+            </svg>
+
+            <div class="rf-cta-inner">
+                <div class="rf-cta-eyebrow">
+                    <span class="rf-cta-dot"></span>
+                    Verified access, made simple
+                </div>
+                <h2>Ready to make estate access smarter?</h2>
+                <p>Give your estate a faster, safer, and more organized way to manage visitors and access.</p>
+                <div class="rf-cta-actions">
+                    <a href="#" class="rf-btn rf-btn-primary">
+                        Get Started
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                    <a href="#" class="rf-btn rf-btn-secondary">Book a Demo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MAIN FOOTER ================= -->
+        <div class="rf-main">
+
+            <div class="rf-newsletter">
+                <div class="rf-newsletter-text">
+                    <h3>Stay in the loop.</h3>
+                    <p>Get product updates, insights, and news from Rafara.</p>
+                </div>
+                <form class="rf-newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Enter your email" aria-label="Email address" required />
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="rf-grid">
+
+                <!-- BRAND COLUMN -->
+                <div class="rf-col rf-brand-block">
+                    <a href="#" class="rf-brand-logo">
+                        <span class="rf-icon-badge">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#050A30"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <polyline points="9 12 11 14 15 10"></polyline>
+                            </svg>
+                        </span>
+                        <span>Rafara</span>
+                    </a>
+                    <p class="rf-brand-desc">Smarter gate management for safer, better-connected estates.</p>
+                    <div class="rf-brand-rule"></div>
+                    <div class="rf-socials">
+                        <a href="#" class="rf-social-btn" aria-label="X (Twitter)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C4 15.5 2.5 12.7 2.5 9.7c1 .6 2.2 1 3.5 1-3-2-4-6-2.4-9C8 4.7 12 7 16 7.4c-.5-2.1 2.5-4.6 5.5-3 1.2 0 2-1 2-1s-.3 1.7-1.5 3.1c1 0 2-.4 2-.4s-.6 1.4-2 2.9z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="#" class="rf-social-btn" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="#" class="rf-social-btn" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+                                <path d="M16 11.4a4 4 0 1 1-7.9-1.2 4 4 0 0 1 7.9 1.2z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="rf-social-btn" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
                     </div>
                 </div>
-                <div class="footer-col">
-                    <h5>Navigate</h5>
-                    <a href="#">Home</a>
-                    <a href="#">Features</a>
-                    <a href="#">How It Works</a>
-                    <a href="#">About</a>
+
+                <!-- PRODUCT COLUMN -->
+                <div class="rf-col" data-accordion="product">
+                    <button type="button" class="rf-col-head" data-toggle="product" aria-expanded="false">
+                        <span class="rf-col-title">Product</span>
+                        <svg class="rf-chevron" data-chevron="product" width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <ul class="rf-col-list" data-list="product">
+                        <li><a href="#" class="rf-link">Features</a></li>
+                        <li><a href="#" class="rf-link">How It Works</a></li>
+                        <li><a href="#" class="rf-link">Gate Pass</a></li>
+                        <li><a href="#" class="rf-link">Visitor Management</a></li>
+                        <li><a href="#" class="rf-link">Security</a></li>
+                        <li><a href="#" class="rf-link">Pricing</a></li>
+                    </ul>
                 </div>
-                <div class="footer-col">
-                    <h5>Product</h5>
-                    <a href="#">Visitor Passes</a>
-                    <a href="#">Gate Verification</a>
-                    <a href="#">Resident App</a>
-                    <a href="#">Security Dashboard</a>
+
+                <!-- COMPANY COLUMN -->
+                <div class="rf-col" data-accordion="company">
+                    <button type="button" class="rf-col-head" data-toggle="company" aria-expanded="false">
+                        <span class="rf-col-title">Company</span>
+                        <svg class="rf-chevron" data-chevron="company" width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <ul class="rf-col-list" data-list="company">
+                        <li><a href="#" class="rf-link">About Rafara</a></li>
+                        <li><a href="#" class="rf-link">Contact Us</a></li>
+                        <li><a href="#" class="rf-link">Careers</a></li>
+                        <li><a href="#" class="rf-link">Partners</a></li>
+                        <li><a href="#" class="rf-link">FAQs</a></li>
+                    </ul>
                 </div>
-                <div class="footer-col">
-                    <h5>Contact</h5>
-                    <a href="mailto:hello@rafara.io">hello@rafara.io</a>
-                    <a href="tel:+2348001234567">+234 800 123 4567</a>
-                    <a href="#">Victoria Island, Lagos</a>
+
+                <!-- RESOURCES COLUMN -->
+                <div class="rf-col" data-accordion="resources">
+                    <button type="button" class="rf-col-head" data-toggle="resources" aria-expanded="false">
+                        <span class="rf-col-title">Resources</span>
+                        <svg class="rf-chevron" data-chevron="resources" width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <ul class="rf-col-list" data-list="resources">
+                        <li><a href="#" class="rf-link">Help Center</a></li>
+                        <li><a href="#" class="rf-link">Documentation</a></li>
+                        <li><a href="#" class="rf-link">Support</a></li>
+                        <li><a href="#" class="rf-link">Privacy Policy</a></li>
+                        <li><a href="#" class="rf-link">Terms &amp; Conditions</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2026 Rafara Technologies. All rights reserved.</span>
-                <span>Privacy Policy · Terms of Service</span>
+
+                <!-- CONTACT COLUMN -->
+                <div class="rf-col rf-contact-col">
+                    <div class="rf-col-head" style="padding-bottom:18px;">
+                        <span class="rf-col-title">Get in Touch</span>
+                    </div>
+                    <ul class="rf-contact-list">
+                        <li class="rf-contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16v16H4z" opacity="0"></path>
+                                <path d="M22 6l-10 7L2 6"></path>
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            </svg>
+                            <span>hello@rafara.com</span>
+                        </li>
+                        <li class="rf-contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2.3z">
+                                </path>
+                            </svg>
+                            <span>+234 800 000 0000</span>
+                        </li>
+                        <li class="rf-contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Lagos, Nigeria</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="rf-talk-link">
+                        Talk to our team
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </a>
+                </div>
+
             </div>
         </div>
+
+        <!-- ================= BOTTOM BAR ================= -->
+        <div class="rf-bottom">
+            <span class="rf-copyright">© 2026 Rafara. All rights reserved.</span>
+            <ul class="rf-bottom-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Cookies</a></li>
+            </ul>
+        </div>
+
     </footer>
+
+    <script>
+        // Mobile accordion behaviour for Product / Company / Resources.
+        // Only one section open at a time; toggles are inert above the 640px breakpoint via CSS.
+        document.querySelectorAll('[data-toggle]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var key = btn.getAttribute('data-toggle');
+                var list = document.querySelector('[data-list="' + key + '"]');
+                var chevron = document.querySelector('[data-chevron="' + key + '"]');
+                var isOpen = list.classList.contains('rf-col-list-open');
+
+                // close any other open section
+                document.querySelectorAll('.rf-col-list').forEach(function (el) { el.classList.remove('rf-col-list-open'); });
+                document.querySelectorAll('.rf-chevron').forEach(function (el) { el.classList.remove('rf-chevron-open'); });
+                document.querySelectorAll('[data-toggle]').forEach(function (el) { el.setAttribute('aria-expanded', 'false'); });
+
+                if (!isOpen) {
+                    list.classList.add('rf-col-list-open');
+                    chevron.classList.add('rf-chevron-open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    </script>
 
     <script>
         // mobile nav toggle
