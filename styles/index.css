@@ -191,94 +191,6 @@ button {
   color: var(--bad);
 }
 
-/* ===== NAV ===== */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(247, 248, 250, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-light);
-}
-.nav .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.brand-lockup {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.brand-rafara {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: 0.03em;
-  color: var(--navy);
-}
-.brand-sep {
-  width: 1px;
-  height: 16px;
-  background: var(--border-light);
-}
-.brand-product {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--purple);
-}
-.nav-links {
-  display: flex;
-  gap: 48px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink-muted-light);
-  margin-left: auto;
-  margin-right: 60px;
-}
-.nav-links a {
-  position: relative;
-  padding: 4px 0;
-}
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background: var(--purple);
-  transition: width 0.3s ease;
-}
-.nav-links a:hover {
-  color: var(--navy);
-}
-.nav-links a:hover::after {
-  width: 100%;
-}
-.nav-cta {
-  font-size: 14px;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.menu-btn {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  width: 24px;
-}
-.menu-btn span {
-  height: 1.5px;
-  width: 100%;
-  background: var(--navy);
-  display: block;
-}
-
 /* ===== HERO ===== */
 .hero {
   position: relative;
@@ -1571,19 +1483,6 @@ button {
   :root {
     --edge: 22px;
     --section: 80px;
-  }
-  .nav .wrap {
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-  .nav-links {
-    display: none;
-  }
-  .nav-cta {
-    display: none;
-  }
-  .menu-btn {
-    display: flex;
   }
 
   .hero {

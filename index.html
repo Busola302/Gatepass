@@ -12,6 +12,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="styles/index.css">
   <link rel="stylesheet" href="styles/footer.css">
+  <link rel="stylesheet" href="styles/nav.css">
 
 </head>
 
@@ -44,7 +45,7 @@
         </a>
       </div>
 
-      <button class="menu-btn" aria-label="Open menu">
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span>
         <span></span>
         <span></span>
@@ -52,6 +53,26 @@
 
     </div>
   </header>
+
+  <!-- Mobile off-canvas nav -->
+  <nav class="sidebar" id="mobile-nav" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#">About Us</a>
+    <a href="contact.html">Contact</a>
+
+    <div class="sidebar-navcta">
+      <a href="#demo" class="btn btn-primary">
+        Request a demo <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="resident-login.html" class="btn btn-primary">
+        Get Started <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" data-nav-overlay></div>
 
   <!-- ===== HERO ===== -->
   <section class="hero">
@@ -731,29 +752,8 @@
 
   </footer>
 
-  <script>
-    // Mobile accordion behaviour for Product / Company / Resources.
-    // Only one section open at a time; toggles are inert above the 640px breakpoint via CSS.
-    document.querySelectorAll('[data-toggle]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var key = btn.getAttribute('data-toggle');
-        var list = document.querySelector('[data-list="' + key + '"]');
-        var chevron = document.querySelector('[data-chevron="' + key + '"]');
-        var isOpen = list.classList.contains('rf-col-list-open');
+  <script src="./scripts/script.js"></script>
 
-        // close any other open section
-        document.querySelectorAll('.rf-col-list').forEach(function (el) { el.classList.remove('rf-col-list-open'); });
-        document.querySelectorAll('.rf-chevron').forEach(function (el) { el.classList.remove('rf-chevron-open'); });
-        document.querySelectorAll('[data-toggle]').forEach(function (el) { el.setAttribute('aria-expanded', 'false'); });
-
-        if (!isOpen) {
-          list.classList.add('rf-col-list-open');
-          chevron.classList.add('rf-chevron-open');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  </script>
 </body>
 
 </html>

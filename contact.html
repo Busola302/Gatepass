@@ -12,47 +12,67 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles/contact.css">
     <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/nav.css">
 </head>
 
 <body>
+<!-- NAV -->
+  <header class="nav">
+    <div class="wrap">
 
-    <!-- NAV -->
-    <header class="nav">
-  <div class="wrap">
+      <a href="#" class="brand-lockup">
+        <span class="brand-rafara">RAFARA</span>
+        <span class="brand-sep"></span>
+        <span class="brand-product">GatePass</span>
+      </a>
 
-    <a href="#" class="brand-lockup">
-      <span class="brand-rafara">RAFARA</span>
-      <span class="brand-sep"></span>
-      <span class="brand-product">GatePass</span>
-    </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
 
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="#features">Features</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#">About Us</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+      <div class="nav-cta">
+        <a href="#demo" class="btn btn-primary">
+          Request a demo <span class="btn-arrow">→</span>
+        </a>
 
-   <div class="nav-cta-group">
-  <a href="#demo" class="btn btn-primary">
-    Request a demo <span class="btn-arrow">→</span>
-  </a>
+        <a href="resident-login.html" class="btn btn-primary">
+          Get Started <span class="btn-arrow">→</span>
+        </a>
+      </div>
 
-  <a href="resident-login.html" class="btn btn-primary">
-    Get Started <span class="btn-arrow">→</span>
-  </a>
-</div>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <button class="menu-btn" aria-label="Open menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    </div>
+  </header>
 
-  </div>
-</header>
+  <!-- Mobile off-canvas nav -->
+  <nav class="sidebar" id="mobile-nav" aria-hidden="true">
+    
+    <a href="index.html">Home</a>
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#">About Us</a>
+    <a href="contact.html">Contact</a>
 
+    <div class="sidebar-navcta">
+      <a href="#demo" class="btn btn-primary">
+        Request a demo <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="resident-login.html" class="btn btn-primary">
+        Get Started <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" data-nav-overlay></div>
     <!-- HERO -->
     <section class="hero">
         <div class="hero-glow"></div>
@@ -563,97 +583,8 @@
 
     </footer>
 
-    <script>
-        // Mobile accordion behaviour for Product / Company / Resources.
-        // Only one section open at a time; toggles are inert above the 640px breakpoint via CSS.
-        document.querySelectorAll('[data-toggle]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var key = btn.getAttribute('data-toggle');
-                var list = document.querySelector('[data-list="' + key + '"]');
-                var chevron = document.querySelector('[data-chevron="' + key + '"]');
-                var isOpen = list.classList.contains('rf-col-list-open');
 
-                // close any other open section
-                document.querySelectorAll('.rf-col-list').forEach(function (el) { el.classList.remove('rf-col-list-open'); });
-                document.querySelectorAll('.rf-chevron').forEach(function (el) { el.classList.remove('rf-chevron-open'); });
-                document.querySelectorAll('[data-toggle]').forEach(function (el) { el.setAttribute('aria-expanded', 'false'); });
-
-                if (!isOpen) {
-                    list.classList.add('rf-col-list-open');
-                    chevron.classList.add('rf-chevron-open');
-                    btn.setAttribute('aria-expanded', 'true');
-                }
-            });
-        });
-    </script>
-
-    <script>
-        // mobile nav toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        menuToggle.addEventListener('click', () => {
-            const isOpen = navLinks.classList.toggle('open');
-            menuToggle.setAttribute('aria-expanded', isOpen);
-        });
-        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }));
-
-        // faq accordion
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-q').addEventListener('click', () => {
-                const wasOpen = item.classList.contains('open');
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-                if (!wasOpen) item.classList.add('open');
-            });
-        });
-
-        // form validation
-        const form = document.getElementById('contactForm');
-        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        function validateField(fieldEl) {
-            const input = fieldEl.querySelector('input, select, textarea');
-            let valid = true;
-            if (input.hasAttribute('required') && !input.value.trim()) valid = false;
-            if (input.type === 'email' && input.value.trim() && !emailRe.test(input.value.trim())) valid = false;
-            fieldEl.classList.toggle('error', !valid);
-            fieldEl.classList.toggle('success', valid && input.value.trim() !== '');
-            return valid;
-        }
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let allValid = true;
-            form.querySelectorAll('.field').forEach(f => {
-                if (!validateField(f)) allValid = false;
-            });
-            if (!allValid) {
-                form.querySelector('.field.error input, .field.error select, .field.error textarea')?.focus();
-                return;
-            }
-            const btn = document.getElementById('submitBtn');
-            const original = btn.textContent;
-            btn.textContent = 'Sending...';
-            btn.style.opacity = '0.75';
-            setTimeout(() => {
-                btn.textContent = 'Message Sent ✓';
-                btn.style.background = 'linear-gradient(135deg,#2FBF71,#28a862)';
-                setTimeout(() => {
-                    form.reset();
-                    form.querySelectorAll('.field').forEach(f => f.classList.remove('success', 'error'));
-                    btn.textContent = original;
-                    btn.style.opacity = '1';
-                    btn.style.background = '';
-                }, 2200);
-            }, 900);
-        });
-
-        form.querySelectorAll('.field input, .field select, .field textarea').forEach(el => {
-            el.addEventListener('blur', () => validateField(el.closest('.field')));
-        });
-    </script>
+    <script src="scripts/script.js"></script>
 </body>
 
 </html>
