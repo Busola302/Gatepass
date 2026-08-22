@@ -1410,7 +1410,7 @@ button {
 }
 
 /* ============ MOBILE ============ */
-@media (max-width: 1024px) {
+@media (max-width: 800px) {
   :root {
     --edge: 22px;
     --section: 80px;
