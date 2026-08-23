@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitors · Rafara GatePass</title>
+<meta name="description" content="Keep track of visitors entering and leaving your estate with Rafara GatePass.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="styles/resident-visitors.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Primary">
+    <div class="sidebar-top">
+      <a href="resident-dashboard.html" class="sidebar-logo" aria-label="Rafara GatePass, dashboard home">
+        <span class="logo-mark" aria-hidden="true">
+          <i class="fa-solid fa-shield-halved"></i>
+        </span>
+        <span class="logo-word">RAFARA</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Dashboard sections">
+      <ul>
+        <li>
+          <a href="resident-dashboard.html" class="nav-item">
+            <i class="fa-solid fa-grip" aria-hidden="true"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="resident-passes.html" class="nav-item">
+            <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+            <span>Passes</span>
+          </a>
+        </li>
+        <li>
+          <a href="resident-visitors.html" class="nav-item is-active" aria-current="page">
+            <i class="fa-solid fa-user-group" aria-hidden="true"></i>
+            <span>Visitors</span>
+          </a>
+        </li>
+        <li>
+          <a href="resident-activity.html" class="nav-item">
+            <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+            <span>Activity</span>
+          </a>
+        </li>
+        <li>
+          <a href="resident-notifications.html" class="nav-item">
+            <i class="fa-solid fa-bell" aria-hidden="true"></i>
+            <span>Notifications</span>
+          </a>
+        </li>
+        <li>
+          <a href="resident-profile.html" class="nav-item">
+            <i class="fa-solid fa-user" aria-hidden="true"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+        <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============ MOBILE BOTTOM NAV ============ -->
+  <nav class="mobile-nav" aria-label="Primary">
+    <a href="resident-dashboard.html" class="mobile-nav-item">
+      <i class="fa-solid fa-grip" aria-hidden="true"></i>
+      <span>Home</span>
+    </a>
+    <a href="resident-passes.html" class="mobile-nav-item">
+      <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+      <span>Passes</span>
+    </a>
+    <button type="button" class="mobile-nav-fab" id="mobile-quick-create-btn" aria-label="Create a visitor pass">
+      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+    </button>
+    <a href="resident-visitors.html" class="mobile-nav-item is-active" aria-current="page">
+      <i class="fa-solid fa-user-group" aria-hidden="true"></i>
+      <span>Visitors</span>
+    </a>
+    <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu-sheet" aria-label="More menu">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      <span>More</span>
+    </button>
+  </nav>
+
+  <!-- ============ MOBILE "MORE" SHEET ============ -->
+  <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+    <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+    <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+      <div class="mobile-sheet-handle" aria-hidden="true"></div>
+      <a href="resident-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Activity</a>
+      <a href="resident-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications</a>
+      <a href="resident-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+      <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+        <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="main-column">
+
+    <!-- ===== TOP HEADER ===== -->
+    <header class="topbar">
+      <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <div class="topbar-title">
+        <span class="topbar-eyebrow">Resident Dashboard</span>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="topbar-notif" data-dropdown>
+          <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-bell" aria-hidden="true"></i>
+            <span class="notif-dot" aria-hidden="true"></span>
+          </button>
+          <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+            <div class="dropdown-panel-head">
+              <span>Notifications</span>
+            </div>
+            <div class="dropdown-panel-body">
+              <div class="notif-item is-unread">
+                <span class="notif-icon" aria-hidden="true"><i class="fa-solid fa-right-to-bracket"></i></span>
+                <div class="notif-body">
+                  <strong>Visitor Checked In</strong>
+                  <p>John Doe has entered the estate.</p>
+                  <span class="notif-time">2:14 PM</span>
+                </div>
+              </div>
+              <div class="notif-item">
+                <span class="notif-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+                <div class="notif-body">
+                  <strong>Verification</strong>
+                  <p>Your resident account has been verified.</p>
+                  <span class="notif-time">2 days ago</span>
+                </div>
+              </div>
+            </div>
+            <a href="resident-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+          </div>
+        </div>
+
+        <div class="topbar-profile" data-dropdown>
+          <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar" aria-hidden="true">RO</span>
+            <span class="profile-trigger-text">
+              <span class="profile-name">Rahmah Ogunlaja</span>
+              <span class="profile-role">Verified Resident</span>
+            </span>
+            <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+            <a href="resident-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+            <a href="resident-profile.html#settings" role="menuitem"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+            <button type="button" role="menuitem" id="dropdown-logout-btn"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main id="main-content" class="page-content">
+
+      <!-- PAGE HEADER -->
+      <section class="page-header">
+        <div class="page-header-text">
+          <h1>Visitors</h1>
+          <p>Keep track of visitors entering and leaving your estate.</p>
+        </div>
+        <button type="button" class="btn btn--primary btn--icon" id="create-visitor-pass-btn">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          Create Visitor Pass
+        </button>
+      </section>
+
+      <!-- STATISTICS -->
+      <section class="pass-stats-grid" aria-label="Visitor statistics">
+        <div class="pass-stat-card">
+          <span class="pass-stat-icon pass-stat-icon--inside"><i class="fa-solid fa-person-walking-arrow-right" aria-hidden="true"></i></span>
+          <div>
+            <span class="pass-stat-number" id="stat-inside">0</span>
+            <span class="pass-stat-label">Currently Inside</span>
+          </div>
+        </div>
+        <div class="pass-stat-card">
+          <span class="pass-stat-icon pass-stat-icon--today"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+          <div>
+            <span class="pass-stat-number" id="stat-today">0</span>
+            <span class="pass-stat-label">Expected Today</span>
+          </div>
+        </div>
+        <div class="pass-stat-card">
+          <span class="pass-stat-icon pass-stat-icon--upcoming"><i class="fa-regular fa-calendar" aria-hidden="true"></i></span>
+          <div>
+            <span class="pass-stat-number" id="stat-upcoming">0</span>
+            <span class="pass-stat-label">Upcoming</span>
+          </div>
+        </div>
+        <div class="pass-stat-card">
+          <span class="pass-stat-icon pass-stat-icon--completed"><i class="fa-solid fa-box-archive" aria-hidden="true"></i></span>
+          <div>
+            <span class="pass-stat-number" id="stat-completed">0</span>
+            <span class="pass-stat-label">Completed Visits</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILTER TOOLBAR -->
+      <section class="filter-toolbar" aria-label="Search and filter visitors">
+        <div class="filter-search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <label for="visitor-search" class="visually-hidden">Search visitors</label>
+          <input type="search" id="visitor-search" placeholder="Search visitors...">
+        </div>
+
+        <div class="filter-control">
+          <label for="filter-status" class="visually-hidden">Filter by status</label>
+          <select id="filter-status">
+            <option value="all">All Statuses</option>
+            <option value="inside">Inside Estate</option>
+            <option value="expected">Expected</option>
+            <option value="checked-out">Checked Out</option>
+            <option value="expired">Expired</option>
+          </select>
+        </div>
+
+        <div class="filter-control">
+          <label for="filter-type" class="visually-hidden">Filter by visit type</label>
+          <select id="filter-type">
+            <option value="all">All Types</option>
+            <option value="one-day">One-Day Visitor</option>
+            <option value="multi-day">Multi-Day Visitor</option>
+            <option value="artisan">Artisan</option>
+          </select>
+        </div>
+
+        <div class="filter-control">
+          <label for="filter-date" class="visually-hidden">Filter by date</label>
+          <select id="filter-date">
+            <option value="all">All Dates</option>
+            <option value="today">Today</option>
+            <option value="tomorrow">Tomorrow</option>
+            <option value="week">This Week</option>
+          </select>
+        </div>
+
+        <div class="filter-control">
+          <label for="filter-sort" class="visually-hidden">Sort visitors</label>
+          <select id="filter-sort">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="arrival">Arrival Time</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- CURRENTLY INSIDE -->
+      <section class="panel panel--wide" aria-label="Visitors currently inside">
+        <div class="panel-head">
+          <h2>Currently Inside</h2>
+          <span class="panel-subhead" id="inside-count-label"></span>
+        </div>
+        <div class="panel-body">
+          <div class="visitor-grid" id="inside-visitors-grid"></div>
+        </div>
+      </section>
+
+      <!-- UPCOMING VISITORS -->
+      <section class="panel panel--wide" aria-label="Upcoming visitors">
+        <div class="panel-head">
+          <h2>Upcoming Visitors</h2>
+          <span class="panel-subhead">Visitors expected to arrive</span>
+        </div>
+        <div class="panel-body">
+          <div class="visitor-grid" id="upcoming-visitors-grid"></div>
+        </div>
+      </section>
+
+      <!-- VISIT HISTORY -->
+      <section class="panel panel--wide" aria-label="Visit history">
+        <div class="panel-head">
+          <h2>Visit History</h2>
+          <span class="panel-subhead">Completed visits</span>
+        </div>
+        <div class="panel-body">
+          <div class="history-table-wrap" id="history-table-wrap"></div>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <p>Rafara — Secure access. Connected communities.</p>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+<!-- ============ MODAL: CHOOSE VISITOR PASS TYPE ============ -->
+<div class="modal-overlay" id="modal-visitor-type" hidden>
+  <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-visitor-type-title">
+    <div class="modal-head">
+      <h2 id="modal-visitor-type-title">Create Visitor Pass</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lede">Choose the type of visitor pass you'd like to create.</p>
+      <div class="option-list">
+        <button type="button" class="option-card" data-open-modal="modal-one-day">
+          <span class="option-icon"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i></span>
+          <span class="option-text">
+            <strong>One-Day Visitor</strong>
+            <span>A single visit, valid for one day</span>
+          </span>
+          <i class="fa-solid fa-chevron-right option-arrow" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="option-card" data-open-modal="modal-multi-day">
+          <span class="option-icon"><i class="fa-solid fa-calendar-week" aria-hidden="true"></i></span>
+          <span class="option-text">
+            <strong>Multi-Day Visitor</strong>
+            <span>Stays across a date range</span>
+          </span>
+          <i class="fa-solid fa-chevron-right option-arrow" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ONE-DAY VISITOR PASS ============ -->
+<div class="modal-overlay" id="modal-one-day" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-one-day-title">
+    <div class="modal-head">
+      <button type="button" class="icon-btn modal-back" data-open-modal="modal-visitor-type" aria-label="Back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <h2 id="modal-one-day-title">One-Day Visitor Pass</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <form class="modal-body" id="form-one-day" novalidate>
+      <div class="form-row">
+        <label for="od-name">Visitor full name</label>
+        <input type="text" id="od-name" name="od-name" placeholder="e.g. John Doe" required>
+      </div>
+      <div class="form-row form-row--split">
+        <div>
+          <label for="od-phone">Visitor phone number</label>
+          <input type="tel" id="od-phone" name="od-phone" placeholder="080..." required>
+        </div>
+        <div>
+          <label for="od-date">Visit date</label>
+          <input type="date" id="od-date" name="od-date" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="od-arrival">Expected arrival</label>
+        <input type="time" id="od-arrival" name="od-arrival">
+      </div>
+      <p class="form-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is demo data. Passes are not verified by a backend yet.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn--primary">Create Pass</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: MULTI-DAY VISITOR PASS ============ -->
+<div class="modal-overlay" id="modal-multi-day" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-multi-day-title">
+    <div class="modal-head">
+      <button type="button" class="icon-btn modal-back" data-open-modal="modal-visitor-type" aria-label="Back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <h2 id="modal-multi-day-title">Multi-Day Visitor Pass</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <form class="modal-body" id="form-multi-day" novalidate>
+      <div class="form-row">
+        <label for="md-name">Visitor full name</label>
+        <input type="text" id="md-name" name="md-name" placeholder="e.g. Sarah Ade" required>
+      </div>
+      <div class="form-row form-row--split">
+        <div>
+          <label for="md-start">Start date</label>
+          <input type="date" id="md-start" name="md-start" required>
+        </div>
+        <div>
+          <label for="md-end">End date</label>
+          <input type="date" id="md-end" name="md-end" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="md-phone">Visitor phone number</label>
+        <input type="tel" id="md-phone" name="md-phone" placeholder="080..." required>
+      </div>
+      <p class="form-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Multi-day visitors can check in and out multiple times within this date range.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn--primary">Create Pass</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: VISITOR DETAILS ============ -->
+<div class="modal-overlay" id="modal-details" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-details-title">
+    <div class="modal-head">
+      <h2 id="modal-details-title">Visitor Details</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-details-body"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL: MANAGE VISIT ============ -->
+<div class="modal-overlay" id="modal-manage-visit" hidden>
+  <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-manage-visit-title">
+    <div class="modal-head">
+      <h2 id="modal-manage-visit-title">Manage Visit</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="details-row"><span>Visitor</span><span id="manage-visitor-name">—</span></div>
+      <div class="details-row"><span>Current status</span><span id="manage-visitor-status">—</span></div>
+      <div class="details-row"><span>Valid until</span><span id="manage-visitor-valid">—</span></div>
+      <div class="modal-actions" style="justify-content:flex-start; margin-top:16px; flex-wrap:wrap;">
+        <button type="button" class="btn btn--secondary" id="manage-extend-btn">Extend Visit</button>
+        <button type="button" class="btn btn--danger" id="manage-end-btn">End Visit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: EXTEND VISIT ============ -->
+<div class="modal-overlay" id="modal-extend" hidden>
+  <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-extend-title">
+    <div class="modal-head">
+      <h2 id="modal-extend-title">Extend Visit</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <form class="modal-body" id="form-extend" novalidate>
+      <div class="form-row">
+        <label>Current end date</label>
+        <input type="text" id="extend-current-end" disabled>
+      </div>
+      <div class="form-row">
+        <label for="extend-date">New end date</label>
+        <input type="date" id="extend-date" name="extend-date" required>
+      </div>
+      <p class="form-error" id="extend-error" hidden>The new end date must be after the current end date.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn--primary">Confirm Extension</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: END VISIT CONFIRM ============ -->
+<div class="modal-overlay" id="modal-end-visit" hidden>
+  <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-end-visit-title">
+    <div class="modal-head">
+      <h2 id="modal-end-visit-title">End this visit?</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lede">Are you sure you want to end this visitor's active visit?</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-end-visit-btn">End Visit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: LOGOUT CONFIRM ============ -->
+<div class="modal-overlay" id="modal-logout" hidden>
+  <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-logout-title">
+    <div class="modal-head">
+      <h2 id="modal-logout-title">Log out of Rafara?</h2>
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lede">You'll need to sign in again to manage your passes and visitors.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-logout-btn">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST CONTAINER ============ -->
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<script src="/scripts/resident-visitors.js"></script>
+</body>
+</html>
