@@ -222,19 +222,30 @@
     padding-bottom: 56px;
   }
 
-  .rf-brand-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 16px;
-  }
-  .rf-brand-logo span {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.01em;
-    color: var(--off);
-  }
+ .brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.brand-rafara {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  color: var(--off);
+}
+.brand-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--purple);
+}
+.brand-product {
+  font-family: "var(--font-display)";
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--purple);
+}
   .rf-icon-badge {
     width: 32px;
     height: 32px;

@@ -1,366 +1,199 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Register — Resident App</title>
-    <link rel="stylesheet" href="styles/residents.css" />
-    <link rel="stylesheet" href="styles/footer.css">
-    <link rel="stylesheet" href="styles/nav.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — Rafara GatePass</title>
+<meta name="description" content="Sign in to your Rafara resident account to manage your estate access and digital gate passes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/resident-login.css">
 </head>
-
 <body>
-    <header class="nav">
-    <div class="wrap">
 
-      <a href="#" class="brand-lockup">
-        <span class="brand-rafara">RAFARA</span>
-        <span class="brand-sep"></span>
-        <span class="brand-product">GatePass</span>
-      </a>
+<a class="skip-link" href="#login-form">Skip to sign in form</a>
 
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-      </nav>
+<div class="page">
 
-      <div class="nav-cta">
-        <a href="#demo" class="btn btn-primary">
-          Request a demo <span class="btn-arrow">→</span>
-        </a>
-
-        <a href="resident-login.html" class="btn btn-primary">
-          Get Started <span class="btn-arrow">→</span>
-        </a>
-      </div>
-
-      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+     <a href="index.html" class="brand-lockup">
+      <span class="brand-rafara">RAFARA</span>
+      <span class="brand-sep"></span>
+      <span class="brand-product">GatePass</span>
+    </a>
+    <div class="header-actions">
+      <span class="header-prompt">Don't have an account?</span>
+      <a href="resident-onboarding.html" class="btn btn-ghost">Create Account</a>
     </div>
   </header>
 
-  <!-- Mobile off-canvas nav -->
-  <nav class="sidebar" id="mobile-nav" aria-hidden="true">
-    <a href="index.html">Home</a>
-    <a href="#">Features</a>
-    <a href="#">How It Works</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact</a>
+  <!-- ============ MAIN ============ -->
+  <main class="login-layout">
 
-    <div class="sidebar-navcta">
-      <a href="#" class="btn btn-primary">
-        Request a demo <span class="btn-arrow">→</span>
-      </a>
-
-      <a href="resident-login.html" class="btn btn-primary">
-        Get Started <span class="btn-arrow">→</span>
-      </a>
-    </div>
-  </nav>
-  <div class="sidebar-overlay" data-nav-overlay></div>
-  
-    <div class="card" id="formCard">
-        <div class="card-header">
-            <p class="eyebrow">Rafara GatePass</p>
-            <p class="label">Register your flat</p>
-            <p class="small">
-                Only takes a second. You'll only need to do this once on this device —
-                after that, your link takes you straight to your gate code.
-            </p>
+    <!-- Branding / visual side -->
+    <section class="brand-panel" aria-hidden="true">
+      <div class="brand-panel-inner">
+        <div class="brand-copy">
+          <p class="brand-eyebrow">Rafara GatePass</p>
+          <h1 class="brand-headline">Secure access.<br>Connected communities.</h1>
+          <p class="brand-subline">Every resident, vehicle and visitor pass verified in one place — issued, checked, and logged in real time.</p>
         </div>
 
-        <div class="field-group">
-            <label for="estateInput">Estate</label>
-            <select id="estateInput" class="has-icon icon-estate" required>
-                <option value="" disabled selected>Select your estate</option>
-                <!-- TODO: replace with your real estate names -->
-                <option value="Greenwood Estate">Millenium Housing Estate</option>
-                <option value="Parkview Estate">Rafara Estate</option>
-                <option value="Lakeside Estate">Lakeside Estate</option>
-            </select>
+        <div class="gate-visual" role="img" aria-label="Abstract illustration of a digital estate gate pass">
+          <svg class="gate-svg" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- gate posts -->
+            <g class="gate-posts" stroke="#A998FF" stroke-opacity="0.35" stroke-width="1.5">
+              <line x1="70" y1="60" x2="70" y2="360"></line>
+              <line x1="98" y1="60" x2="98" y2="360"></line>
+              <line x1="126" y1="60" x2="126" y2="360"></line>
+              <line x1="354" y1="60" x2="354" y2="360"></line>
+              <line x1="382" y1="60" x2="382" y2="360"></line>
+              <line x1="410" y1="60" x2="410" y2="360"></line>
+            </g>
+            <line x1="60" y1="60" x2="420" y2="60" stroke="#A998FF" stroke-opacity="0.4" stroke-width="1.5"></line>
+
+            <!-- scan beam -->
+            <rect class="scan-beam" x="150" y="60" width="180" height="300" fill="url(#scanGradient)"></rect>
+
+            <!-- floating pass card -->
+            <g class="pass-card">
+              <rect x="140" y="150" width="200" height="122" rx="14" fill="#11162F" stroke="#A998FF" stroke-opacity="0.55" stroke-width="1.25"></rect>
+              <circle cx="170" cy="180" r="14" fill="#4B2E83"></circle>
+              <rect x="196" y="172" width="86" height="7" rx="3.5" fill="#DDE2EA" fill-opacity="0.75"></rect>
+              <rect x="196" y="186" width="60" height="6" rx="3" fill="#DDE2EA" fill-opacity="0.4"></rect>
+              <rect x="156" y="214" width="168" height="5" rx="2.5" fill="#DDE2EA" fill-opacity="0.25"></rect>
+              <rect x="156" y="226" width="120" height="5" rx="2.5" fill="#DDE2EA" fill-opacity="0.25"></rect>
+
+              <!-- code grid, standing in for a scannable pass id -->
+              <g fill="#A998FF">
+                <rect x="156" y="244" width="6" height="6"></rect>
+                <rect x="166" y="244" width="6" height="6" fill-opacity="0.4"></rect>
+                <rect x="176" y="244" width="6" height="6"></rect>
+                <rect x="186" y="244" width="6" height="6" fill-opacity="0.4"></rect>
+                <rect x="196" y="244" width="6" height="6"></rect>
+                <rect x="206" y="244" width="6" height="6"></rect>
+                <rect x="216" y="244" width="6" height="6" fill-opacity="0.4"></rect>
+                <rect x="226" y="244" width="6" height="6"></rect>
+                <rect x="236" y="244" width="6" height="6" fill-opacity="0.4"></rect>
+                <rect x="246" y="244" width="6" height="6"></rect>
+              </g>
+            </g>
+
+            <line x1="60" y1="360" x2="420" y2="360" stroke="#A998FF" stroke-opacity="0.4" stroke-width="1.5"></line>
+
+            <defs>
+              <linearGradient id="scanGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#A998FF" stop-opacity="0"></stop>
+                <stop offset="50%" stop-color="#A998FF" stop-opacity="0.16"></stop>
+                <stop offset="100%" stop-color="#A998FF" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
 
-        <div class="form-row">
-            <div class="field-group">
-                <label for="blockInput">Block</label>
-                <input type="text" id="blockInput" class="has-icon icon-block" placeholder="e.g. Block 4" required />
+        <ul class="brand-stats">
+          <li><span class="brand-stat-value">24/7</span><span class="brand-stat-label">Gate monitoring</span></li>
+          <li><span class="brand-stat-value">100%</span><span class="brand-stat-label">Digital pass records</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Login side -->
+    <section class="form-panel">
+      <div class="form-card">
+
+        <div class="form-card-head">
+          <h2 class="form-title">Welcome back</h2>
+          <p class="form-subtitle">Sign in to your Rafara resident account.</p>
+        </div>
+
+        <!-- Status banner: shown for pending / rejected states -->
+        <div id="status-banner" class="status-banner" role="alert" aria-live="assertive" hidden></div>
+
+        <form id="login-form" novalidate>
+
+          <div class="field">
+            <label for="identifier">Email or Phone Number</label>
+            <input
+              type="text"
+              id="identifier"
+              name="identifier"
+              placeholder="Enter your email or phone number"
+              autocomplete="username"
+              aria-describedby="identifier-error"
+              aria-invalid="false"
+            >
+            <p class="field-error" id="identifier-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-wrap">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                aria-describedby="password-error"
+                aria-invalid="false"
+              >
+              <button type="button" class="toggle-password" id="toggle-password" aria-label="Show password" aria-pressed="false">
+                <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+                <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+                  <path d="M3 3l18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c7 0 10.5 7 10.5 7-.6 1.2-1.5 2.6-2.8 3.9M6.6 6.7C3.6 8.5 1.5 12 1.5 12s3.5 7 10.5 7c1.4 0 2.6-.3 3.7-.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
             </div>
-            <div class="field-group">
-                <label for="flatInput">Flat number</label>
-                <input type="text" id="flatInput" class="has-icon icon-flat" placeholder="e.g. Flat 7" required />
+            <p class="field-error" id="password-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field-row">
+            <label class="checkbox-field">
+              <input type="checkbox" id="remember-me" name="remember-me">
+              <span class="checkbox-box" aria-hidden="true"></span>
+              <span>Remember me</span>
+            </label>
+            <button type="button" class="link-btn" id="forgot-password">Forgot password?</button>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+            <span class="btn-label">Sign In</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+
+          <!-- Demo helper: lets reviewers preview each account state without a backend -->
+          <div class="demo-toggle">
+            <span class="demo-toggle-label">Demo account state</span>
+            <div class="demo-toggle-options" role="radiogroup" aria-label="Demo account state">
+              <button type="button" class="demo-pill is-active" data-state="verified" role="radio" aria-checked="true">Verified</button>
+              <button type="button" class="demo-pill" data-state="pending" role="radio" aria-checked="false">Pending</button>
+              <button type="button" class="demo-pill" data-state="rejected" role="radio" aria-checked="false">Rejected</button>
             </div>
-        </div>
+          </div>
 
-        <div class="field-group">
-            <label for="nameInput">Your name</label>
-            <input type="text" id="nameInput" class="has-icon icon-name" placeholder="e.g. Adaeze O." required />
-        </div>
+        </form>
 
-        <div class="field-group">
-            <label for="phoneInput">Your phone number</label>
-            <input type="tel" id="phoneInput" class="has-icon icon-phone" placeholder="e.g. 0803 123 4567" required
-                inputmode="numeric" />
-            <p class="small field-hint">We'll text your personal link to this number.</p>
-        </div>
-
-        <div class="form-row">
-            <div class="field-group">
-                <label for="genderInput">Gender</label>
-                <select id="genderInput" required>
-                    <option value="" disabled selected>Select one</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="field-group">
-                <label for="disabilityInput">Disability</label>
-                <select id="disabilityInput" required>
-                    <option value="" disabled selected>Select one</option>
-                    <option value="None">None</option>
-                    <option value="Visual impairment">Visual</option>
-                    <option value="Hearing impairment">Hearing</option>
-                    <option value="Mobility">Mobility</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-        </div>
-
-        <div id="disabilityOtherBox" class="field-group hidden">
-            <label for="disabilityOtherInput">Please specify</label>
-            <input type="text" id="disabilityOtherInput" placeholder="e.g. describe briefly" />
-        </div>
-
-        <button id="registerBtn" type="button">Register</button>
-        <div id="message" class="hidden"></div>
-
-        <p class="small footnote">Your details are used only for gate access at your estate.</p>
-    </div>
-
-    <div class="card hidden" id="checkingCard">
-        <p class="label checking-label">
-            <span class="spinner" aria-hidden="true"></span>
-            Checking your link…
+        <p class="security-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2.5 4 6v6c0 5 3.4 8.7 8 9.5 4.6-.8 8-4.5 8-9.5V6l-8-3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          Your access is protected by Rafara's secure estate management system.
         </p>
-    </div>
 
-    <script>
-        const TOKEN_KEY = 'residentToken';
+      </div>
+    </section>
 
-        // ---------- small DOM/safety helpers ----------
+  </main>
+</div>
 
-        // Removes all children from an element (used before rebuilding message content).
-        function clearEl(el) {
-            while (el.firstChild) el.removeChild(el.firstChild);
-        }
-
-        // Safely renders an error message inside #message using textContent only
-        // (never innerHTML with server-controlled text), so a malicious/unexpected
-        // server error string can never be interpreted as HTML/script.
-        function showError(text) {
-            const messageEl = document.getElementById('message');
-            clearEl(messageEl);
-            messageEl.classList.remove('hidden');
-
-            const box = document.createElement('div');
-            box.className = 'error-box';
-            const title = document.createElement('p');
-            title.className = 'error-title';
-            title.textContent = text;
-            box.appendChild(title);
-            messageEl.appendChild(box);
-        }
-
-        // Safely renders the "we couldn't text you" success/fallback message.
-        // Builds the link with a real <a> element + textContent instead of
-        // string-interpolated innerHTML.
-        function showFallbackLink(personalLink) {
-            const messageEl = document.getElementById('message');
-            clearEl(messageEl);
-            messageEl.classList.remove('hidden');
-
-            const box = document.createElement('div');
-            box.className = 'success-box';
-
-            const title = document.createElement('p');
-            title.className = 'success-title';
-            title.textContent = '✓ Registered';
-            box.appendChild(title);
-
-            const helpText = document.createElement('p');
-            helpText.className = 'small';
-            helpText.textContent = "We couldn't text your link — save this one instead:";
-            box.appendChild(helpText);
-
-            const linkLine = document.createElement('p');
-            linkLine.className = 'small';
-            linkLine.style.wordBreak = 'break-all';
-            const link = document.createElement('a');
-            link.href = personalLink;
-            link.textContent = personalLink;
-            linkLine.appendChild(link);
-            box.appendChild(linkLine);
-
-            messageEl.appendChild(box);
-        }
-
-        function setButtonLoading(isLoading) {
-            const btn = document.getElementById('registerBtn');
-            if (isLoading) {
-                btn.dataset.originalText = btn.dataset.originalText || btn.textContent;
-                btn.disabled = true;
-                btn.classList.add('is-loading');
-                btn.textContent = 'Registering…';
-            } else {
-                btn.disabled = false;
-                btn.classList.remove('is-loading');
-                btn.textContent = btn.dataset.originalText || 'Register';
-            }
-        }
-
-        // ---------- existing token check ----------
-
-        // If this browser already registered before, skip the form and go
-        // straight to their personal code page.
-        async function checkExistingToken() {
-            const saved = localStorage.getItem(TOKEN_KEY);
-            if (!saved) return; // nothing saved, show the registration form
-
-            document.getElementById('formCard').classList.add('hidden');
-            document.getElementById('checkingCard').classList.remove('hidden');
-
-            // Confirm the token is still valid before redirecting (in case the
-            // admin ever needs to reset things).
-            try {
-                const res = await fetch(`/api/me?token=${encodeURIComponent(saved)}`);
-                if (res.ok) {
-                    window.location.href = `/r/${saved}`;
-                    return;
-                }
-            } catch (e) {
-                // Network error — fall through to showing the form again below.
-            }
-            localStorage.removeItem(TOKEN_KEY);
-            document.getElementById('checkingCard').classList.add('hidden');
-            document.getElementById('formCard').classList.remove('hidden');
-        }
-
-        // ---------- registration ----------
-
-        async function register() {
-            const estate = document.getElementById('estateInput').value;
-            const block = document.getElementById('blockInput').value.trim();
-            const flat = document.getElementById('flatInput').value.trim();
-            const name = document.getElementById('nameInput').value.trim();
-            const phone = document.getElementById('phoneInput').value.trim();
-            const gender = document.getElementById('genderInput').value;
-            const disability = document.getElementById('disabilityInput').value;
-            const disabilityOther = document.getElementById('disabilityOtherInput').value.trim();
-
-            if (!estate || !block || !flat || !name || !phone || !gender || !disability) {
-                showError('Please fill in all required fields.');
-                return;
-            }
-
-            if (disability === 'Other' && !disabilityOther) {
-                showError('Please specify your disability.');
-                return;
-            }
-
-            document.getElementById('message').classList.add('hidden');
-            setButtonLoading(true);
-
-            let res;
-            try {
-                res = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        estate,
-                        block,
-                        flat,
-                        name,
-                        phone,
-                        gender,
-                        disability: disability === 'Other' ? disabilityOther : disability,
-                    }),
-                });
-            } catch (networkErr) {
-                showError('Network error — please check your connection and try again.');
-                setButtonLoading(false);
-                return;
-            }
-
-            // The server should always return JSON, but guard against empty
-            // bodies / invalid JSON / unexpected content rather than crashing.
-            let result = null;
-            try {
-                const text = await res.text();
-                result = text ? JSON.parse(text) : null;
-            } catch (parseErr) {
-                result = null;
-            }
-
-            if (!res.ok) {
-                const errMsg =
-                    result && typeof result.error === 'string' && result.error.trim()
-                        ? result.error
-                        : 'Something went wrong. Please try again.';
-                showError(errMsg);
-                setButtonLoading(false);
-                return;
-            }
-
-            if (!result || typeof result.token !== 'string' || !result.token) {
-                showError('Unexpected response from the server. Please try again.');
-                setButtonLoading(false);
-                return;
-            }
-
-            localStorage.setItem(TOKEN_KEY, result.token);
-
-            if (!result.smsSent) {
-                // Couldn't text them — show the link here instead so they're not stuck.
-                const personalLink = `${window.location.origin}/r/${result.token}`;
-                showFallbackLink(personalLink);
-                setTimeout(() => {
-                    window.location.href = `/r/${result.token}`;
-                }, 4000);
-                return;
-            }
-
-            window.location.href = `/r/${result.token}`;
-        }
-
-        document.getElementById('phoneInput').addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, ''); // strip anything that isn't a digit
-        });
-
-        document.getElementById('disabilityInput').addEventListener('change', (e) => {
-            const otherBox = document.getElementById('disabilityOtherBox');
-            const isOther = e.target.value === 'Other';
-            otherBox.classList.toggle('hidden', !isOther);
-            if (!isOther) {
-                document.getElementById('disabilityOtherInput').value = '';
-            }
-        });
-
-        document.getElementById('registerBtn').addEventListener('click', register);
-        checkExistingToken();
-    </script>
+<script src="/scripts/resident-login.js"></script>
 </body>
-
 </html>
