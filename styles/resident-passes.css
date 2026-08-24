@@ -170,7 +170,7 @@ textarea:focus-visible,
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 15px;
-  color: var(--rafara-soft-purple);
+  color: var(--rafara-purple);
 }
 
 .sidebar-nav { flex: 1; padding: 12px 16px; overflow-y: auto; }

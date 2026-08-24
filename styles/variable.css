@@ -1,21 +1,45 @@
-footer{
-    background:var(--navy); color:rgba(221,226,234,0.75); padding:72px 0 28px; margin-top:60px;
-  }
-  .footer-top{
-    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:48px; padding-bottom:52px;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-  }
-  .footer-brand .logo{color:#fff;}
-  .footer-brand p{margin-top:14px; font-size:14px; max-width:280px; color:rgba(221,226,234,0.6);}
-  .social-row{display:flex; gap:10px; margin-top:22px;}
-  .social-row a{
-    width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.06);
-    display:flex; align-items:center; justify-content:center; transition:.2s var(--ease);
-  }
-  .social-row a:hover{background:var(--purple); transform:translateY(-2px);}
-  .footer-col h5{color:#fff; font-family:'Inter',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:18px;}
-  .footer-col a{display:block; font-size:14.5px; color:rgba(221,226,234,0.68); margin-bottom:12px; transition:color .2s var(--ease);}
-  .footer-col a:hover{color:var(--lavender);}
-  .footer-bottom{
-    display:flex; justify-content:space-between; align-items:center; padding-top:26px; font-size:13px; color:rgba(221,226,234,0.5); flex-wrap:wrap; gap:12px;
-  }
+:root {
+  /* Rafara brand colors */
+  --rafara-navy: #050A30;
+  --rafara-deep-navy: #11162F;
+  --rafara-purple: #4B2E83;
+  --rafara-soft-purple: #A998FF;
+  --rafara-gray: #DDE2EA;
+  --rafara-off-white: #F7F8FA;
+
+  /* Derived tones */
+  --white: #FFFFFF;
+  --ink: #14162B;
+  --ink-soft: #565B78;
+  --ink-faint: #8A8FA8;
+  --border-subtle: #E7E9F2;
+  --border-soft: rgba(75, 46, 131, 0.14);
+  --purple-wash: #F1EEFB;
+  --purple-wash-strong: #E7E0FA;
+  --shadow-sm: 0 1px 2px rgba(5, 10, 48, 0.06);
+  --shadow-md: 0 8px 24px rgba(17, 22, 47, 0.08);
+  --shadow-lg: 0 20px 48px rgba(5, 10, 48, 0.16);
+
+  /* Status colors */
+  --status-active-bg: #E9F7EF;
+  --status-active-fg: #1B7A43;
+  --status-pending-bg: #FFF3E0;
+  --status-pending-fg: #9A6300;
+  --status-checkedin-bg: #EAF1FF;
+  --status-checkedin-fg: #2652C8;
+  --status-checkedout-bg: #F1F2F6;
+  --status-checkedout-fg: #565B78;
+  --status-expired-bg: #F1F2F6;
+  --status-expired-fg: #7A7F97;
+  --status-revoked-bg: #FDEBEC;
+  --status-revoked-fg: #B23A3A;
+
+  /* Layout */
+  --sidebar-w: 260px;
+  --topbar-h: 72px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --font-body: "Inter", sans-serif;
+  --font-header: "Space Grotesk", sans-serif;
+}
