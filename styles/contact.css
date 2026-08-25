@@ -595,6 +595,7 @@ select {
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
+  color: var(--bg);
 }
 
 /* ---------- FAQ ---------- */

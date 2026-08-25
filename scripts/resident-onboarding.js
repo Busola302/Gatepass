@@ -11,10 +11,10 @@
      Mock data — replace with a real estates API later
      ---------------------------------------------------------------------- */
   const MOCK_ESTATES = [
-    { id: "est-001", name: "Millennium Housing Estate", location: "Lekki, Lagos", units: 412 },
-    { id: "est-002", name: "Greenview Estate", location: "Ikoyi, Lagos", units: 186 },
-    { id: "est-003", name: "Royal Gardens Estate", location: "Abuja", units: 264 },
-    { id: "est-004", name: "Harmony Residences", location: "Port Harcourt", units: 138 },
+    { id: "est-001", name: "Millennium Housing Estate", location: "Ijaiye Ojokoro, Lagos", units: 644 },
+    { id: "est-002", name: "Greenview Estate", location: "Agege, Lagos", units: 186 },
+    { id: "est-003", name: "Royal Gardens Estate", location: "Magodo, Lagos", units: 264 },
+    { id: "est-004", name: "Harmony Residences", location: "Ikeja, Lagos", units: 138 },
   ];
 
   /* ----------------------------------------------------------------------
