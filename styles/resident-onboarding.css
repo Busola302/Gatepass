@@ -267,7 +267,7 @@ button {
   margin: 0 0 32px;
   padding: 0;
   gap: 4px;
-  text-align: center;
+  text-align: center ;
 }
 
 .progress-step {
