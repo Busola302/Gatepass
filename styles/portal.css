@@ -1,0 +1,747 @@
+/* =========================================================
+   RAFARA GATEPASS
+   PORTAL / ROLE SELECTION PAGE
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --navy: #050A30;
+    --navy-light: #11162F;
+
+    --purple: #4B2E83;
+    --lavender: #A998FF;
+
+    --light-gray: #DDE2EA;
+    --background: #F7F8FA;
+
+    --white: #FFFFFF;
+    --text: #050A30;
+    --muted: #68728A;
+
+    --border: #E1E5ED;
+
+    --shadow-sm: 0 4px 14px rgba(5, 10, 48, 0.06);
+    --shadow-md: 0 12px 30px rgba(5, 10, 48, 0.10);
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family: "Inter", sans-serif;
+
+    color: var(--text);
+    background: var(--background);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.portal-header {
+    height: 76px;
+
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-bottom: 1px solid var(--border);
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* Brand */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+.brand-divider {
+    color: #BFC5D3;
+}
+
+.brand-product {
+    color: var(--purple);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* Back button */
+
+.back-home {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #58637B;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.back-home i {
+    font-size: 12px;
+}
+
+.back-home:hover {
+    color: var(--purple);
+    transform: translateX(-3px);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.portal-main {
+    width: min(1180px, 90%);
+
+    margin: 0 auto;
+
+    padding: 72px 0 60px;
+
+    flex: 1;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   BACKGROUND DECORATION
+========================================================= */
+
+.glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(1px);
+}
+
+.glow-one {
+    width: 260px;
+    height: 260px;
+
+    background: rgba(169, 152, 255, 0.10);
+
+    top: 40px;
+    left: -160px;
+}
+
+.glow-two {
+    width: 220px;
+    height: 220px;
+
+    background: rgba(75, 46, 131, 0.06);
+
+    right: -120px;
+    bottom: 120px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.portal-intro {
+    text-align: center;
+
+    max-width: 650px;
+
+    margin: 0 auto 48px;
+
+    position: relative;
+    z-index: 1;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    color: var(--purple);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.portal-intro h1 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(34px, 4vw, 50px);
+
+    line-height: 1.08;
+
+    letter-spacing: -1.8px;
+
+    margin-bottom: 14px;
+}
+
+.portal-intro > p {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    color: #28304E;
+
+    margin-bottom: 8px;
+}
+
+.intro-description {
+    color: var(--muted);
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   PORTAL GRID
+========================================================= */
+
+.portal-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   PORTAL CARD
+========================================================= */
+
+.portal-card {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    padding: 30px;
+
+    min-height: 365px;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: var(--shadow-sm);
+
+    position: relative;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.portal-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 24px;
+    right: 24px;
+
+    height: 3px;
+
+    background: transparent;
+
+    border-radius: 0 0 5px 5px;
+
+    transition: background 0.25s ease;
+}
+
+.portal-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(169, 152, 255, 0.65);
+
+    box-shadow: var(--shadow-md);
+}
+
+.portal-card:hover::before {
+    background: var(--lavender);
+}
+
+
+/* =========================================================
+   CARD ICON
+========================================================= */
+
+.card-icon {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    font-size: 22px;
+}
+
+.resident-icon {
+    color: var(--purple);
+    background: #F0ECFA;
+}
+
+.security-icon {
+    color: #384FD0;
+    background: #EDF1FF;
+}
+
+.manager-icon {
+    color: #5A378F;
+    background: #F2ECF8;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.card-content {
+    flex: 1;
+}
+
+.role-label {
+    display: block;
+
+    color: #858DA1;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+.portal-card h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    letter-spacing: -0.6px;
+
+    margin-bottom: 12px;
+}
+
+.portal-card p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    max-width: 290px;
+}
+
+
+/* =========================================================
+   PORTAL BUTTON
+========================================================= */
+
+.portal-button {
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 0 17px;
+
+    margin-top: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 10px;
+
+    background: var(--navy);
+
+    color: var(--white);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.portal-button i {
+    font-size: 12px;
+
+    transition: transform 0.2s ease;
+}
+
+.portal-button:hover {
+    background: var(--purple);
+}
+
+.portal-button:hover i {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   HELP SECTION
+========================================================= */
+
+.portal-help {
+    width: min(700px, 100%);
+
+    margin: 32px auto 0;
+
+    padding: 18px 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.help-icon {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #F0ECFA;
+
+    color: var(--purple);
+
+    font-size: 16px;
+}
+
+.portal-help strong {
+    display: block;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+.portal-help p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.portal-footer {
+    min-height: 70px;
+
+    padding: 18px 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    border-top: 1px solid var(--border);
+
+    background: var(--white);
+
+    color: #7A8294;
+
+    font-size: 11px;
+}
+
+
+/* Footer brand */
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.footer-logo {
+    color: var(--navy);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.footer-divider {
+    color: #BFC5D3;
+}
+
+.footer-product {
+    color: var(--purple);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* Footer links */
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--purple);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .portal-main {
+        padding-top: 55px;
+    }
+
+    .portal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .portal-card:last-child {
+        grid-column: 1 / -1;
+
+        max-width: 500px;
+
+        width: 100%;
+
+        justify-self: center;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .portal-header {
+        height: 68px;
+
+        padding: 0 20px;
+    }
+
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .brand-product {
+        font-size: 13px;
+    }
+
+    .back-home span {
+        display: none;
+    }
+
+    .back-home i {
+        font-size: 15px;
+    }
+
+    .portal-main {
+        width: min(100% - 32px, 500px);
+
+        padding: 48px 0 45px;
+    }
+
+    .portal-intro {
+        margin-bottom: 34px;
+    }
+
+    .portal-intro h1 {
+        font-size: 36px;
+
+        letter-spacing: -1.2px;
+    }
+
+    .portal-intro > p {
+        font-size: 17px;
+    }
+
+    .intro-description {
+        font-size: 13px;
+    }
+
+    .portal-grid {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .portal-card {
+        min-height: auto;
+
+        padding: 25px;
+    }
+
+    .portal-card:last-child {
+        max-width: none;
+    }
+
+    .card-icon {
+        width: 52px;
+        height: 52px;
+
+        margin-bottom: 20px;
+    }
+
+    .portal-card h2 {
+        font-size: 22px;
+    }
+
+    .portal-button {
+        margin-top: 23px;
+    }
+
+    .portal-help {
+        align-items: flex-start;
+
+        padding: 17px;
+
+        margin-top: 25px;
+    }
+
+    .portal-footer {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 22px 20px;
+    }
+
+    .footer-links {
+        order: -1;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .portal-main {
+        width: min(100% - 24px, 500px);
+    }
+
+    .portal-intro h1 {
+        font-size: 32px;
+    }
+
+    .portal-card {
+        padding: 22px;
+    }
+
+}
