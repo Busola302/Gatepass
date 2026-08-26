@@ -1,8 +1,9 @@
 /* ==========================================================================
    RAFARA GATEPASS — RESIDENT PROFILE
    Frontend-only logic. No backend, no API calls.
-   Structured so mock data can later be swapped for real backend data
-   without rewriting the rendering / interaction layer.
+   Interaction patterns (modal open/close, sidebar toggle, dropdowns,
+   mobile sheet) mirror resident-dashboard.js so behaviour is consistent
+   across every resident page.
    ========================================================================== */
 
 (function () {
@@ -10,8 +11,6 @@
 
   /* ------------------------------------------------------------------
      MOCK DATA
-     Kept isolated from UI logic so it can be replaced by a real
-     resident record fetched from a backend later.
      ------------------------------------------------------------------ */
   const resident = {
     id: "RAF-RES-00124",
@@ -20,7 +19,7 @@
     phone: "08012345678",
     role: "Primary Resident",
     estate: "Millenium Housing Estate",
-    house: "Block A · Flat 12",
+    house: "Block A · Flat 9",
     dateJoined: "2026-08-12",
     status: "active",
     householdMembers: [
@@ -47,11 +46,7 @@
      ------------------------------------------------------------------ */
   const state = {
     isEditingProfile: false,
-    householdModalOpen: false,
-    passwordModalOpen: false,
-    logoutModalOpen: false,
-    notificationPreferences: { ...resident.notificationPreferences },
-    profileDraft: null, // snapshot used to restore on cancel
+    profileDraft: null,
     lastFocusedElement: null
   };
 
@@ -59,7 +54,19 @@
      ELEMENT REFERENCES
      ------------------------------------------------------------------ */
   const el = {
-    // overview
+    // sidebar / shell
+    sidebar: document.getElementById("sidebar"),
+    sidebarToggleBtn: document.getElementById("sidebar-toggle-btn"),
+    sidebarBackdrop: document.getElementById("sidebar-backdrop"),
+    mobileMenuBtn: document.getElementById("mobile-menu-btn"),
+    mobileMenuSheet: document.getElementById("mobile-menu-sheet"),
+
+    // topbar
+    topbarAvatar: document.getElementById("topbar-avatar"),
+    topbarProfileName: document.getElementById("topbar-profile-name"),
+    topbarProfileRole: document.getElementById("topbar-profile-role"),
+
+    // profile hero
     avatarInitials: document.getElementById("avatar-initials"),
     avatarImage: document.getElementById("avatar-image"),
     avatarInput: document.getElementById("avatar-input"),
@@ -89,19 +96,10 @@
     householdHouse: document.getElementById("household-house"),
     householdType: document.getElementById("household-type"),
     householdCount: document.getElementById("household-count"),
-    viewHouseholdBtn: document.getElementById("view-household-btn"),
-    householdModalOverlay: document.getElementById("household-modal-overlay"),
-    householdModal: document.getElementById("household-modal"),
     householdList: document.getElementById("household-list"),
-
-    // notification preferences
-    notificationPrefList: document.getElementById("notification-pref-list"),
 
     // security
     securityEmail: document.getElementById("security-email"),
-    changePasswordBtn: document.getElementById("change-password-btn"),
-    passwordModalOverlay: document.getElementById("password-modal-overlay"),
-    passwordModal: document.getElementById("password-modal"),
     passwordForm: document.getElementById("password-form"),
     currentPassword: document.getElementById("current-password"),
     newPassword: document.getElementById("new-password"),
@@ -109,31 +107,17 @@
     errorCurrentPassword: document.getElementById("error-current-password"),
     errorNewPassword: document.getElementById("error-new-password"),
     errorConfirmPassword: document.getElementById("error-confirm-password"),
-    updatePasswordBtn: document.getElementById("update-password-btn"),
 
     // account activity
     activityProfileUpdate: document.getElementById("activity-profile-update"),
     activityPasswordUpdate: document.getElementById("activity-password-update"),
     activityCreated: document.getElementById("activity-created"),
 
-    // account actions / logout
-    logoutBtn: document.getElementById("logout-btn"),
-    sidebarLogoutTrigger: document.getElementById("sidebar-logout-trigger"),
-    logoutModalOverlay: document.getElementById("logout-modal-overlay"),
-    logoutModal: document.getElementById("logout-modal"),
+    // logout
     confirmLogoutBtn: document.getElementById("confirm-logout-btn"),
 
-    // mobile nav
-    mobileMenuBtn: document.getElementById("mobile-menu-btn"),
-    mobileDrawer: document.getElementById("mobile-drawer"),
-    mobileDrawerOverlay: document.getElementById("mobile-drawer-overlay"),
-    mobileDrawerClose: document.getElementById("mobile-drawer-close"),
-    bottomNavMoreBtn: document.getElementById("bottom-nav-more-btn"),
-    bottomMoreSheet: document.getElementById("bottom-more-sheet"),
-    bottomSheetOverlay: document.getElementById("bottom-sheet-overlay"),
-
     // toast
-    toastRegion: document.getElementById("toast-region")
+    toastContainer: document.getElementById("toast-container")
   };
 
   /* ------------------------------------------------------------------
@@ -168,51 +152,48 @@
     toast.className = "toast";
     toast.setAttribute("role", "status");
     toast.innerHTML =
-      '<i class="' + iconClass + '" aria-hidden="true"></i><span>' +
-      message +
-      "</span>";
+      '<i class="' + iconClass + '" aria-hidden="true"></i><span>' + message + "</span>";
 
-    el.toastRegion.appendChild(toast);
-
-    // Force reflow so the transition triggers
-    requestAnimationFrame(() => {
-      toast.classList.add("is-visible");
-    });
+    el.toastContainer.appendChild(toast);
 
     setTimeout(() => {
-      toast.classList.remove("is-visible");
-      setTimeout(() => toast.remove(), 250);
+      toast.classList.add("is-leaving");
+      setTimeout(() => toast.remove(), 200);
     }, 3200);
   }
 
   /* ------------------------------------------------------------------
-     RENDER: PROFILE (overview + form + household + security)
+     RENDER PROFILE
      ------------------------------------------------------------------ */
   function renderProfile() {
-    // Overview card
+    const initials = getInitials(resident.fullName);
+
     el.overviewName.textContent = resident.fullName;
     el.overviewRole.textContent = resident.role;
     el.overviewEstate.textContent = resident.estate;
     el.overviewResidentId.textContent = resident.id;
-    el.avatarInitials.textContent = getInitials(resident.fullName);
+    el.avatarInitials.textContent = initials;
 
-    // Personal information form
+    el.topbarAvatar.querySelector ? null : null;
+    if (el.avatarImage.hidden) {
+      el.topbarAvatar.textContent = initials;
+    }
+    el.topbarProfileName.textContent = resident.fullName;
+    el.topbarProfileRole.textContent = resident.role;
+
     el.fieldFullName.value = resident.fullName;
     el.fieldEmail.value = resident.email;
     el.fieldPhone.value = resident.phone;
     el.fieldResidentId.value = resident.id;
     el.fieldJoined.value = formatDateLong(resident.dateJoined);
 
-    // Household
     el.householdEstate.textContent = resident.estate;
     el.householdHouse.textContent = resident.house;
     el.householdType.textContent = resident.role;
     el.householdCount.textContent = resident.householdMembers.length + " Members";
 
-    // Security
     el.securityEmail.textContent = resident.email;
 
-    // Account activity
     el.activityProfileUpdate.textContent = resident.activity.lastProfileUpdate;
     el.activityPasswordUpdate.textContent = resident.activity.lastPasswordUpdate;
     el.activityCreated.textContent = formatDateLong(resident.dateJoined);
@@ -288,8 +269,6 @@
       isValid = false;
     }
 
-    // Nigerian phone number formats: 080..., 070..., 090..., 081...
-    // 11 digits starting with 0, or +234 followed by 10 digits.
     const phoneDigits = phone.replace(/[\s-]/g, "");
     const localPattern = /^0[7-9][01]\d{8}$/;
     const intlPattern = /^\+234[7-9][01]\d{8}$/;
@@ -309,10 +288,7 @@
 
   function saveProfile(event) {
     if (event) event.preventDefault();
-
-    if (!validateProfile()) {
-      return;
-    }
+    if (!validateProfile()) return;
 
     resident.fullName = el.fieldFullName.value.trim();
     resident.email = el.fieldEmail.value.trim();
@@ -335,83 +311,39 @@
   }
 
   /* ------------------------------------------------------------------
-     MODAL HELPERS (generic open/close with focus management)
+     GENERIC MODAL HELPERS (id-based, matches data-open-modal / data-close-modal)
      ------------------------------------------------------------------ */
-  function openModal(name) {
-    const overlay = {
-      household: el.householdModalOverlay,
-      password: el.passwordModalOverlay,
-      logout: el.logoutModalOverlay
-    }[name];
-    const dialog = {
-      household: el.householdModal,
-      password: el.passwordModal,
-      logout: el.logoutModal
-    }[name];
-
+  function openModalById(id) {
+    const overlay = document.getElementById(id);
     if (!overlay) return;
 
-    // Only one modal can be open at a time. If another modal is already
-    // open, close it first so overlays never stack on top of each other.
-    ["household", "password", "logout"].forEach((otherName) => {
-      if (otherName !== name && isModalOpen(otherName)) {
-        closeModal(otherName, { restoreFocus: false });
-      }
+    // Only one modal at a time.
+    document.querySelectorAll(".modal-overlay").forEach((o) => {
+      if (o !== overlay && !o.hidden) o.hidden = true;
     });
 
     state.lastFocusedElement = document.activeElement;
     overlay.hidden = false;
 
-    // populate content specific to the modal being opened
-    if (name === "household") {
-      renderHouseholdList();
-      state.householdModalOpen = true;
-    } else if (name === "password") {
-      resetPasswordForm();
-      state.passwordModalOpen = true;
-    } else if (name === "logout") {
-      state.logoutModalOpen = true;
-    }
+    if (id === "modal-household") renderHouseholdList();
+    if (id === "modal-password") resetPasswordForm();
 
-    // Move focus into the dialog
-    const focusTarget = dialog.querySelector("input, button");
+    const focusTarget = overlay.querySelector("input, button");
     if (focusTarget) focusTarget.focus();
 
     document.addEventListener("keydown", handleModalKeydown);
   }
 
-  function isModalOpen(name) {
-    if (name === "household") return state.householdModalOpen;
-    if (name === "password") return state.passwordModalOpen;
-    if (name === "logout") return state.logoutModalOpen;
-    return false;
-  }
-
-  function closeModal(name, options) {
-    const opts = options || {};
-    const restoreFocus = opts.restoreFocus !== false;
-
-    const overlay = {
-      household: el.householdModalOverlay,
-      password: el.passwordModalOverlay,
-      logout: el.logoutModalOverlay
-    }[name];
-
+  function closeModal(overlay) {
     if (!overlay) return;
-
     overlay.hidden = true;
 
-    if (name === "household") state.householdModalOpen = false;
-    if (name === "password") state.passwordModalOpen = false;
-    if (name === "logout") state.logoutModalOpen = false;
-
-    const anyOpen =
-      state.householdModalOpen || state.passwordModalOpen || state.logoutModalOpen;
+    const anyOpen = document.querySelector(".modal-overlay:not([hidden])");
     if (!anyOpen) {
       document.removeEventListener("keydown", handleModalKeydown);
     }
 
-    if (restoreFocus && state.lastFocusedElement) {
+    if (state.lastFocusedElement) {
       state.lastFocusedElement.focus();
       state.lastFocusedElement = null;
     }
@@ -419,28 +351,25 @@
 
   function handleModalKeydown(e) {
     if (e.key === "Escape") {
-      if (state.householdModalOpen) closeModal("household");
-      else if (state.passwordModalOpen) closeModal("password");
-      else if (state.logoutModalOpen) closeModal("logout");
+      const openOverlay = document.querySelector(".modal-overlay:not([hidden])");
+      if (openOverlay) closeModal(openOverlay);
     }
   }
 
   /* ------------------------------------------------------------------
-     HOUSEHOLD MODAL
+     HOUSEHOLD MODAL CONTENT
      ------------------------------------------------------------------ */
   function renderHouseholdList() {
     el.householdList.innerHTML = "";
     resident.householdMembers.forEach((member) => {
       const li = document.createElement("li");
-      li.className = "household-member";
+      li.className = "option-card";
       li.innerHTML =
-        '<span class="household-avatar" aria-hidden="true">' +
-        getInitials(member.name) +
-        '</span>' +
-        '<span class="household-member-info">' +
-        '<span class="household-member-name">' + member.name + '</span>' +
-        '<span class="household-member-role">' + member.role + '</span>' +
-        '</span>';
+        '<span class="option-icon" aria-hidden="true">' + getInitials(member.name) + "</span>" +
+        '<span class="option-text">' +
+        "<strong>" + member.name + "</strong>" +
+        "<span>" + member.role + "</span>" +
+        "</span>";
       el.householdList.appendChild(li);
     });
   }
@@ -448,16 +377,8 @@
   /* ------------------------------------------------------------------
      NOTIFICATION PREFERENCE TOGGLES
      ------------------------------------------------------------------ */
-  const prefLabels = {
-    visitorUpdates: "Visitor Updates",
-    passUpdates: "Pass Updates",
-    securityUpdates: "Security Updates",
-    estateAnnouncements: "Estate Announcements"
-  };
-
   function updatePreference(key, toggleEl) {
-    const newValue = !state.notificationPreferences[key];
-    state.notificationPreferences[key] = newValue;
+    const newValue = !resident.notificationPreferences[key];
     resident.notificationPreferences[key] = newValue;
 
     toggleEl.setAttribute("aria-checked", String(newValue));
@@ -468,15 +389,14 @@
   }
 
   function initNotificationToggles() {
-    const toggles = el.notificationPrefList.querySelectorAll(".toggle-switch");
-    toggles.forEach((toggle) => {
+    document.querySelectorAll("#notification-pref-list .toggle-switch").forEach((toggle) => {
       const key = toggle.getAttribute("data-pref");
       toggle.addEventListener("click", () => updatePreference(key, toggle));
     });
   }
 
   /* ------------------------------------------------------------------
-     CHANGE PASSWORD MODAL
+     CHANGE PASSWORD
      ------------------------------------------------------------------ */
   function resetPasswordForm() {
     el.passwordForm.reset();
@@ -534,11 +454,10 @@
     event.preventDefault();
     if (!validatePassword()) return;
 
-    // Frontend-only simulation. Nothing is stored or transmitted.
     resident.activity.lastPasswordUpdate = "Just now";
     el.activityPasswordUpdate.textContent = resident.activity.lastPasswordUpdate;
 
-    closeModal("password");
+    closeModal(document.getElementById("modal-password"));
     showToast("Password updated successfully.");
   }
 
@@ -555,6 +474,8 @@
       el.avatarImage.hidden = false;
       el.avatarInitials.hidden = true;
       el.removePhotoBtn.hidden = false;
+      el.topbarAvatar.textContent = "";
+      el.topbarAvatar.innerHTML = '<img src="' + e.target.result + '" alt="" />';
     };
     reader.readAsDataURL(file);
   }
@@ -565,13 +486,15 @@
     el.avatarInitials.hidden = false;
     el.removePhotoBtn.hidden = true;
     el.avatarInput.value = "";
+    el.topbarAvatar.innerHTML = "";
+    el.topbarAvatar.textContent = getInitials(resident.fullName);
   }
 
   /* ------------------------------------------------------------------
      LOGOUT
      ------------------------------------------------------------------ */
   function handleLogout() {
-    closeModal("logout");
+    closeModal(document.getElementById("modal-logout"));
     showToast("Logging out...", "fa-solid fa-arrow-right-from-bracket");
     setTimeout(() => {
       window.location.href = "resident-login.html";
@@ -579,41 +502,63 @@
   }
 
   /* ------------------------------------------------------------------
-     MOBILE NAVIGATION
+     SIDEBAR TOGGLE (≤900px overlay drawer)
      ------------------------------------------------------------------ */
-  function openMobileDrawer() {
-    el.mobileDrawer.classList.add("is-open");
-    el.mobileDrawer.setAttribute("aria-hidden", "false");
-    el.mobileDrawerOverlay.hidden = false;
+  function openSidebar() {
+    el.sidebar.classList.add("is-open");
+    el.sidebarBackdrop.hidden = false;
+    el.sidebarToggleBtn.setAttribute("aria-expanded", "true");
+  }
+
+  function closeSidebar() {
+    el.sidebar.classList.remove("is-open");
+    el.sidebarBackdrop.hidden = true;
+    el.sidebarToggleBtn.setAttribute("aria-expanded", "false");
+  }
+
+  /* ------------------------------------------------------------------
+     MOBILE "MORE" SHEET
+     ------------------------------------------------------------------ */
+  function openMobileSheet() {
+    el.mobileMenuSheet.hidden = false;
+    requestAnimationFrame(() => el.mobileMenuSheet.classList.add("is-open"));
     el.mobileMenuBtn.setAttribute("aria-expanded", "true");
-    const firstLink = el.mobileDrawer.querySelector(".nav-link");
-    if (firstLink) firstLink.focus();
-    document.addEventListener("keydown", handleMobileDrawerKeydown);
   }
 
-  function closeMobileDrawer() {
-    el.mobileDrawer.classList.remove("is-open");
-    el.mobileDrawer.setAttribute("aria-hidden", "true");
-    el.mobileDrawerOverlay.hidden = true;
+  function closeMobileSheet() {
+    el.mobileMenuSheet.classList.remove("is-open");
+    el.mobileMenuSheet.hidden = true;
     el.mobileMenuBtn.setAttribute("aria-expanded", "false");
-    document.removeEventListener("keydown", handleMobileDrawerKeydown);
-    el.mobileMenuBtn.focus();
   }
 
-  function handleMobileDrawerKeydown(e) {
-    if (e.key === "Escape") closeMobileDrawer();
+  /* ------------------------------------------------------------------
+     TOPBAR PROFILE DROPDOWN
+     ------------------------------------------------------------------ */
+  function closeAllDropdowns() {
+    document.querySelectorAll(".dropdown-panel").forEach((p) => (p.hidden = true));
+    document.querySelectorAll("[data-dropdown] > button[aria-expanded]").forEach((b) =>
+      b.setAttribute("aria-expanded", "false")
+    );
   }
 
-  function openBottomSheet() {
-    el.bottomMoreSheet.hidden = false;
-    el.bottomSheetOverlay.hidden = false;
-    el.bottomNavMoreBtn.setAttribute("aria-expanded", "true");
-  }
+  function initDropdowns() {
+    document.querySelectorAll("[data-dropdown]").forEach((wrapper) => {
+      const trigger = wrapper.querySelector("button");
+      const panel = wrapper.querySelector(".dropdown-panel");
+      if (!trigger || !panel) return;
 
-  function closeBottomSheet() {
-    el.bottomMoreSheet.hidden = true;
-    el.bottomSheetOverlay.hidden = true;
-    el.bottomNavMoreBtn.setAttribute("aria-expanded", "false");
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = !panel.hidden;
+        closeAllDropdowns();
+        if (!isOpen) {
+          panel.hidden = false;
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    document.addEventListener("click", closeAllDropdowns);
   }
 
   /* ------------------------------------------------------------------
@@ -625,38 +570,24 @@
     el.profileForm.addEventListener("submit", saveProfile);
     el.cancelProfileBtn.addEventListener("click", cancelEdit);
 
-    // Household modal
-    el.viewHouseholdBtn.addEventListener("click", () => openModal("household"));
+    // Generic modal open/close (data-open-modal / data-close-modal)
+    document.querySelectorAll("[data-open-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => openModalById(btn.getAttribute("data-open-modal")));
+    });
+    document.querySelectorAll("[data-close-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => closeModal(btn.closest(".modal-overlay")));
+    });
+    document.querySelectorAll(".modal-overlay").forEach((overlay) => {
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeModal(overlay);
+      });
+    });
 
-    // Password modal
-    el.changePasswordBtn.addEventListener("click", () => openModal("password"));
+    // Password form
     el.passwordForm.addEventListener("submit", handlePasswordSubmit);
 
-    // Logout modal
-    el.logoutBtn.addEventListener("click", () => openModal("logout"));
-    if (el.sidebarLogoutTrigger) {
-      el.sidebarLogoutTrigger.addEventListener("click", (e) => {
-        e.preventDefault();
-        openModal("logout");
-      });
-    }
+    // Logout confirm
     el.confirmLogoutBtn.addEventListener("click", handleLogout);
-
-    // Generic modal close buttons + overlay click
-    document.querySelectorAll("[data-close-modal]").forEach((btn) => {
-      btn.addEventListener("click", () => closeModal(btn.getAttribute("data-close-modal")));
-    });
-    [el.householdModalOverlay, el.passwordModalOverlay, el.logoutModalOverlay].forEach(
-      (overlay) => {
-        overlay.addEventListener("click", (e) => {
-          if (e.target === overlay) {
-            if (overlay === el.householdModalOverlay) closeModal("household");
-            if (overlay === el.passwordModalOverlay) closeModal("password");
-            if (overlay === el.logoutModalOverlay) closeModal("logout");
-          }
-        });
-      }
-    );
 
     // Avatar
     el.changePhotoBtn.addEventListener("click", () => el.avatarInput.click());
@@ -666,18 +597,26 @@
     // Notification toggles
     initNotificationToggles();
 
-    // Mobile drawer
-    el.mobileMenuBtn.addEventListener("click", openMobileDrawer);
-    el.mobileDrawerClose.addEventListener("click", closeMobileDrawer);
-    el.mobileDrawerOverlay.addEventListener("click", closeMobileDrawer);
-
-    // Bottom sheet ("More")
-    el.bottomNavMoreBtn.addEventListener("click", () => {
-      const isOpen = !el.bottomMoreSheet.hidden;
-      if (isOpen) closeBottomSheet();
-      else openBottomSheet();
+    // Sidebar toggle (mobile/tablet drawer)
+    el.sidebarToggleBtn.addEventListener("click", () => {
+      const isOpen = el.sidebar.classList.contains("is-open");
+      if (isOpen) closeSidebar();
+      else openSidebar();
     });
-    el.bottomSheetOverlay.addEventListener("click", closeBottomSheet);
+    el.sidebarBackdrop.addEventListener("click", closeSidebar);
+
+    // Mobile "More" sheet
+    el.mobileMenuBtn.addEventListener("click", () => {
+      const isOpen = el.mobileMenuSheet.classList.contains("is-open");
+      if (isOpen) closeMobileSheet();
+      else openMobileSheet();
+    });
+    document.querySelectorAll("[data-close-mobile-sheet]").forEach((btn) => {
+      btn.addEventListener("click", closeMobileSheet);
+    });
+
+    // Topbar profile dropdown
+    initDropdowns();
   }
 
   /* ------------------------------------------------------------------
