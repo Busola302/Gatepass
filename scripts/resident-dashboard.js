@@ -22,7 +22,7 @@
     estate: "Millennium Housing Estate",
     block: "C",
     unit: "Flat 4",
-    residentType: "Tenant",
+    residentType: "Family Member",
     verificationStatus: "Verified"
   };
 
