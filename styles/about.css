@@ -1,0 +1,279 @@
+/* ==========================================================
+   about.css
+   Page-specific additions only. Everything reusable already
+   lives in index.css / footer.css / nav.css — this file just
+   covers what About Us needs that nothing else defines yet:
+   the active nav state, the principle quote, the ecosystem
+   diagram, the founder cards, and a couple of small text
+   treatments (highlight line, founders' question/line).
+   ========================================================== */
+
+/* ----- active nav state -----
+   Not in nav.css yet — worth moving there once a second page
+   needs it, so every page gets it for free. */
+.nav-links a[aria-current="page"],
+.sidebar a[aria-current="page"] {
+  color: var(--purple);
+}
+.nav-links a[aria-current="page"]::after {
+  width: 100%;
+}
+.sidebar a[aria-current="page"] {
+  color: var(--lavender);
+}
+
+/* ----- hero tweak -----
+   Same .hero / .hero-visual as the homepage, just one card
+   pair instead of three so the composition stays calm. */
+.about-hero .hero-visual {
+  height: 420px;
+}
+
+/* ----- why we built rafara ----- */
+.why {
+  padding: var(--section) 0;
+  background: var(--white);
+}
+.principle-card {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  background: var(--navy);
+  color: var(--off-white);
+  border-radius: 16px;
+  padding: 44px 38px;
+  box-shadow: 0 40px 90px -35px rgba(5, 10, 48, 0.32);
+}
+.principle-card p {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* ----- what rafara does ----- */
+.highlight-line {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(19px, 2vw, 24px);
+  color: var(--navy);
+  border-left: 3px solid var(--purple);
+  padding-left: 20px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+}
+.section-foot {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-muted-light);
+  max-width: 62ch;
+}
+
+/* ----- built for estates ----- */
+.estates {
+  padding: var(--section) 0;
+  background: var(--off-white);
+}
+.estates .split .sec-head strong {
+  color: var(--purple);
+}
+.ecosystem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.ecosystem-node {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 14.5px;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 15px 24px;
+  text-align: center;
+  min-width: 180px;
+}
+.ecosystem-node--root {
+  background: var(--navy);
+  color: var(--off-white);
+  border-color: var(--navy);
+  position: relative;
+  box-shadow: 0 30px 60px -30px rgba(5, 10, 48, 0.4);
+}
+.ecosystem-node--root::after {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  width: 1px;
+  height: 24px;
+  background: var(--border-light);
+  transform: translateX(-50%);
+}
+.ecosystem-links {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding-top: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.ecosystem-links::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 24px;
+  background: var(--border-light);
+  transform: translateX(-50%);
+}
+.ecosystem-links .ecosystem-node {
+  color: var(--purple);
+  min-width: 140px;
+}
+
+/* ----- who's behind rafara ----- */
+.founders {
+  position: relative;
+  padding: var(--section) 0;
+  background: var(--off-white);
+  overflow: hidden;
+}
+.founders-glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(169, 152, 255, 0.16), transparent 70%);
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+.founders .wrap {
+  position: relative;
+}
+.founders-copy {
+  margin-top: -8px;
+  margin-bottom: 56px;
+}
+.founders-copy p {
+  color: var(--ink-muted-light);
+}
+.founders-question {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(21px, 2.4vw, 27px) !important;
+  color: var(--navy) !important;
+  margin: 28px 0 !important;
+}
+.founders-line {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--purple) !important;
+}
+
+.founder-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 300px));
+  gap: 24px;
+  justify-content: center;
+}
+.founder-card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 34px 24px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.founder-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -35px rgba(5, 10, 48, 0.18);
+  border-color: rgba(75, 46, 131, 0.2);
+}
+.founder-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  background: linear-gradient(135deg, var(--purple), var(--lavender));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--off-white);
+}
+.founder-card h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 19px;
+  margin-bottom: 4px;
+}
+.founder-card p {
+  font-size: 13.5px;
+  color: var(--ink-faint-light);
+}
+
+/* ----- where we're headed -----
+   .trust-statement is reused as-is; .hl is the only addition,
+   for the emphasised phrase inside the paragraph. */
+.trust-statement .hl {
+  color: var(--lavender);
+  font-weight: 600;
+}
+
+/* ----- final cta -----
+   .final-cta exists in index.css but wasn't used on the
+   homepage yet; this adds the lede/welcome lines it needs. */
+.final-cta-lede {
+  display: block;
+  font-size: 15.5px;
+  color: var(--ink-muted-dark);
+  margin-bottom: 18px;
+}
+.final-cta-lede strong {
+  color: var(--off-white);
+}
+.final-cta-welcome {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--lavender);
+  font-size: 17px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1080px) {
+  .about-hero .hero-visual {
+    height: 380px;
+  }
+}
+
+@media (max-width: 800px) {
+  .principle-card {
+    padding: 32px 26px;
+  }
+  .highlight-line {
+    margin-top: 36px;
+  }
+  .founder-cards {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .ecosystem-node {
+    min-width: 0;
+    width: 100%;
+  }
+  .ecosystem-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
