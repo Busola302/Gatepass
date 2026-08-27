@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Rafara GatePass — Estate Manager</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="styles/manager-dashboard.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__top">
+      <a href="index.html" class="sidebar__brand" aria-label="Rafara home">
+        <span class="sidebar__brand-mark">R</span>
+        <span class="sidebar__brand-text">
+          <span class="sidebar__brand-name">RAFARA</span>
+          <span class="sidebar__brand-product">GatePass</span>
+        </span>
+      </a>
+      <button class="sidebar__close" id="sidebarClose" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="sidebar__role">
+      <i class="fa-solid fa-building-shield"></i>
+      <span>Estate Manager</span>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Manager navigation">
+      <div class="sidebar__group">
+        <p class="sidebar__group-label">Overview</p>
+        <a class="sidebar__link is-active" href="manager-dashboard.html" data-nav="dashboard">
+          <i class="fa-solid fa-grid-2"></i><span>Dashboard</span>
+        </a>
+      </div>
+
+      <div class="sidebar__group">
+        <p class="sidebar__group-label">Estate</p>
+        <a class="sidebar__link" href="manager-residents.html" data-nav="residents">
+          <i class="fa-solid fa-users"></i><span>Residents</span>
+        </a>
+        <a class="sidebar__link" href="manager-units.html" data-nav="units">
+          <i class="fa-solid fa-building"></i><span>Units</span>
+        </a>
+        <a class="sidebar__link" href="manager-security.html" data-nav="security">
+          <i class="fa-solid fa-shield-halved"></i><span>Security</span>
+        </a>
+        <a class="sidebar__link" href="manager-artisans.html" data-nav="artisans">
+          <i class="fa-solid fa-helmet-safety"></i><span>Artisans</span>
+        </a>
+      </div>
+
+      <div class="sidebar__group">
+        <p class="sidebar__group-label">Access</p>
+        <a class="sidebar__link" href="manager-passes.html" data-nav="passes">
+          <i class="fa-solid fa-id-card"></i><span>Passes</span>
+        </a>
+        <a class="sidebar__link" href="manager-activity.html" data-nav="activity">
+          <i class="fa-solid fa-clock-rotate-left"></i><span>Activity</span>
+        </a>
+      </div>
+
+      <div class="sidebar__group">
+        <p class="sidebar__group-label">Communication</p>
+        <a class="sidebar__link" href="manager-notifications.html" data-nav="notifications">
+          <i class="fa-solid fa-bell"></i><span>Notifications</span>
+        </a>
+      </div>
+
+      <div class="sidebar__group">
+        <p class="sidebar__group-label">Account</p>
+        <a class="sidebar__link" href="manager-settings.html" data-nav="settings">
+          <i class="fa-solid fa-gear"></i><span>Settings</span>
+        </a>
+      </div>
+    </nav>
+
+    <a class="sidebar__profile" href="manager-profile.html">
+      <span class="sidebar__avatar">EM</span>
+      <span class="sidebar__profile-text">
+        <span class="sidebar__profile-name">Estate Manager</span>
+        <span class="sidebar__profile-role">Manager</span>
+      </span>
+      <i class="fa-solid fa-chevron-right sidebar__profile-chevron"></i>
+    </a>
+  </aside>
+
+  <div class="sidebar__overlay" id="sidebarOverlay"></div>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="topbar__menu" id="menuOpen" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1 class="topbar__title">Dashboard</h1>
+      </div>
+
+      <div class="topbar__right">
+        <div class="topbar__search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="dashboardSearch" placeholder="Search residents, units, passes…" autocomplete="off">
+          <div class="search-results" id="searchResults" hidden></div>
+        </div>
+
+        <div class="topbar__notif-wrap">
+          <button class="topbar__icon-btn" id="notifBell" aria-label="Notifications" aria-expanded="false">
+            <i class="fa-solid fa-bell"></i>
+            <span class="topbar__badge" id="notifBadge">2</span>
+          </button>
+          <div class="notif-panel" id="notifPanel" hidden>
+            <div class="notif-panel__header">
+              <span>Notifications</span>
+            </div>
+            <div class="notif-panel__list" id="notifList"></div>
+            <a href="manager-notifications.html" class="notif-panel__footer">View all notifications <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <a href="manager-profile.html" class="topbar__profile">
+          <span class="topbar__avatar">EM</span>
+          <span class="topbar__profile-text">
+            <span class="topbar__profile-name">Estate Manager</span>
+            <span class="topbar__profile-estate">Ijaiye Ojokoro, Lagos</span>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- INTRO -->
+      <section class="intro">
+        <p class="intro__eyebrow">Estate Overview</p>
+        <h2 class="intro__heading">Good morning, Estate Manager <span aria-hidden="true">👋🏽</span></h2>
+        <p class="intro__sub">Here's what's happening across your estate today.</p>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats" id="statsGrid" aria-label="Estate statistics"></section>
+
+      <!-- GATE ACTIVITY + SIDE COLUMN -->
+      <div class="layout-2col">
+
+        <!-- GATE ACTIVITY -->
+        <section class="panel panel--activity">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title">Gate Activity</h3>
+              <p class="panel__sub">Recent access activity across the estate.</p>
+            </div>
+            <a href="manager-activity.html" class="panel__link">View All Activity <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table" id="gateActivityTable">
+              <thead>
+                <tr>
+                  <th>Visitor</th>
+                  <th>Resident</th>
+                  <th>Pass Type</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="gateActivityBody"></tbody>
+            </table>
+          </div>
+
+          <div class="activity-cards" id="gateActivityCards"></div>
+        </section>
+
+        <!-- ESTATE ALERTS -->
+        <section class="panel panel--alerts">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title">Estate Alerts</h3>
+            </div>
+          </div>
+          <div class="alerts-list" id="alertsList"></div>
+        </section>
+      </div>
+
+      <!-- RESIDENTS / SECURITY / PASSES -->
+      <div class="layout-3col">
+
+        <section class="panel panel--summary">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title">Residents</h3>
+              <p class="panel__sub">Overview of residents in your estate.</p>
+            </div>
+          </div>
+          <div class="summary-rows" id="residentsSummary"></div>
+          <a href="manager-residents.html" class="panel__cta">View Residents <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+
+        <section class="panel panel--summary">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title"><i class="fa-solid fa-shield-halved panel__title-icon"></i> Security Team</h3>
+              <p class="panel__sub">Manage and monitor estate security personnel.</p>
+            </div>
+          </div>
+          <div class="summary-rows" id="securitySummary"></div>
+          <a href="manager-security.html" class="panel__cta">Manage Security <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+
+        <section class="panel panel--summary">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title">Pass Overview</h3>
+            </div>
+          </div>
+          <div class="pass-grid" id="passSummary"></div>
+          <a href="manager-passes.html" class="panel__cta">View All Passes <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+      </div>
+
+      <!-- RECENT ACTIVITY + QUICK ACTIONS -->
+      <div class="layout-2col layout-2col--bottom">
+
+        <section class="panel panel--feed">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title">Recent Activity</h3>
+            </div>
+            <a href="manager-activity.html" class="panel__link">View Activity <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <ul class="feed-list" id="feedList"></ul>
+        </section>
+
+        <section class="panel panel--actions">
+          <div class="panel__header">
+            <div>
+              <h3 class="panel__title">Quick Actions</h3>
+            </div>
+          </div>
+          <div class="quick-actions" id="quickActions"></div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===================== BOTTOM NAV (mobile) ===================== -->
+  <nav class="bottom-nav" aria-label="Primary mobile navigation">
+    <a href="manager-dashboard.html" class="bottom-nav__item is-active" data-nav="dashboard">
+      <i class="fa-solid fa-house"></i><span>Home</span>
+    </a>
+    <a href="manager-residents.html" class="bottom-nav__item" data-nav="residents">
+      <i class="fa-solid fa-user-check"></i><span>Verification</span>
+    </a>
+    <a href="manager-artisans.html" class="bottom-nav__item" data-nav="artisans">
+      <i class="fa-solid fa-helmet-safety"></i><span>Artisans</span>
+    </a>
+    <a href="manager-passes.html" class="bottom-nav__item" data-nav="passes">
+      <i class="fa-solid fa-id-card"></i><span>Passes</span>
+    </a>
+    <button type="button" class="bottom-nav__item bottom-nav__more" data-open-modal="moreSheet" aria-haspopup="true" aria-expanded="false">
+      <i class="fa-solid fa-ellipsis"></i><span>More</span>
+    </button>
+  </nav>
+
+  <!-- ===================== MORE SHEET (mobile) ===================== -->
+  <div class="more-sheet__overlay" data-close-modal="moreSheet" hidden></div>
+  <div class="more-sheet" id="moreSheet" hidden role="dialog" aria-modal="true" aria-label="More navigation">
+    <div class="more-sheet__handle"></div>
+    <div class="more-sheet__header">
+      <span>More</span>
+      <button type="button" class="more-sheet__close" data-close-modal="moreSheet" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="more-sheet__grid">
+      <a href="manager-units.html" class="more-sheet__link">
+        <span class="more-sheet__icon"><i class="fa-solid fa-building"></i></span><span>Units</span>
+      </a>
+      <a href="manager-security.html" class="more-sheet__link">
+        <span class="more-sheet__icon"><i class="fa-solid fa-shield-halved"></i></span><span>Security</span>
+      </a>
+      <a href="manager-activity.html" class="more-sheet__link">
+        <span class="more-sheet__icon"><i class="fa-solid fa-clock-rotate-left"></i></span><span>Activity</span>
+      </a>
+      <a href="manager-notifications.html" class="more-sheet__link">
+        <span class="more-sheet__icon"><i class="fa-solid fa-bell"></i></span><span>Notifications</span>
+      </a>
+      <a href="manager-settings.html" class="more-sheet__link">
+        <span class="more-sheet__icon"><i class="fa-solid fa-gear"></i></span><span>Settings</span>
+      </a>
+      <a href="manager-profile.html" class="more-sheet__link">
+        <span class="more-sheet__icon"><i class="fa-solid fa-circle-user"></i></span><span>Profile</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="scripts/manager-dashboard.js"></script>
+</body>
+</html>
