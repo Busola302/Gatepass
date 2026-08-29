@@ -1,17 +1,19 @@
-/* ============================================================
+/* =========================================================
    RAFARA GATEPASS — ESTATE MANAGER DASHBOARD
-   window.RafaraManager namespace — one IIFE per concern
-   ============================================================ */
+   Frontend demo logic
+   ========================================================= */
 
-/* ---------------------------------------------------------
-   1. MOCK DATA
-   Structured so a future backend/API can swap this in
-   without touching the rendering layer below.
---------------------------------------------------------- */
 (function () {
+  "use strict";
+
   window.RafaraManager = window.RafaraManager || {};
 
+  /* =======================================================
+     MOCK DATA
+     ======================================================= */
+
   window.RafaraManager.DATA = {
+
     overview: {
       residents: 584,
       activePasses: 24,
@@ -39,10 +41,34 @@
     },
 
     gateActivity: [
-      { visitor: "David Ade", resident: "Flat A12", passType: "Visitor", time: "8:42 AM", status: "inside" },
-      { visitor: "Sarah O.", resident: "Flat B07", passType: "Artisan", time: "8:31 AM", status: "verified" },
-      { visitor: "Michael K.", resident: "Flat C21", passType: "Visitor", time: "8:12 AM", status: "exited" },
-      { visitor: "Amina T.", resident: "Flat D09", passType: "Visitor", time: "7:56 AM", status: "inside" }
+      {
+        visitor: "David Ade",
+        resident: "Flat A12",
+        passType: "Visitor",
+        time: "8:42 AM",
+        status: "inside"
+      },
+      {
+        visitor: "Sarah O.",
+        resident: "Flat B07",
+        passType: "Artisan",
+        time: "8:31 AM",
+        status: "verified"
+      },
+      {
+        visitor: "Michael K.",
+        resident: "Flat C21",
+        passType: "Visitor",
+        time: "8:12 AM",
+        status: "exited"
+      },
+      {
+        visitor: "Amina T.",
+        resident: "Flat D09",
+        passType: "Visitor",
+        time: "7:56 AM",
+        status: "inside"
+      }
     ],
 
     alerts: [
@@ -70,441 +96,999 @@
     ],
 
     recentActivity: [
-      { icon: "fa-user-check", title: "Resident verified", desc: "A resident account was successfully verified.", time: "12m ago" },
-      { icon: "fa-shield-halved", title: "Security staff added", desc: "A new security personnel account was added.", time: "38m ago" },
-      { icon: "fa-id-card", title: "Visitor pass created", desc: "A new visitor pass was generated.", time: "1h ago" },
-      { icon: "fa-helmet-safety", title: "Artisan pass approved", desc: "An artisan access request was approved.", time: "2h ago" },
-      { icon: "fa-user-pen", title: "Resident profile updated", desc: "A resident updated their account information.", time: "3h ago" }
+      {
+        icon: "fa-user-check",
+        title: "Resident verified",
+        desc: "A resident account was successfully verified.",
+        time: "12m ago"
+      },
+      {
+        icon: "fa-shield-halved",
+        title: "Security staff added",
+        desc: "A new security personnel account was added.",
+        time: "38m ago"
+      },
+      {
+        icon: "fa-id-card",
+        title: "Visitor pass created",
+        desc: "A new visitor pass was generated.",
+        time: "1h ago"
+      },
+      {
+        icon: "fa-helmet-safety",
+        title: "Artisan pass approved",
+        desc: "An artisan access request was approved.",
+        time: "2h ago"
+      },
+      {
+        icon: "fa-user-pen",
+        title: "Resident profile updated",
+        desc: "A resident updated their account information.",
+        time: "3h ago"
+      }
     ],
 
     notifications: [
-      { icon: "fa-user-clock", title: "New resident verification", desc: "A resident is waiting for approval." },
-      { icon: "fa-shield-halved", title: "Security invitation", desc: "A security staff invitation is pending." }
+      {
+        icon: "fa-user-clock",
+        title: "New resident verification",
+        desc: "A resident is waiting for approval.",
+        time: "12m ago",
+        unread: true
+      },
+      {
+        icon: "fa-shield-halved",
+        title: "Security invitation",
+        desc: "A security staff invitation is pending.",
+        time: "1h ago",
+        unread: true
+      }
     ],
 
     quickActions: [
-      { icon: "fa-user-plus", label: "Add Resident", href: "manager-residents.html" },
-      { icon: "fa-shield-halved", label: "Add Security", href: "manager-security.html" },
-      { icon: "fa-building", label: "Manage Units", href: "manager-units.html" },
-      { icon: "fa-id-card", label: "View Passes", href: "manager-passes.html" },
-      { icon: "fa-clipboard-check", label: "Review Requests", href: "manager-residents.html" }
-    ],
-
-    /* Flat searchable index — frontend-only for now */
-    searchIndex: [
-      { type: "Resident", label: "Chidinma Okafor — Flat A12", href: "manager-residents.html" },
-      { type: "Resident", label: "Tunde Bakare — Flat B07", href: "manager-residents.html" },
-      { type: "Unit", label: "Flat C21, Block C", href: "manager-units.html" },
-      { type: "Unit", label: "Flat D09, Block D", href: "manager-units.html" },
-      { type: "Pass", label: "One-Day Visitor — David Ade", href: "manager-passes.html" },
-      { type: "Pass", label: "Artisan Pass — Sarah O.", href: "manager-passes.html" },
-      { type: "Security", label: "Emeka Nwosu — On Duty", href: "manager-security.html" },
-      { type: "Security", label: "Blessing Eze — Off Duty", href: "manager-security.html" }
+      {
+        icon: "fa-user-plus",
+        label: "Add Resident",
+        sub: "Register a new resident",
+        href: "manager-residents.html",
+        primary: true
+      },
+      {
+        icon: "fa-shield-halved",
+        label: "Add Security",
+        sub: "Onboard personnel",
+        href: "manager-security.html"
+      },
+      {
+        icon: "fa-building",
+        label: "Manage Units",
+        sub: "Estate unit list",
+        href: "manager-units.html"
+      },
+      {
+        icon: "fa-id-card",
+        label: "View Passes",
+        sub: "All active passes",
+        href: "manager-passes.html"
+      },
+      {
+        icon: "fa-clipboard-check",
+        label: "Review Requests",
+        sub: "Pending approvals",
+        href: "manager-residents.html"
+      }
     ]
   };
+
 })();
 
-/* ---------------------------------------------------------
-   2. HELPERS
---------------------------------------------------------- */
+
+/* =========================================================
+   RENDERING
+   ========================================================= */
+
 (function () {
-  window.RafaraManager = window.RafaraManager || {};
 
-  window.RafaraManager.helpers = {
-    statusLabel: function (status) {
-      const map = { inside: "Inside", verified: "Verified", exited: "Exited", pending: "Pending" };
-      return map[status] || status;
-    },
+  "use strict";
 
-    el: function (tag, className, html) {
-      const node = document.createElement(tag);
-      if (className) node.className = className;
-      if (html !== undefined) node.innerHTML = html;
-      return node;
-    }
-  };
-})();
-
-/* ---------------------------------------------------------
-   3. RENDERING — stats, table, summaries, alerts, feed, actions
---------------------------------------------------------- */
-(function () {
   const NS = window.RafaraManager;
   const DATA = NS.DATA;
-  const { el, statusLabel } = NS.helpers;
+
+  function initials(name) {
+    return name
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(word => word[0].toUpperCase())
+      .join("");
+  }
+
+
+  function statusBadge(status) {
+
+    const map = {
+
+      inside: {
+        cls: "badge--active",
+        label: "Inside"
+      },
+
+      verified: {
+        cls: "badge--verified",
+        label: "Verified"
+      },
+
+      exited: {
+        cls: "badge--checkedout",
+        label: "Exited"
+      },
+
+      pending: {
+        cls: "badge--pending",
+        label: "Pending"
+      }
+
+    };
+
+    const result =
+      map[status] ||
+      {
+        cls: "badge--checkedout",
+        label: status
+      };
+
+    return `
+      <span class="badge ${result.cls}">
+        <i class="fa-solid fa-circle" aria-hidden="true"></i>
+        ${result.label}
+      </span>
+    `;
+  }
+
+
+  /* =======================================================
+     STATS
+     ======================================================= */
 
   function renderStats() {
-    const grid = document.getElementById("statsGrid");
+
+    const grid = document.getElementById("stats-grid");
+
     if (!grid) return;
 
     const cards = [
-      { icon: "fa-users", label: "Total Residents", value: DATA.overview.residents, sub: "Active residents" },
-      { icon: "fa-id-card", label: "Active Passes", value: DATA.overview.activePasses, sub: "Currently active" },
-      { icon: "fa-person-walking-arrow-right", label: "Visitors Inside", value: DATA.overview.visitorsInside, sub: "Currently inside" },
-      { icon: "fa-shield-halved", label: "Security Staff", value: DATA.overview.securityStaff, sub: "Registered personnel" }
+
+      {
+        icon: "fa-users",
+        iconClass: "stat-icon--passes",
+        value: DATA.overview.residents,
+        label: "Total Residents",
+        context: "Active residents"
+      },
+
+      {
+        icon: "fa-id-card",
+        iconClass: "stat-icon--passes",
+        value: DATA.overview.activePasses,
+        label: "Active Passes",
+        context: "Currently active"
+      },
+
+      {
+        icon: "fa-person-walking-arrow-right",
+        iconClass: "stat-icon--inside",
+        value: DATA.overview.visitorsInside,
+        label: "Visitors Inside",
+        context: "Currently inside"
+      },
+
+      {
+        icon: "fa-shield-halved",
+        iconClass: "stat-icon--upcoming",
+        value: DATA.overview.securityStaff,
+        label: "Security Staff",
+        context: "Registered personnel"
+      }
+
     ];
 
-    grid.innerHTML = "";
-    cards.forEach(c => {
-      const card = el("article", "stat-card");
-      card.innerHTML = `
-        <div class="stat-card__icon"><i class="fa-solid ${c.icon}"></i></div>
-        <p class="stat-card__label">${c.label}</p>
-        <p class="stat-card__value">${c.value}</p>
-        <p class="stat-card__sub">${c.sub}</p>
-      `;
-      grid.appendChild(card);
-    });
+    grid.innerHTML = cards.map(card => `
+
+      <article class="stat-card">
+
+        <span class="stat-icon ${card.iconClass}">
+          <i class="fa-solid ${card.icon}" aria-hidden="true"></i>
+        </span>
+
+        <div class="stat-body">
+
+          <span class="stat-number">
+            ${card.value}
+          </span>
+
+          <span class="stat-label">
+            ${card.label}
+          </span>
+
+          <span class="stat-context">
+            ${card.context}
+          </span>
+
+        </div>
+
+      </article>
+
+    `).join("");
   }
+
+
+  /* =======================================================
+     GATE ACTIVITY
+     ======================================================= */
 
   function renderGateActivity() {
-    const tbody = document.getElementById("gateActivityBody");
-    const cardsWrap = document.getElementById("gateActivityCards");
-    if (!tbody || !cardsWrap) return;
 
-    tbody.innerHTML = "";
-    cardsWrap.innerHTML = "";
+    const wrap =
+      document.getElementById("gate-activity-list");
 
-    DATA.gateActivity.forEach(row => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${row.visitor}</td>
-        <td class="cell-muted">${row.resident}</td>
-        <td class="cell-muted">${row.passType}</td>
-        <td class="cell-muted">${row.time}</td>
-        <td><span class="badge badge--${row.status}">${statusLabel(row.status)}</span></td>
-      `;
-      tbody.appendChild(tr);
+    if (!wrap) return;
 
-      const card = el("div", "activity-card");
-      card.innerHTML = `
-        <div class="activity-card__top">
-          <span class="activity-card__visitor">${row.visitor}</span>
-          <span class="badge badge--${row.status}">${statusLabel(row.status)}</span>
-        </div>
-        <div class="activity-card__meta">
-          <span><strong>${row.resident}</strong></span>
-          <span>${row.passType}</span>
-          <span>${row.time}</span>
+    if (!DATA.gateActivity.length) {
+
+      wrap.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-solid fa-door-open"></i>
+          <strong>No gate activity yet</strong>
+          <span>
+            Entries and exits across the estate will appear here.
+          </span>
         </div>
       `;
-      cardsWrap.appendChild(card);
-    });
+
+      return;
+    }
+
+    wrap.innerHTML = DATA.gateActivity.map(row => `
+
+      <div class="visitor-card">
+
+        <span class="visitor-avatar" aria-hidden="true">
+          ${initials(row.visitor)}
+        </span>
+
+        <div class="visitor-info">
+
+          <strong>${row.visitor}</strong>
+
+          <span class="visitor-meta">
+            <span>${row.resident}</span>
+            <span>•</span>
+            <span>${row.passType}</span>
+            <span>•</span>
+            <span>${row.time}</span>
+          </span>
+
+        </div>
+
+        <div class="visitor-actions">
+          ${statusBadge(row.status)}
+        </div>
+
+      </div>
+
+    `).join("");
   }
 
-  function renderResidentsSummary() {
-    const wrap = document.getElementById("residentsSummary");
-    if (!wrap) return;
-    const rows = [
-      { label: "Active", value: DATA.residents.active, color: "var(--status-success-text)" },
-      { label: "Pending Verification", value: DATA.residents.pending, color: "var(--status-warning-text)" },
-      { label: "Suspended", value: DATA.residents.suspended, color: "#B23B3B" }
-    ];
-    wrap.innerHTML = "";
-    rows.forEach(r => {
-      const row = el("div", "summary-row");
-      row.innerHTML = `
-        <span class="summary-row__label"><span class="summary-row__dot" style="background:${r.color}"></span>${r.label}</span>
-        <span class="summary-row__value">${r.value}</span>
-      `;
-      wrap.appendChild(row);
-    });
-  }
 
-  function renderSecuritySummary() {
-    const wrap = document.getElementById("securitySummary");
-    if (!wrap) return;
-    const rows = [
-      { label: "On Duty", value: DATA.security.onDuty, color: "var(--status-success-text)" },
-      { label: "Off Duty", value: DATA.security.offDuty, color: "var(--text-muted)" },
-      { label: "Pending Invitations", value: DATA.security.pendingInvitations, color: "var(--status-warning-text)" }
-    ];
-    wrap.innerHTML = "";
-    rows.forEach(r => {
-      const row = el("div", "summary-row");
-      row.innerHTML = `
-        <span class="summary-row__label"><span class="summary-row__dot" style="background:${r.color}"></span>${r.label}</span>
-        <span class="summary-row__value">${r.value}</span>
-      `;
-      wrap.appendChild(row);
-    });
-  }
-
-  function renderPassSummary() {
-    const wrap = document.getElementById("passSummary");
-    if (!wrap) return;
-    const cells = [
-      { label: "Active", value: DATA.passes.active },
-      { label: "Upcoming", value: DATA.passes.upcoming },
-      { label: "Expired", value: DATA.passes.expired },
-      { label: "Pending", value: DATA.passes.pending }
-    ];
-    wrap.innerHTML = "";
-    cells.forEach(c => {
-      const cell = el("div", "pass-cell");
-      cell.innerHTML = `<div class="pass-cell__value">${c.value}</div><div class="pass-cell__label">${c.label}</div>`;
-      wrap.appendChild(cell);
-    });
-  }
+  /* =======================================================
+     ALERTS
+     ======================================================= */
 
   function renderAlerts() {
-    const wrap = document.getElementById("alertsList");
+
+    const wrap =
+      document.getElementById("alerts-list");
+
     if (!wrap) return;
-    wrap.innerHTML = "";
-    DATA.alerts.forEach(a => {
-      const item = el("div", "alert-item");
-      item.innerHTML = `
-        <div class="alert-item__icon"><i class="fa-solid ${a.icon}"></i></div>
-        <div class="alert-item__body">
-          <p class="alert-item__title">${a.title}</p>
-          <p class="alert-item__desc">${a.desc}</p>
-          <a class="alert-item__btn" href="${a.href}">${a.cta} <i class="fa-solid fa-arrow-right"></i></a>
+
+    if (!DATA.alerts.length) {
+
+      wrap.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-solid fa-circle-check"></i>
+          <strong>All caught up</strong>
+          <span>
+            Nothing needs your attention right now.
+          </span>
         </div>
       `;
-      wrap.appendChild(item);
-    });
+
+      return;
+    }
+
+    wrap.innerHTML = DATA.alerts.map(alert => `
+
+      <div class="alert-item">
+
+        <span class="alert-icon">
+          <i class="fa-solid ${alert.icon}"></i>
+        </span>
+
+        <div class="alert-body">
+
+          <strong>
+            ${alert.title}
+          </strong>
+
+          <p>
+            ${alert.desc}
+          </p>
+
+          <a
+            class="text-link"
+            href="${alert.href}"
+          >
+            ${alert.cta}
+          </a>
+
+        </div>
+
+      </div>
+
+    `).join("");
   }
 
-  function renderFeed() {
-    const wrap = document.getElementById("feedList");
+
+  /* =======================================================
+     SUMMARY ROWS
+     ======================================================= */
+
+  function renderSummary(elementId, rows) {
+
+    const wrap = document.getElementById(elementId);
+
     if (!wrap) return;
-    wrap.innerHTML = "";
-    DATA.recentActivity.forEach(item => {
-      const li = el("li", "feed-item");
-      li.innerHTML = `
-        <div class="feed-item__icon"><i class="fa-solid ${item.icon}"></i></div>
-        <div class="feed-item__body">
-          <p class="feed-item__title">${item.title}</p>
-          <p class="feed-item__desc">${item.desc}</p>
-        </div>
-        <span class="feed-item__time">${item.time}</span>
-      `;
-      wrap.appendChild(li);
-    });
+
+    wrap.innerHTML = rows.map(row => `
+
+      <div class="details-row">
+
+        <span>
+          <span
+            class="details-dot"
+            style="background:${row.dot}"
+          ></span>
+
+          ${row.label}
+        </span>
+
+        <span>
+          ${row.value}
+        </span>
+
+      </div>
+
+    `).join("");
   }
+
+
+  function renderResidentsSummary() {
+
+    renderSummary("residents-summary", [
+
+      {
+        label: "Active",
+        value: DATA.residents.active,
+        dot: "var(--green)"
+      },
+
+      {
+        label: "Pending Verification",
+        value: DATA.residents.pending,
+        dot: "var(--orange)"
+      },
+
+      {
+        label: "Suspended",
+        value: DATA.residents.suspended,
+        dot: "var(--red)"
+      }
+
+    ]);
+  }
+
+
+  function renderSecuritySummary() {
+
+    renderSummary("security-summary", [
+
+      {
+        label: "On Duty",
+        value: DATA.security.onDuty,
+        dot: "var(--green)"
+      },
+
+      {
+        label: "Off Duty",
+        value: DATA.security.offDuty,
+        dot: "var(--text-muted)"
+      },
+
+      {
+        label: "Pending Invitations",
+        value: DATA.security.pendingInvitations,
+        dot: "var(--orange)"
+      }
+
+    ]);
+  }
+
+
+  function renderPassesSummary() {
+
+    renderSummary("passes-summary", [
+
+      {
+        label: "Active",
+        value: DATA.passes.active,
+        dot: "var(--green)"
+      },
+
+      {
+        label: "Upcoming",
+        value: DATA.passes.upcoming,
+        dot: "var(--blue)"
+      },
+
+      {
+        label: "Expired",
+        value: DATA.passes.expired,
+        dot: "var(--text-muted)"
+      },
+
+      {
+        label: "Pending",
+        value: DATA.passes.pending,
+        dot: "var(--orange)"
+      }
+
+    ]);
+  }
+
+
+  /* =======================================================
+     RECENT ACTIVITY
+     ======================================================= */
+
+  function renderRecentActivity() {
+
+    const wrap =
+      document.getElementById("recent-activity-list");
+
+    if (!wrap) return;
+
+    if (!DATA.recentActivity.length) {
+
+      wrap.innerHTML = `
+        <li class="empty-state">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <strong>No recent activity</strong>
+          <span>
+            Estate-wide actions will show up here.
+          </span>
+        </li>
+      `;
+
+      return;
+    }
+
+    wrap.innerHTML = DATA.recentActivity.map(item => `
+
+      <li class="activity-item">
+
+        <span class="activity-icon">
+          <i class="fa-solid ${item.icon}"></i>
+        </span>
+
+        <div class="activity-body">
+
+          <strong>
+            ${item.title}
+          </strong>
+
+          <p>
+            ${item.desc}
+          </p>
+
+        </div>
+
+        <span class="activity-time">
+          ${item.time}
+        </span>
+
+      </li>
+
+    `).join("");
+  }
+
+
+  /* =======================================================
+     QUICK ACTIONS
+     ======================================================= */
 
   function renderQuickActions() {
-    const wrap = document.getElementById("quickActions");
+
+    const wrap =
+      document.getElementById("quick-actions-grid");
+
     if (!wrap) return;
-    wrap.innerHTML = "";
-    DATA.quickActions.forEach(qa => {
-      const btn = el("a", "qa-btn");
-      btn.href = qa.href;
-      btn.innerHTML = `<i class="fa-solid ${qa.icon}"></i><span>${qa.label}</span>`;
-      wrap.appendChild(btn);
-    });
+
+    wrap.innerHTML = DATA.quickActions.map(action => `
+
+      <a
+        class="quick-action-card${action.primary
+          ? " quick-action-card--primary"
+          : ""
+        }"
+        href="${action.href}"
+      >
+
+        <span class="qa-icon">
+          <i class="fa-solid ${action.icon}"></i>
+        </span>
+
+        <span class="qa-text">
+
+          <strong>
+            ${action.label}
+          </strong>
+
+          <span>
+            ${action.sub}
+          </span>
+
+        </span>
+
+      </a>
+
+    `).join("");
   }
+
+
+  /* =======================================================
+     NOTIFICATIONS
+     ======================================================= */
 
   function renderNotifications() {
-    const wrap = document.getElementById("notifList");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    DATA.notifications.forEach(n => {
-      const item = el("div", "notif-item");
-      item.innerHTML = `
-        <div class="notif-item__icon"><i class="fa-solid ${n.icon}"></i></div>
-        <div>
-          <p class="notif-item__title">${n.title}</p>
-          <p class="notif-item__desc">${n.desc}</p>
+
+    const list =
+      document.getElementById("notif-panel-list");
+
+    const dot =
+      document.getElementById("notif-dot");
+
+    const sidebarCount =
+      document.getElementById("sidebar-notif-count");
+
+    if (!list) return;
+
+    const unread =
+      DATA.notifications.filter(notification => notification.unread).length;
+
+    if (!DATA.notifications.length) {
+
+      list.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-solid fa-bell-slash"></i>
+          <strong>No notifications</strong>
+          <span>
+            You're all caught up.
+          </span>
         </div>
       `;
-      wrap.appendChild(item);
-    });
-    const badge = document.getElementById("notifBadge");
-    if (badge) badge.textContent = String(DATA.notifications.length);
+
+    } else {
+
+      list.innerHTML = DATA.notifications.map(notification => `
+
+        <div class="notif-item${notification.unread ? " is-unread" : ""}">
+
+          <span class="notif-icon">
+            <i class="fa-solid ${notification.icon}"></i>
+          </span>
+
+          <div class="notif-body">
+
+            <strong>
+              ${notification.title}
+            </strong>
+
+            <p>
+              ${notification.desc}
+            </p>
+
+            <span class="notif-time">
+              ${notification.time}
+            </span>
+
+          </div>
+
+          ${
+            notification.unread
+              ? `<span class="notif-unread-dot"></span>`
+              : ""
+          }
+
+        </div>
+
+      `).join("");
+    }
+
+    if (dot) {
+      dot.hidden = unread === 0;
+    }
+
+    if (sidebarCount) {
+      sidebarCount.textContent = unread;
+      sidebarCount.hidden = unread === 0;
+    }
   }
 
+
   NS.render = {
-    all: function () {
+
+    all() {
       renderStats();
       renderGateActivity();
+      renderAlerts();
       renderResidentsSummary();
       renderSecuritySummary();
-      renderPassSummary();
-      renderAlerts();
-      renderFeed();
+      renderPassesSummary();
+      renderRecentActivity();
       renderQuickActions();
       renderNotifications();
     }
+
   };
+
 })();
 
-/* ---------------------------------------------------------
-   4. SIDEBAR / MOBILE NAV
---------------------------------------------------------- */
-(function () {
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("sidebarOverlay");
-  const openBtn = document.getElementById("menuOpen");
-  const closeBtn = document.getElementById("sidebarClose");
 
-  if (!sidebar || !overlay || !openBtn || !closeBtn) return;
+/* =========================================================
+   SIDEBAR DRAWER
+   ========================================================= */
+
+(function () {
+
+  const sidebar =
+    document.getElementById("sidebar");
+
+  const backdrop =
+    document.getElementById("sidebar-backdrop");
+
+  const toggle =
+    document.getElementById("sidebar-toggle-btn");
+
+  if (!sidebar || !backdrop || !toggle) return;
+
 
   function openSidebar() {
+
     sidebar.classList.add("is-open");
-    overlay.classList.add("is-visible");
+
+    backdrop.hidden = false;
+
+    toggle.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
     document.body.style.overflow = "hidden";
   }
+
 
   function closeSidebar() {
+
     sidebar.classList.remove("is-open");
-    overlay.classList.remove("is-visible");
+
+    backdrop.hidden = true;
+
+    toggle.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
     document.body.style.overflow = "";
   }
 
-  openBtn.addEventListener("click", openSidebar);
-  closeBtn.addEventListener("click", closeSidebar);
-  overlay.addEventListener("click", closeSidebar);
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeSidebar();
+  toggle.addEventListener("click", () => {
+
+    if (sidebar.classList.contains("is-open")) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+
   });
+
+
+  backdrop.addEventListener(
+    "click",
+    closeSidebar
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Escape") {
+        closeSidebar();
+      }
+
+    }
+  );
+
 })();
 
-/* ---------------------------------------------------------
-   5. NOTIFICATION DROPDOWN
---------------------------------------------------------- */
+
+/* =========================================================
+   DROPDOWNS
+   ========================================================= */
+
 (function () {
-  const bell = document.getElementById("notifBell");
-  const panel = document.getElementById("notifPanel");
-  if (!bell || !panel) return;
 
-  function togglePanel(show) {
-    panel.hidden = !show;
-    bell.setAttribute("aria-expanded", String(show));
-  }
+  const dropdowns =
+    document.querySelectorAll("[data-dropdown]");
 
-  bell.addEventListener("click", function (e) {
-    e.stopPropagation();
-    togglePanel(panel.hidden);
-  });
+  if (!dropdowns.length) return;
 
-  document.addEventListener("click", function (e) {
-    if (!panel.hidden && !panel.contains(e.target) && e.target !== bell) {
-      togglePanel(false);
-    }
-  });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") togglePanel(false);
-  });
-})();
+  function closeAll(except = null) {
 
-/* ---------------------------------------------------------
-   6. DASHBOARD SEARCH (frontend-only, structured for later API swap)
---------------------------------------------------------- */
-(function () {
-  const NS = window.RafaraManager;
-  const input = document.getElementById("dashboardSearch");
-  const results = document.getElementById("searchResults");
-  if (!input || !results) return;
+    dropdowns.forEach(wrapper => {
 
-  const typeIcon = { Resident: "fa-user", Unit: "fa-building", Pass: "fa-id-card", Security: "fa-shield-halved" };
+      if (wrapper === except) return;
 
-  function search(query) {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    return NS.DATA.searchIndex.filter(item =>
-      item.label.toLowerCase().includes(q) || item.type.toLowerCase().includes(q)
-    ).slice(0, 6);
-  }
+      const panel =
+        wrapper.querySelector(".dropdown-panel");
 
-  function renderResults(query) {
-    const matches = search(query);
-    results.innerHTML = "";
+      const button =
+        wrapper.querySelector("button");
 
-    if (!query.trim()) {
-      results.hidden = true;
-      return;
-    }
+      if (panel) {
+        panel.hidden = true;
+      }
 
-    if (matches.length === 0) {
-      results.innerHTML = `<div class="search-results__empty">No matches for "${query}"</div>`;
-      results.hidden = false;
-      return;
-    }
+      if (button) {
+        button.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+      }
 
-    matches.forEach(m => {
-      const item = document.createElement("a");
-      item.href = m.href;
-      item.className = "search-results__item";
-      item.innerHTML = `<i class="fa-solid ${typeIcon[m.type] || "fa-circle"}"></i><span>${m.label}</span><small>${m.type}</small>`;
-      results.appendChild(item);
     });
-    results.hidden = false;
+
   }
 
-  input.addEventListener("input", function () {
-    renderResults(input.value);
+
+  dropdowns.forEach(wrapper => {
+
+    const button =
+      wrapper.querySelector("button");
+
+    const panel =
+      wrapper.querySelector(".dropdown-panel");
+
+    if (!button || !panel) return;
+
+
+    button.addEventListener("click", event => {
+
+      event.stopPropagation();
+
+      const wasOpen = !panel.hidden;
+
+      closeAll();
+
+      panel.hidden = wasOpen;
+
+      button.setAttribute(
+        "aria-expanded",
+        String(!wasOpen)
+      );
+
+    });
+
   });
 
-  input.addEventListener("focus", function () {
-    if (input.value.trim()) renderResults(input.value);
-  });
 
-  document.addEventListener("click", function (e) {
-    if (!results.contains(e.target) && e.target !== input) {
-      results.hidden = true;
+  document.addEventListener("click", event => {
+
+    const inside =
+      [...dropdowns].some(
+        dropdown => dropdown.contains(event.target)
+      );
+
+    if (!inside) {
+      closeAll();
     }
+
   });
+
+
+  document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+      closeAll();
+    }
+
+  });
+
 })();
 
-/* ---------------------------------------------------------
-   7. MORE SHEET (mobile bottom nav)
-   Uses the shared data-open-modal / data-close-modal +
-   [hidden] pattern used across Rafara modals.
---------------------------------------------------------- */
+
+/* =========================================================
+   MARK ALL NOTIFICATIONS READ
+   ========================================================= */
+
 (function () {
-  const openTriggers = document.querySelectorAll("[data-open-modal]");
-  const closeTriggers = document.querySelectorAll("[data-close-modal]");
-  if (!openTriggers.length) return;
 
-  function getSheetParts(id) {
-    const sheet = document.getElementById(id);
-    const overlay = document.querySelector(`.more-sheet__overlay[data-close-modal="${id}"]`);
-    return { sheet, overlay };
-  }
+  const button =
+    document.getElementById("mark-all-read-btn");
 
-  function openSheet(id) {
-    const { sheet, overlay } = getSheetParts(id);
-    if (!sheet) return;
+  if (!button) return;
+
+  button.addEventListener("click", () => {
+
+    window.RafaraManager.DATA.notifications.forEach(
+      notification => {
+        notification.unread = false;
+      }
+    );
+
+    window.RafaraManager.render.all();
+
+  });
+
+})();
+
+
+/* =========================================================
+   MOBILE MORE SHEET
+   ========================================================= */
+
+(function () {
+
+  const sheet =
+    document.getElementById("mobile-menu-sheet");
+
+  const button =
+    document.getElementById("mobile-menu-btn");
+
+  const closeTriggers =
+    document.querySelectorAll(
+      "[data-close-mobile-sheet]"
+    );
+
+  if (!sheet || !button) return;
+
+
+  function openSheet() {
+
     sheet.hidden = false;
-    if (overlay) overlay.hidden = false;
+
+    requestAnimationFrame(() => {
+      sheet.classList.add("is-open");
+    });
+
+    button.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
     document.body.style.overflow = "hidden";
-    const trigger = document.querySelector(`[data-open-modal="${id}"]`);
-    if (trigger) trigger.setAttribute("aria-expanded", "true");
   }
 
-  function closeSheet(id) {
-    const { sheet, overlay } = getSheetParts(id);
-    if (!sheet) return;
-    sheet.hidden = true;
-    if (overlay) overlay.hidden = true;
+
+  function closeSheet() {
+
+    sheet.classList.remove("is-open");
+
+    button.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
     document.body.style.overflow = "";
-    const trigger = document.querySelector(`[data-open-modal="${id}"]`);
-    if (trigger) trigger.setAttribute("aria-expanded", "false");
+
+    setTimeout(() => {
+      sheet.hidden = true;
+    }, 220);
+
   }
 
-  openTriggers.forEach(btn => {
-    btn.addEventListener("click", function () {
-      openSheet(btn.getAttribute("data-open-modal"));
-    });
+
+  button.addEventListener("click", () => {
+
+    if (sheet.hidden) {
+      openSheet();
+    } else {
+      closeSheet();
+    }
+
   });
 
-  closeTriggers.forEach(btn => {
-    btn.addEventListener("click", function () {
-      closeSheet(btn.getAttribute("data-close-modal"));
-    });
+
+  closeTriggers.forEach(trigger => {
+
+    trigger.addEventListener(
+      "click",
+      closeSheet
+    );
+
   });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeSheet("moreSheet");
+
+  document.addEventListener("keydown", event => {
+
+    if (
+      event.key === "Escape" &&
+      !sheet.hidden
+    ) {
+      closeSheet();
+    }
+
   });
+
 })();
 
-/* ---------------------------------------------------------
-   8. INIT
---------------------------------------------------------- */
-document.addEventListener("DOMContentLoaded", function () {
-  window.RafaraManager.render.all();
-});
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+(function () {
+
+  const triggers = [
+
+    document.getElementById("logout-btn"),
+
+    document.getElementById(
+      "mobile-logout-btn"
+    ),
+
+    document.getElementById(
+      "dropdown-logout-btn"
+    )
+
+  ].filter(Boolean);
+
+
+  triggers.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      window.location.href =
+        "manager-login.html";
+
+    });
+
+  });
+
+})();
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    window.RafaraManager.render.all();
+
+  }
+);
