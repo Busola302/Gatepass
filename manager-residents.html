@@ -1,414 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Residents · Rafara GatePass Estate Manager</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Residents · Rafara GatePass — Estate Manager</title>
+  <meta name="description"
+    content="Manage resident accounts, verify registrations, and monitor estate access on Rafara GatePass.">
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<link rel="stylesheet" href="styles/manager-residents.css" />
+  <link rel="stylesheet" href="styles/manager-residents.css">
 </head>
+
 <body>
 
-<div class="app-shell">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- ============ DESKTOP SIDEBAR ============ -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-top">
-      <div class="brand">
-        <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
-        <span class="brand-text">RAFARA <span class="brand-thin">| GatePass</span></span>
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="manager-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
       </div>
-      <span class="role-badge">Estate Manager</span>
-    </div>
 
-    <nav class="sidebar-nav" aria-label="Manager navigation">
-      <a href="manager-dashboard.html" class="nav-link">
-        <i class="fa-solid fa-gauge-high"></i><span>Dashboard</span>
+      <span class="sidebar-role-chip"><i class="fa-solid fa-building-shield" aria-hidden="true"></i> Estate Manager</span>
+
+      <nav class="sidebar-nav" aria-label="Manager sections">
+        <ul>
+          <li>
+            <a href="manager-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-residents.html" class="nav-item is-active" aria-current="page">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Residents</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-units.html" class="nav-item">
+              <i class="fa-solid fa-building" aria-hidden="true"></i>
+              <span>Units</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-security.html" class="nav-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Security</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-artisans.html" class="nav-item">
+              <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+              <span>Artisans</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-passes.html" class="nav-item">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-notifications.html" class="nav-item">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-settings.html" class="nav-item">
+              <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="manager-profile.html" class="sidebar-profile-link">
+          <span class="avatar" aria-hidden="true">EM</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Estate Manager</span>
+            <span class="profile-role">Millenium Housing Estate,Lagos</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="manager-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
       </a>
-      <a href="manager-residents.html" class="nav-link active" aria-current="page">
-        <i class="fa-solid fa-users"></i><span>Residents</span>
+      <a href="manager-residents.html" class="mobile-nav-item is-active" aria-current="page">
+        <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+        <span>Verification</span>
       </a>
-      <a href="manager-units.html" class="nav-link">
-        <i class="fa-solid fa-building"></i><span>Units</span>
+      <a href="manager-artisans.html" class="mobile-nav-item">
+        <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+        <span>Artisans</span>
       </a>
-      <a href="manager-security.html" class="nav-link">
-        <i class="fa-solid fa-shield"></i><span>Security</span>
+      <a href="manager-passes.html" class="mobile-nav-item">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
       </a>
-      <a href="manager-artisans.html" class="nav-link">
-        <i class="fa-solid fa-helmet-safety"></i><span>Artisans</span>
-      </a>
-      <a href="manager-passes.html" class="nav-link">
-        <i class="fa-solid fa-id-card"></i><span>Passes</span>
-      </a>
-      <a href="manager-activity.html" class="nav-link">
-        <i class="fa-solid fa-clock-rotate-left"></i><span>Activity</span>
-      </a>
-      <a href="manager-notifications.html" class="nav-link">
-        <i class="fa-solid fa-bell"></i><span>Notifications</span>
-      </a>
-      <a href="manager-settings.html" class="nav-link">
-        <i class="fa-solid fa-gear"></i><span>Settings</span>
-      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false"
+        aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
     </nav>
 
-    <div class="sidebar-bottom">
-      <div class="profile-mini">
-        <span class="avatar avatar-sm">EM</span>
-        <div class="profile-mini-text">
-          <strong>Estate Manager</strong>
-          <small>Ijaiye Ojokoro, Lagos</small>
-        </div>
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="manager-units.html" class="mobile-sheet-link"><i class="fa-solid fa-building" aria-hidden="true"></i> Units</a>
+        <a href="manager-security.html" class="mobile-sheet-link"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security</a>
+        <a href="manager-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Activity</a>
+        <a href="manager-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications</a>
+        <a href="manager-settings.html" class="mobile-sheet-link"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+        <a href="manager-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
       </div>
-      <button class="logout-btn" type="button">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i><span>Log out</span>
-      </button>
     </div>
-  </aside>
 
-  <!-- ============ MAIN ============ -->
-  <div class="main-area">
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
 
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle menu" aria-controls="sidebar" aria-expanded="false">
-          <i class="fa-solid fa-bars"></i>
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
-        <div class="topbar-titles">
-          <span class="eyebrow">Estate Management</span>
-          <h1>Residents</h1>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Residents</span>
         </div>
-      </div>
-      <div class="topbar-right">
-        <button class="icon-btn" aria-label="Notifications">
-          <i class="fa-regular fa-bell"></i>
-          <span class="icon-dot" aria-hidden="true"></span>
-        </button>
-        <button class="topbar-profile" type="button" aria-label="Estate Manager profile">
-          <span class="avatar avatar-sm">EM</span>
-          <span class="topbar-profile-text">
-            <strong>Estate Manager</strong>
-            <small>Ijaiye Ojokoro Estate</small>
-          </span>
-        </button>
-      </div>
-    </header>
 
-    <main class="content" id="mainContent">
-
-      <!-- PAGE HEADER -->
-      <section class="page-header">
-        <div class="page-header-text">
-          <h2>Residents</h2>
-          <p>Manage resident accounts, verify registrations, and monitor who has access to your estate.</p>
-          <span class="page-header-meta">Ijaiye Ojokoro, Lagos · 600+ Units</span>
-        </div>
-        <button class="btn btn-primary" id="inviteResidentBtn" type="button">
-          <i class="fa-solid fa-plus"></i> Invite Resident
-        </button>
-      </section>
-
-      <!-- STATS -->
-      <section class="stats-grid" aria-label="Resident statistics">
-        <article class="stat-card">
-          <div class="stat-icon stat-icon-neutral"><i class="fa-solid fa-users"></i></div>
-          <div class="stat-body">
-            <span class="stat-value" id="statTotal">0</span>
-            <span class="stat-label">Registered residents</span>
-          </div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-icon stat-icon-success"><i class="fa-solid fa-user-check"></i></div>
-          <div class="stat-body">
-            <span class="stat-value" id="statVerified">0</span>
-            <span class="stat-label" id="statVerifiedLabel">Verified</span>
-          </div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-icon stat-icon-warning"><i class="fa-solid fa-clock"></i></div>
-          <div class="stat-body">
-            <span class="stat-value" id="statPending">0</span>
-            <span class="stat-label">Requires review</span>
-          </div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-icon stat-icon-danger"><i class="fa-solid fa-user-lock"></i></div>
-          <div class="stat-body">
-            <span class="stat-value" id="statSuspended">0</span>
-            <span class="stat-label">Restricted accounts</span>
-          </div>
-        </article>
-      </section>
-
-      <!-- RESIDENTS PANEL -->
-      <section class="panel" aria-labelledby="allResidentsTitle">
-        <div class="panel-header">
-          <div>
-            <h3 id="allResidentsTitle">All Residents</h3>
-            <p>View and manage residents registered within the estate.</p>
-          </div>
-          <div class="panel-controls">
-            <label class="search-field" for="residentSearch">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="search" id="residentSearch" placeholder="Search by name, unit or phone number" autocomplete="off" />
-            </label>
-            <div class="select-field">
-              <label for="sortSelect" class="sr-only">Sort residents</label>
-              <select id="sortSelect">
-                <option value="newest">Newest joined</option>
-                <option value="oldest">Oldest joined</option>
-                <option value="nameAsc">Name A–Z</option>
-                <option value="nameDesc">Name Z–A</option>
-                <option value="unitAsc">Unit A–Z</option>
-              </select>
-            </div>
-            <button class="btn btn-outline" id="filterToggleBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="filterPanel">
-              <i class="fa-solid fa-sliders"></i> Filter
-              <span class="filter-badge" id="filterBadge" hidden>0</span>
+        <div class="topbar-actions">
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
             </button>
-          </div>
-        </div>
-
-        <!-- FILTER PANEL -->
-        <div class="filter-panel" id="filterPanel" hidden>
-          <div class="filter-group">
-            <span class="filter-group-title">Verification</span>
-            <div class="chip-row" data-filter-group="verification">
-              <button class="chip active" data-value="all" type="button">All</button>
-              <button class="chip" data-value="verified" type="button">Verified</button>
-              <button class="chip" data-value="pending" type="button">Pending</button>
-              <button class="chip" data-value="rejected" type="button">Rejected</button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+                <button type="button" class="text-link" id="mark-all-read-btn">Mark all read</button>
+              </div>
+              <div class="dropdown-panel-body" id="notif-panel-list"></div>
+              <a href="manager-notifications.html" class="dropdown-panel-foot">View all notifications</a>
             </div>
           </div>
-          <div class="filter-group">
-            <span class="filter-group-title">Account Status</span>
-            <div class="chip-row" data-filter-group="status">
-              <button class="chip active" data-value="all" type="button">All</button>
-              <button class="chip" data-value="active" type="button">Active</button>
-              <button class="chip" data-value="suspended" type="button">Suspended</button>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">EM</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Estate Manager</span>
+                <span class="profile-role">Millenium Housing Estate,Lagos</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="manager-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+              <a href="manager-settings.html" role="menuitem"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
             </div>
           </div>
-          <div class="filter-group filter-group-grow">
-            <span class="filter-group-title">Unit</span>
-            <label class="search-field search-field-compact" for="unitFilterInput">
-              <i class="fa-solid fa-building"></i>
-              <input type="text" id="unitFilterInput" placeholder="e.g. Block A, Unit 204" autocomplete="off" />
-            </label>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="dashboard-content">
+
+        <!-- PAGE HERO -->
+        <section class="welcome-section" aria-label="Residents overview">
+          <div class="welcome-text">
+            <h1>Residents</h1>
+            <p class="welcome-sub">Manage resident accounts, verify registrations, and monitor who has access to your estate.</p>
           </div>
-          <div class="filter-actions">
-            <button class="btn-text" id="clearFiltersBtn" type="button">Clear filters</button>
+          <div class="hero-actions">
+            <button type="button" class="btn btn--primary" id="invite-resident-btn">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i> Invite Resident
+            </button>
+            <span class="hero-actions-meta">Millenium Housing Estate, Lagos · 600+ Units</span>
           </div>
-        </div>
+        </section>
 
-        <!-- DESKTOP TABLE -->
-        <div class="table-wrap">
-          <table class="residents-table" id="residentsTable">
-            <thead>
-              <tr>
-                <th scope="col">Resident</th>
-                <th scope="col">Unit</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Verification</th>
-                <th scope="col">Status</th>
-                <th scope="col">Joined</th>
-                <th scope="col"><span class="sr-only">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody id="residentsTableBody"><!-- rows injected by JS --></tbody>
-          </table>
-        </div>
+        <!-- STATISTICS -->
+        <section class="stats-grid" aria-label="Resident statistics" id="stats-grid">
+          <!-- populated by JS -->
+        </section>
 
-        <!-- MOBILE CARDS -->
-        <div class="resident-cards" id="residentCards"><!-- cards injected by JS --></div>
-
-        <!-- EMPTY STATE -->
-        <div class="empty-state" id="residentsEmptyState" hidden>
-          <i class="fa-solid fa-user-magnifying-glass"></i>
-          <h4>No residents found</h4>
-          <p>Try adjusting your search or filters.</p>
-        </div>
-
-        <!-- PAGINATION -->
-        <div class="pagination" id="pagination">
-          <span class="pagination-summary" id="paginationSummary">Showing 0–0 of 0 residents</span>
-          <div class="pagination-controls" id="paginationControls"></div>
-        </div>
-      </section>
-
-      <!-- VERIFICATION QUEUE -->
-      <section class="panel" aria-labelledby="pendingVerificationTitle">
-        <div class="panel-header">
-          <div>
-            <h3 id="pendingVerificationTitle">Pending Verification</h3>
-            <p>Residents waiting for account verification.</p>
+        <!-- ALL RESIDENTS PANEL -->
+        <section class="panel panel--residents" aria-labelledby="all-residents-heading">
+          <div class="panel-head panel-head--residents">
+            <div>
+              <h2 id="all-residents-heading">All Residents</h2>
+              <p class="panel-subhead" style="padding: 4px 0 0;">View and manage residents registered within the estate.</p>
+            </div>
+            <div class="panel-controls">
+              <label class="search-field" for="resident-search">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" id="resident-search" placeholder="Search by name, unit or phone number" autocomplete="off">
+              </label>
+              <div class="select-field">
+                <label for="sort-select" class="sr-only">Sort residents</label>
+                <select id="sort-select">
+                  <option value="newest">Newest joined</option>
+                  <option value="oldest">Oldest joined</option>
+                  <option value="nameAsc">Name A–Z</option>
+                  <option value="nameDesc">Name Z–A</option>
+                  <option value="unitAsc">Unit A–Z</option>
+                </select>
+              </div>
+              <button class="btn btn--ghost" id="filter-toggle-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="filter-panel">
+                <i class="fa-solid fa-sliders" aria-hidden="true"></i> Filter
+                <span class="filter-count-badge" id="filter-count-badge" hidden>0</span>
+              </button>
+            </div>
           </div>
+
+          <!-- FILTER PANEL -->
+          <div class="filter-panel" id="filter-panel" hidden>
+            <div class="filter-group">
+              <span class="filter-group-title">Verification</span>
+              <div class="chip-row" data-filter-group="verification">
+                <button class="chip is-active" data-value="all" type="button">All</button>
+                <button class="chip" data-value="verified" type="button">Verified</button>
+                <button class="chip" data-value="pending" type="button">Pending</button>
+                <button class="chip" data-value="rejected" type="button">Rejected</button>
+              </div>
+            </div>
+            <div class="filter-group">
+              <span class="filter-group-title">Account Status</span>
+              <div class="chip-row" data-filter-group="status">
+                <button class="chip is-active" data-value="all" type="button">All</button>
+                <button class="chip" data-value="active" type="button">Active</button>
+                <button class="chip" data-value="suspended" type="button">Suspended</button>
+              </div>
+            </div>
+            <div class="filter-group filter-group--grow">
+              <span class="filter-group-title">Unit</span>
+              <label class="search-field search-field--compact" for="unit-filter-input">
+                <i class="fa-solid fa-building" aria-hidden="true"></i>
+                <input type="text" id="unit-filter-input" placeholder="e.g. Block A, Unit 204" autocomplete="off">
+              </label>
+            </div>
+            <div class="filter-actions">
+              <button class="text-link" id="clear-filters-btn" type="button">Clear filters</button>
+            </div>
+          </div>
+
+          <!-- DESKTOP TABLE -->
+          <div class="table-wrap" id="table-wrap">
+            <table class="residents-table" id="residents-table">
+              <thead>
+                <tr>
+                  <th scope="col">Resident</th>
+                  <th scope="col">Unit</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Verification</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Joined</th>
+                  <th scope="col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="residents-table-body"><!-- populated by JS --></tbody>
+            </table>
+          </div>
+
+          <!-- MOBILE CARDS -->
+          <div class="resident-cards" id="resident-cards"><!-- populated by JS --></div>
+
+          <!-- EMPTY STATE -->
+          <div class="empty-state" id="residents-empty-state" hidden>
+            <i class="fa-solid fa-user-magnifying-glass" aria-hidden="true"></i>
+            <strong>No residents found</strong>
+            <span>Try adjusting your search or filters.</span>
+          </div>
+
+          <!-- PAGINATION -->
+          <div class="pagination" id="pagination">
+            <span class="pagination-summary" id="pagination-summary">Showing 0–0 of 0 residents</span>
+            <div class="pagination-controls" id="pagination-controls"></div>
+          </div>
+        </section>
+
+        <!-- PENDING VERIFICATION + RESIDENTS SUMMARY -->
+        <section class="split-grid split-grid--activity" aria-label="Pending verification and residents summary">
+
+          <div class="panel panel--wide">
+            <div class="panel-head">
+              <h2>Pending Verification</h2>
+            </div>
+            <p class="panel-subhead" style="padding: 0 20px 12px;">Residents waiting for account verification.</p>
+            <div class="panel-body" id="verification-list"><!-- populated by JS --></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Residents Overview</h2>
+            </div>
+            <div class="panel-body">
+              <div class="details-block" id="residents-overview-summary"></div>
+            </div>
+            <div class="panel-body" style="padding-top: 0;">
+              <a href="manager-dashboard.html" class="text-link">Back to Dashboard</a>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- QUICK SUMMARY -->
+        <section class="summary-band" aria-label="Resident access overview">
+          <span class="summary-band-icon"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i></span>
+          <div class="summary-band-text">
+            <strong>Resident Access Overview</strong>
+            <p id="summary-band-text">Loading estate summary…</p>
+          </div>
+          <a href="manager-activity.html" class="btn btn--secondary btn--sm">View Activity <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </section>
+
+        <footer class="dashboard-footer">
+          <p>Rafara — Secure access. Connected communities.</p>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP (mobile drawer, if opened via header) ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ MODALS ============ -->
+
+  <!-- RESIDENT PROFILE MODAL -->
+  <div class="modal-overlay" id="resident-modal-overlay" hidden>
+    <div class="modal modal--profile" role="dialog" aria-modal="true" aria-labelledby="resident-modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <span class="modal-eyebrow">Resident profile</span>
+      <div class="modal-profile-head">
+        <span class="avatar avatar--lg" id="modal-avatar" aria-hidden="true">--</span>
+        <div>
+          <h3 id="resident-modal-title">--</h3>
+          <span class="modal-muted" id="modal-resident-id">--</span>
         </div>
-        <div class="verification-list" id="verificationList"><!-- injected by JS --></div>
-        <div class="empty-state empty-state-compact" id="verificationEmptyState" hidden>
-          <i class="fa-solid fa-circle-check"></i>
-          <h4>No pending verification</h4>
-          <p>All residents are verified. Nice and tidy.</p>
+      </div>
+      <dl class="profile-details">
+        <div><dt>Unit</dt><dd id="modal-unit">--</dd></div>
+        <div><dt>Phone</dt><dd id="modal-phone">--</dd></div>
+        <div><dt>Email</dt><dd id="modal-email">--</dd></div>
+        <div><dt>Verification</dt><dd id="modal-verification">--</dd></div>
+        <div><dt>Account status</dt><dd id="modal-status">--</dd></div>
+        <div><dt>Date joined</dt><dd id="modal-joined">--</dd></div>
+        <div><dt>Active passes</dt><dd id="modal-passes">--</dd></div>
+        <div><dt>Visitors currently inside</dt><dd id="modal-visitors">--</dd></div>
+      </dl>
+      <div class="modal-actions" id="modal-profile-actions">
+        <button class="btn btn--ghost" data-close-modal type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERIFY RESIDENT MODAL -->
+  <div class="modal-overlay" id="verify-modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="verify-modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <span class="modal-eyebrow" id="verify-modal-title">Verify Resident</span>
+      <p class="modal-subtext">Review the resident information before approving this account.</p>
+      <dl class="profile-details">
+        <div><dt>Name</dt><dd id="verify-name">--</dd></div>
+        <div><dt>Unit</dt><dd id="verify-unit">--</dd></div>
+        <div><dt>Phone</dt><dd id="verify-phone">--</dd></div>
+        <div><dt>Email</dt><dd id="verify-email">--</dd></div>
+        <div><dt>Submitted date</dt><dd id="verify-submitted">--</dd></div>
+      </dl>
+      <div class="modal-actions modal-actions--triple">
+        <button class="btn btn--primary" id="approve-resident-btn" type="button">Approve Resident</button>
+        <button class="btn btn--danger" id="reject-resident-btn" type="button">Reject</button>
+        <button class="text-link" data-close-modal type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVITE RESIDENT MODAL -->
+  <div class="modal-overlay" id="invite-modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="invite-modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <span class="modal-eyebrow" id="invite-modal-title">Invite Resident</span>
+      <p class="modal-subtext">Send a resident an invitation to join Rafara GatePass.</p>
+      <form id="invite-resident-form" novalidate>
+        <div class="form-field">
+          <label for="invite-name">Full Name</label>
+          <input type="text" id="invite-name" name="inviteName" required autocomplete="off">
         </div>
-      </section>
-
-      <!-- QUICK SUMMARY -->
-      <section class="summary-band" id="summaryBand">
-        <div class="summary-icon"><i class="fa-solid fa-chart-simple"></i></div>
-        <div class="summary-text">
-          <h4>Resident Access Overview</h4>
-          <p id="summaryText">Loading estate summary…</p>
+        <div class="form-field">
+          <label for="invite-email">Email Address</label>
+          <input type="email" id="invite-email" name="inviteEmail" required autocomplete="off">
         </div>
-        <a href="manager-activity.html" class="summary-link">View Activity <i class="fa-solid fa-arrow-right"></i></a>
-      </section>
-
-    </main>
-  </div>
-</div>
-
-<!-- ============ MOBILE BOTTOM NAV ============ -->
-<nav class="bottom-nav" aria-label="Primary mobile navigation">
-  <a href="manager-dashboard.html" class="bottom-nav-item">
-    <i class="fa-solid fa-house"></i><span>Home</span>
-  </a>
-  <a href="manager-security.html" class="bottom-nav-item">
-    <i class="fa-solid fa-shield-halved"></i><span>Verification</span>
-  </a>
-  <a href="manager-artisans.html" class="bottom-nav-item">
-    <i class="fa-solid fa-helmet-safety"></i><span>Artisans</span>
-  </a>
-  <a href="manager-passes.html" class="bottom-nav-item">
-    <i class="fa-solid fa-id-card"></i><span>Passes</span>
-  </a>
-  <button class="bottom-nav-item" id="moreBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="moreSheet">
-    <i class="fa-solid fa-ellipsis"></i><span>More</span>
-  </button>
-</nav>
-
-<!-- MORE BOTTOM SHEET -->
-<div class="sheet-overlay" id="moreSheetOverlay" hidden></div>
-<div class="bottom-sheet" id="moreSheet" role="dialog" aria-modal="true" aria-labelledby="moreSheetTitle" hidden>
-  <div class="bottom-sheet-handle" aria-hidden="true"></div>
-  <h3 id="moreSheetTitle" class="sr-only">More options</h3>
-  <a href="manager-units.html" class="sheet-link"><i class="fa-solid fa-building"></i><span>Units</span></a>
-  <a href="manager-security.html" class="sheet-link"><i class="fa-solid fa-shield"></i><span>Security</span></a>
-  <a href="manager-activity.html" class="sheet-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Activity</span></a>
-  <a href="manager-notifications.html" class="sheet-link"><i class="fa-solid fa-bell"></i><span>Notifications</span></a>
-  <a href="manager-settings.html" class="sheet-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
-  <a href="manager-profile.html" class="sheet-link"><i class="fa-solid fa-user"></i><span>Profile</span></a>
-  <button class="sheet-link sheet-link-danger" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></button>
-</div>
-
-<!-- ============ MODALS ============ -->
-
-<!-- RESIDENT PROFILE MODAL -->
-<div class="modal-overlay" id="residentModalOverlay" hidden>
-  <div class="modal modal-profile" role="dialog" aria-modal="true" aria-labelledby="residentModalTitle">
-    <button class="modal-close" type="button" data-close-modal aria-label="Close">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <h3 class="modal-eyebrow">Resident profile</h3>
-    <div class="modal-profile-head">
-      <span class="avatar avatar-lg" id="modalAvatar">--</span>
-      <div>
-        <h2 id="residentModalTitle">--</h2>
-        <span class="muted" id="modalResidentId">--</span>
-      </div>
-    </div>
-    <dl class="profile-details">
-      <div><dt>Unit</dt><dd id="modalUnit">--</dd></div>
-      <div><dt>Phone</dt><dd id="modalPhone">--</dd></div>
-      <div><dt>Email</dt><dd id="modalEmail">--</dd></div>
-      <div><dt>Verification</dt><dd id="modalVerification">--</dd></div>
-      <div><dt>Account status</dt><dd id="modalStatus">--</dd></div>
-      <div><dt>Date joined</dt><dd id="modalJoined">--</dd></div>
-      <div><dt>Active passes</dt><dd id="modalPasses">--</dd></div>
-      <div><dt>Visitors currently inside</dt><dd id="modalVisitors">--</dd></div>
-    </dl>
-    <div class="modal-actions" id="modalProfileActions">
-      <button class="btn btn-outline" data-close-modal type="button">Close</button>
+        <div class="form-field">
+          <label for="invite-phone">Phone Number</label>
+          <input type="tel" id="invite-phone" name="invitePhone" required autocomplete="off">
+        </div>
+        <div class="form-field">
+          <label for="invite-unit">Unit Number</label>
+          <input type="text" id="invite-unit" name="inviteUnit" placeholder="e.g. Block C, Unit 108" required autocomplete="off">
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn--primary btn--block">Send Invitation</button>
+        </div>
+      </form>
     </div>
   </div>
-</div>
 
-<!-- VERIFY RESIDENT MODAL -->
-<div class="modal-overlay" id="verifyModalOverlay" hidden>
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="verifyModalTitle">
-    <button class="modal-close" type="button" data-close-modal aria-label="Close">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <h3 class="modal-eyebrow">Verify Resident</h3>
-    <p class="modal-subtext">Review the resident information before approving this account.</p>
-    <dl class="profile-details">
-      <div><dt>Name</dt><dd id="verifyName">--</dd></div>
-      <div><dt>Unit</dt><dd id="verifyUnit">--</dd></div>
-      <div><dt>Phone</dt><dd id="verifyPhone">--</dd></div>
-      <div><dt>Email</dt><dd id="verifyEmail">--</dd></div>
-      <div><dt>Submitted date</dt><dd id="verifySubmitted">--</dd></div>
-    </dl>
-    <div class="modal-actions modal-actions-triple">
-      <button class="btn btn-primary" id="approveResidentBtn" type="button">Approve Resident</button>
-      <button class="btn btn-danger-outline" id="rejectResidentBtn" type="button">Reject</button>
-      <button class="btn-text" data-close-modal type="button">Cancel</button>
+  <!-- SUSPEND CONFIRM MODAL -->
+  <div class="modal-overlay" id="suspend-modal-overlay" hidden>
+    <div class="modal modal--confirm" role="dialog" aria-modal="true" aria-labelledby="suspend-modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <span class="modal-confirm-icon"><i class="fa-solid fa-user-lock" aria-hidden="true"></i></span>
+      <h3 id="suspend-modal-title">Suspend Resident?</h3>
+      <p class="modal-subtext">This will temporarily restrict the resident's account and access to resident services.</p>
+      <div class="modal-actions modal-actions--triple">
+        <button class="btn btn--danger" id="confirm-suspend-btn" type="button">Suspend Account</button>
+        <button class="text-link" data-close-modal type="button">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- INVITE RESIDENT MODAL -->
-<div class="modal-overlay" id="inviteModalOverlay" hidden>
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="inviteModalTitle">
-    <button class="modal-close" type="button" data-close-modal aria-label="Close">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <h3 class="modal-eyebrow" id="inviteModalTitle">Invite Resident</h3>
-    <p class="modal-subtext">Send a resident an invitation to join Rafara GatePass.</p>
-    <form id="inviteResidentForm" novalidate>
-      <div class="form-field">
-        <label for="inviteName">Full Name</label>
-        <input type="text" id="inviteName" name="inviteName" required autocomplete="off" />
-      </div>
-      <div class="form-field">
-        <label for="inviteEmail">Email Address</label>
-        <input type="email" id="inviteEmail" name="inviteEmail" required autocomplete="off" />
-      </div>
-      <div class="form-field">
-        <label for="invitePhone">Phone Number</label>
-        <input type="tel" id="invitePhone" name="invitePhone" required autocomplete="off" />
-      </div>
-      <div class="form-field">
-        <label for="inviteUnit">Unit Number</label>
-        <input type="text" id="inviteUnit" name="inviteUnit" placeholder="e.g. Block C, Unit 108" required autocomplete="off" />
-      </div>
-      <div class="modal-actions">
-        <button type="submit" class="btn btn-primary btn-block">Send Invitation</button>
-      </div>
-    </form>
-  </div>
-</div>
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-<!-- SUSPEND CONFIRM MODAL -->
-<div class="modal-overlay" id="suspendModalOverlay" hidden>
-  <div class="modal modal-confirm" role="dialog" aria-modal="true" aria-labelledby="suspendModalTitle">
-    <button class="modal-close" type="button" data-close-modal aria-label="Close">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <div class="modal-confirm-icon"><i class="fa-solid fa-user-lock"></i></div>
-    <h3 id="suspendModalTitle">Suspend Resident?</h3>
-    <p class="modal-subtext">This will temporarily restrict the resident's account and access to resident services.</p>
-    <div class="modal-actions modal-actions-triple">
-      <button class="btn btn-danger" id="confirmSuspendBtn" type="button">Suspend Account</button>
-      <button class="btn-text" data-close-modal type="button">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
-
-<script src="scripts/manager-residents.js"></script>
+  <script src="scripts/manager-residents.js"></script>
 </body>
+
 </html>
