@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Units · Rafara GatePass — Estate Manager</title>
+  <meta name="description"
+    content="Estate Manager units page for Rafara GatePass — view, search, and manage all residential units across the estate.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/manager-dashboard.css">
+  <link rel="stylesheet" href="styles/manager-units.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="manager-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
+      </div>
+
+      <span class="sidebar-role-chip"><i class="fa-solid fa-building-shield" aria-hidden="true"></i> Estate Manager</span>
+
+      <nav class="sidebar-nav" aria-label="Manager sections">
+        <ul>
+          <li>
+            <a href="manager-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-residents.html" class="nav-item">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Residents</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-units.html" class="nav-item is-active" aria-current="page">
+              <i class="fa-solid fa-building" aria-hidden="true"></i>
+              <span>Units</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-security.html" class="nav-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Security</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-artisans.html" class="nav-item">
+              <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+              <span>Artisans</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-passes.html" class="nav-item">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-notifications.html" class="nav-item">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-settings.html" class="nav-item">
+              <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="manager-profile.html" class="sidebar-profile-link">
+          <span class="avatar" aria-hidden="true">EM</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Estate Manager</span>
+            <span class="profile-role">Millenium Housing Estate,Lagos</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="manager-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="manager-residents.html" class="mobile-nav-item">
+        <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+        <span>Verification</span>
+      </a>
+      <a href="manager-artisans.html" class="mobile-nav-item">
+        <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+        <span>Artisans</span>
+      </a>
+      <a href="manager-passes.html" class="mobile-nav-item">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
+      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false"
+        aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="manager-units.html" class="mobile-sheet-link"><i class="fa-solid fa-building" aria-hidden="true"></i> Units</a>
+        <a href="manager-security.html" class="mobile-sheet-link"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security</a>
+        <a href="manager-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Activity</a>
+        <a href="manager-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications</a>
+        <a href="manager-settings.html" class="mobile-sheet-link"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+        <a href="manager-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
+
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Estate Manager Dashboard</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button type="button" class="icon-btn" id="global-search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          </button>
+
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+                <button type="button" class="text-link" id="mark-all-read-btn">Mark all read</button>
+              </div>
+              <div class="dropdown-panel-body" id="notif-panel-list"></div>
+              <a href="manager-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+            </div>
+          </div>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">EM</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Estate Manager</span>
+                <span class="profile-role">Millenium Housing Estate,Lagos</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="manager-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+              <a href="manager-settings.html" role="menuitem"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="dashboard-content">
+
+        <!-- PAGE HEAD -->
+        <section class="units-page-head" aria-label="Units">
+          <div class="units-page-head-text">
+            <nav class="units-breadcrumb" aria-label="Breadcrumb">
+              <span>Manager</span>
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+              <span>Units</span>
+            </nav>
+            <h1>Units</h1>
+            <p class="units-page-desc">Manage residential units, occupancy, and resident assignments across the estate.</p>
+          </div>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid" aria-label="Unit statistics" id="units-stats-grid">
+          <!-- populated by JS -->
+        </section>
+
+        <!-- SEARCH & FILTER BAR -->
+        <section class="units-toolbar" aria-label="Search and filter units">
+          <div class="units-toolbar-row">
+
+            <div class="units-search-field">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <input type="search" id="units-search-input" placeholder="Search by unit number or resident..."
+                aria-label="Search units">
+            </div>
+
+            <div class="units-filter-controls">
+
+              <select id="units-status-filter" class="units-select" aria-label="Filter by status">
+                <option value="all">All Statuses</option>
+                <option value="occupied">Occupied</option>
+                <option value="available">Available</option>
+              </select>
+
+              <select id="units-block-filter" class="units-select" aria-label="Filter by block or street">
+                <option value="all">All Blocks / Streets</option>
+              </select>
+
+              <select id="units-resident-count-filter" class="units-select" aria-label="Filter by resident count">
+                <option value="all">Any Resident Count</option>
+                <option value="0">0 Residents</option>
+                <option value="1">1 Resident</option>
+                <option value="2-3">2–3 Residents</option>
+                <option value="4+">4+ Residents</option>
+              </select>
+
+              <select id="units-sort" class="units-select" aria-label="Sort units">
+                <option value="unit-asc">Unit (A–Z)</option>
+                <option value="unit-desc">Unit (Z–A)</option>
+                <option value="residents-desc">Most Residents</option>
+                <option value="passes-desc">Most Active Passes</option>
+                <option value="recent">Most Recent Activity</option>
+              </select>
+
+              <button type="button" class="btn btn--ghost" id="units-filter-btn">
+                <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                Filter
+              </button>
+
+              <button type="button" class="btn btn--primary" id="units-add-btn">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                Add Unit
+              </button>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- UNITS TABLE -->
+        <section class="panel units-panel" aria-label="Units list">
+
+          <div class="units-table-wrap">
+            <table class="units-table" id="units-table">
+              <thead>
+                <tr>
+                  <th scope="col">Unit / Flat</th>
+                  <th scope="col">Block / Street</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Residents</th>
+                  <th scope="col">Active Passes</th>
+                  <th scope="col">Last Activity</th>
+                  <th scope="col" class="units-table-actions-col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="units-table-body">
+                <!-- populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="units-cards" id="units-cards">
+            <!-- populated by JS (mobile) -->
+          </div>
+
+          <div class="empty-state" id="units-empty-state" hidden>
+            <i class="fa-solid fa-building-circle-xmark" aria-hidden="true"></i>
+            <strong>No units found</strong>
+            <span>Try adjusting your search or filters to find what you're looking for.</span>
+            <button type="button" class="btn btn--secondary" id="units-clear-filters-btn" style="margin-top:12px;">
+              Clear Filters
+            </button>
+          </div>
+
+          <!-- PAGINATION -->
+          <div class="units-pagination" id="units-pagination">
+            <span class="units-pagination-summary" id="units-pagination-summary"></span>
+            <div class="units-pagination-controls" id="units-pagination-controls"></div>
+          </div>
+
+        </section>
+
+        <footer class="dashboard-footer">
+          <p>Rafara — Secure access. Connected communities.</p>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP (mobile drawer) ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ ROW ACTION MENU (shared, positioned via JS) ============ -->
+  <div class="row-menu" id="row-menu" hidden>
+    <button type="button" class="row-menu-item" data-row-action="view-unit">
+      <i class="fa-solid fa-eye" aria-hidden="true"></i> View Flat / Unit
+    </button>
+    <button type="button" class="row-menu-item" data-row-action="view-residents">
+      <i class="fa-solid fa-users" aria-hidden="true"></i> View Residents
+    </button>
+    <button type="button" class="row-menu-item" data-row-action="view-passes">
+      <i class="fa-solid fa-id-card" aria-hidden="true"></i> View Passes
+    </button>
+    <button type="button" class="row-menu-item" data-row-action="edit-unit">
+      <i class="fa-solid fa-pen" aria-hidden="true"></i> Edit Flat / Unit
+    </button>
+    <button type="button" class="row-menu-item row-menu-item--danger" data-row-action="disable-unit">
+      <i class="fa-solid fa-ban" aria-hidden="true"></i> Disable Flat / Unit
+    </button>
+  </div>
+
+  <!-- ============ VIEW UNIT DRAWER ============ -->
+  <div class="drawer-overlay" id="unit-drawer-overlay" hidden>
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <aside class="unit-drawer" role="dialog" aria-modal="true" aria-labelledby="unit-drawer-title" id="unit-drawer">
+
+      <div class="unit-drawer-head">
+        <div>
+          <h2 id="unit-drawer-title">Flat 1</h2>
+          <p class="unit-drawer-sub" id="unit-drawer-sub">Block A</p>
+        </div>
+        <button type="button" class="icon-btn" id="unit-drawer-close" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="unit-drawer-status">
+        <span id="unit-drawer-status-badge"></span>
+      </div>
+
+      <div class="unit-drawer-body">
+
+        <section class="unit-drawer-section">
+          <h3>Unit / Flat Information</h3>
+          <div class="details-block" id="unit-drawer-info"></div>
+        </section>
+
+        <section class="unit-drawer-section">
+          <h3>Residents</h3>
+          <div class="unit-drawer-residents" id="unit-drawer-residents"></div>
+        </section>
+
+        <section class="unit-drawer-section">
+          <h3>Access Activity</h3>
+          <div class="details-block" id="unit-drawer-access"></div>
+        </section>
+
+      </div>
+
+      <div class="unit-drawer-foot">
+        <button type="button" class="btn btn--ghost" id="unit-drawer-view-residents">View Residents</button>
+        <button type="button" class="btn btn--ghost" id="unit-drawer-view-passes">View Passes</button>
+        <button type="button" class="btn btn--primary" id="unit-drawer-edit">Edit Unit</button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ============ ADD UNIT MODAL ============ -->
+  <div class="modal-overlay" id="add-unit-modal-overlay" hidden>
+    <div class="modal-backdrop" data-close-modal="add-unit"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="add-unit-modal-title">
+
+      <div class="modal-head">
+        <h2 id="add-unit-modal-title">Add Unit</h2>
+        <button type="button" class="icon-btn" data-close-modal="add-unit" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <form class="modal-form" id="add-unit-form" novalidate>
+
+        <div class="form-field">
+          <label for="add-unit-number">Flat / Unit Number</label>
+          <input type="text" id="add-unit-number" name="unitNumber" placeholder="e.g. Flat 14" required>
+          <span class="form-error" id="add-unit-number-error"></span>
+        </div>
+
+        <div class="form-field">
+          <label for="add-unit-block">Block / Street</label>
+          <input type="text" id="add-unit-block" name="block" placeholder="e.g. Block 7" required>
+          <span class="form-error" id="add-unit-block-error"></span>
+        </div>
+
+        <div class="form-field">
+          <label for="add-unit-address">Address</label>
+          <input type="text" id="add-unit-address" name="address" placeholder="e.g. 14 Palm Court Close" required>
+          <span class="form-error" id="add-unit-address-error"></span>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-field">
+            <label for="add-unit-type">Unit Type</label>
+            <select id="add-unit-type" name="unitType" required>
+              <option value="">Select type</option>
+              <option value="Apartment">Apartment</option>
+              <option value="Duplex">Duplex</option>
+              <option value="Terrace">Terrace</option>
+              <option value="Detached House">Detached House</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="form-error" id="add-unit-type-error"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="add-unit-max-residents">Maximum Residents</label>
+            <input type="number" id="add-unit-max-residents" name="maxResidents" min="1" max="20" placeholder="e.g. 6" required>
+            <span class="form-error" id="add-unit-max-residents-error"></span>
+          </div>
+
+        </div>
+
+        <div class="form-field">
+          <label for="add-unit-status">Status</label>
+          <select id="add-unit-status" name="status" required>
+            <option value="Available">Available</option>
+            <option value="Occupied">Occupied</option>
+          </select>
+          <span class="form-error" id="add-unit-status-error"></span>
+        </div>
+
+      </form>
+
+      <div class="modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="add-unit">Cancel</button>
+        <button type="submit" form="add-unit-form" class="btn btn--primary" id="add-unit-submit-btn">Add Unit</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ DISABLE UNIT CONFIRMATION MODAL ============ -->
+  <div class="modal-overlay" id="disable-unit-modal-overlay" hidden>
+    <div class="modal-backdrop" data-close-modal="disable-unit"></div>
+    <div class="modal-panel modal-panel--sm" role="dialog" aria-modal="true" aria-labelledby="disable-unit-modal-title">
+
+      <div class="modal-head">
+        <h2 id="disable-unit-modal-title">Disable Unit</h2>
+        <button type="button" class="icon-btn" data-close-modal="disable-unit" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="modal-confirm-body">
+        <span class="modal-confirm-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+        <p>
+          Disabling <strong id="disable-unit-name">this unit</strong> prevents new activity — visitor passes, access
+          requests, and resident assignments — from being assigned to it. Existing residents and passes will not be
+          removed. You can re-enable this unit at any time.
+        </p>
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="disable-unit">Cancel</button>
+        <button type="button" class="btn btn--danger" id="disable-unit-confirm-btn">Disable Unit</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="scripts/manager-dashboard.js"></script>
+  <script src="scripts/manager-units.js"></script>
+</body>
+
+</html>
