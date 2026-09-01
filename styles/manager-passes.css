@@ -1,0 +1,1351 @@
+/* =========================================================
+   RAFARA GATEPASS — MANAGER PASSES PAGE
+   Page-specific styles. Reuses tokens, sidebar, topbar,
+   panels, badges, buttons, dropdowns and toast styles
+   defined in manager-dashboard.css.
+   ========================================================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.manager-pass-content {
+  gap: 20px;
+}
+
+/* =========================================================
+   HEADER SEARCH (topbar)
+   ========================================================= */
+
+.manager-pass-header-search {
+  position: relative;
+  display: none;
+  align-items: center;
+  width: 260px;
+}
+
+.manager-pass-header-search i {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.manager-pass-header-search input {
+  width: 100%;
+  height: 41px;
+  padding: 0 14px 0 36px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  font-size: 12.5px;
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manager-pass-header-search input:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 3px rgba(169, 152, 255, 0.18);
+}
+
+@media (min-width: 1150px) {
+  .manager-pass-header-search {
+    display: flex;
+  }
+}
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.manager-pass-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.manager-pass-breadcrumb {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.manager-pass-heading h1 {
+  margin-top: 6px;
+  font-size: clamp(24px, 2.4vw, 30px);
+  letter-spacing: -0.02em;
+}
+
+.manager-pass-heading p {
+  margin-top: 6px;
+  max-width: 480px;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.manager-pass-create-btn {
+  white-space: nowrap;
+}
+
+/* =========================================================
+   LIVE ACCESS STATUS PANEL
+   ========================================================= */
+
+.manager-pass-live-panel {
+  padding: 22px 24px;
+  border: 1px solid var(--border-purple);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 92% 0%, rgba(169, 152, 255, 0.16), transparent 32%),
+    linear-gradient(135deg, #fff 0%, #faf9ff 100%);
+  box-shadow: var(--shadow-sm);
+}
+
+.manager-pass-live-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.manager-pass-live-head h2 {
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+.manager-pass-live-head p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.manager-pass-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px var(--green-bg);
+  animation: manager-pass-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes manager-pass-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--green-bg); }
+  50% { box-shadow: 0 0 0 7px var(--green-bg); }
+}
+
+.manager-pass-live-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.manager-pass-live-stat {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: white;
+}
+
+.manager-pass-live-stat strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.manager-pass-live-stat span {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-size: 11.5px;
+}
+
+.manager-pass-live-stat--inside strong {
+  color: var(--green);
+}
+
+/* =========================================================
+   PASS TYPE BREAKDOWN
+   ========================================================= */
+
+.manager-pass-breakdown-grid {
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
+}
+
+.manager-pass-breakdown-body {
+  gap: 14px;
+}
+
+.manager-pass-breakdown-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.manager-pass-breakdown-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.manager-pass-breakdown-row-top span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.manager-pass-breakdown-row-top span:first-child i {
+  width: 16px;
+  color: var(--rafara-purple);
+}
+
+.manager-pass-breakdown-row-top span:last-child {
+  font-family: var(--font-head);
+  font-weight: 700;
+}
+
+.manager-pass-breakdown-bar {
+  height: 7px;
+  border-radius: 99px;
+  background: #f0f1f6;
+  overflow: hidden;
+}
+
+.manager-pass-breakdown-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--rafara-purple), var(--rafara-lilac));
+}
+
+/* =========================================================
+   PASS SECURITY PANEL
+   ========================================================= */
+
+.manager-pass-security-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manager-pass-security-body p {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 11.8px;
+  line-height: 1.5;
+}
+
+.manager-pass-security-body i {
+  margin-top: 2px;
+  color: var(--rafara-purple);
+  font-size: 12px;
+}
+
+/* =========================================================
+   SEARCH + FILTER BAR
+   ========================================================= */
+
+.manager-pass-filters {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: white;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.manager-pass-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.manager-pass-search i {
+  position: absolute;
+  left: 15px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.manager-pass-search input {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px 0 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  font-size: 13px;
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manager-pass-search input:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 3px rgba(169, 152, 255, 0.18);
+  background: white;
+}
+
+.manager-pass-filter-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.manager-pass-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+  flex: 1 1 150px;
+}
+
+.manager-pass-filter-field span {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.manager-pass-filter-field select,
+.manager-pass-filter-field input[type="date"] {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font-size: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manager-pass-filter-field select:focus,
+.manager-pass-filter-field input[type="date"]:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 3px rgba(169, 152, 255, 0.18);
+}
+
+.manager-pass-clear-btn {
+  flex: 0 0 auto;
+  margin-bottom: 1px;
+}
+
+/* =========================================================
+   PASSES TABLE
+   ========================================================= */
+
+.manager-pass-table-panel {
+  padding-bottom: 4px;
+}
+
+.manager-pass-result-count {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.manager-pass-table-scroll {
+  overflow-x: auto;
+}
+
+.manager-pass-table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+}
+
+.manager-pass-table thead th {
+  padding: 10px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.manager-pass-table tbody td {
+  padding: 13px 20px;
+  border-bottom: 1px solid #f0f1f6;
+  font-size: 12.5px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.manager-pass-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.manager-pass-table tbody tr:hover {
+  background: var(--surface-soft);
+}
+
+.manager-pass-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.manager-pass-id-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--rafara-purple);
+}
+
+.manager-pass-id-copy {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 3px;
+  border-radius: 6px;
+  font-size: 11px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.manager-pass-id-copy:hover {
+  color: var(--rafara-purple);
+  background: var(--rafara-lilac-soft);
+}
+
+.manager-pass-holder-cell {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.manager-pass-holder-cell span {
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.manager-pass-type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.manager-pass-type-chip i {
+  font-size: 9px;
+}
+
+.manager-pass-access-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.manager-pass-access-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.manager-pass-access-dot--inside {
+  background: var(--green);
+  box-shadow: 0 0 0 3px var(--green-bg);
+  animation: manager-pass-pulse 1.8s ease-in-out infinite;
+}
+
+.manager-pass-access-cell--inside {
+  color: var(--green);
+}
+
+/* Action menu */
+
+.manager-pass-action-wrap {
+  position: relative;
+}
+
+.manager-pass-action-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  color: var(--text-soft);
+  transition: 0.2s ease;
+}
+
+.manager-pass-action-btn:hover {
+  background: var(--rafara-lilac-soft);
+  border-color: var(--border-purple);
+  color: var(--rafara-purple);
+}
+
+.manager-pass-action-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 40;
+  width: 200px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: white;
+  box-shadow: var(--shadow-lg);
+  animation: dropdownIn 0.15s ease;
+}
+
+.manager-pass-action-menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font-size: 12px;
+}
+
+.manager-pass-action-menu button:hover {
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+}
+
+.manager-pass-action-menu button i {
+  width: 15px;
+  color: var(--text-muted);
+}
+
+.manager-pass-action-menu button.manager-pass-action-danger {
+  color: var(--red);
+}
+
+.manager-pass-action-menu button.manager-pass-action-danger i {
+  color: var(--red);
+}
+
+.manager-pass-action-menu hr {
+  margin: 5px 3px;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* =========================================================
+   MOBILE PASS CARDS
+   ========================================================= */
+
+.manager-pass-cards {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px 16px;
+}
+
+.manager-pass-card {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manager-pass-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.manager-pass-card-holder strong {
+  display: block;
+  font-size: 13px;
+}
+
+.manager-pass-card-holder span {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.manager-pass-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--text-soft);
+}
+
+.manager-pass-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid #f0f1f6;
+}
+
+.manager-pass-card-valid {
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.manager-pass-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.manager-pass-empty i {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+  font-size: 19px;
+}
+
+.manager-pass-empty strong {
+  font-size: 14px;
+}
+
+.manager-pass-empty span {
+  max-width: 300px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.manager-pass-empty .btn {
+  margin-top: 8px;
+}
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.manager-pass-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 18px 20px 22px;
+}
+
+.manager-pass-page-btn {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  color: var(--text-soft);
+  font-size: 11.5px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.manager-pass-page-btn:hover:not(:disabled) {
+  border-color: var(--border-purple);
+  color: var(--rafara-purple);
+  background: var(--rafara-lilac-soft);
+}
+
+.manager-pass-page-btn.is-active {
+  background: var(--rafara-purple);
+  border-color: var(--rafara-purple);
+  color: white;
+}
+
+.manager-pass-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.manager-pass-page-ellipsis {
+  padding: 0 4px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+/* =========================================================
+   PENDING PASSES LIST
+   ========================================================= */
+
+.manager-pass-pending-count {
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.manager-pass-pending-list {
+  gap: 10px;
+}
+
+.manager-pass-pending-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: white;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.manager-pass-pending-row:hover {
+  border-color: rgba(168, 108, 0, 0.25);
+  transform: translateX(2px);
+}
+
+.manager-pass-pending-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: var(--orange-bg);
+  color: var(--orange);
+  font-size: 13px;
+}
+
+.manager-pass-pending-info {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.manager-pass-pending-info strong {
+  font-size: 12px;
+}
+
+.manager-pass-pending-info span {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+/* =========================================================
+   RECENT PASS ACTIVITY (uses .activity-item base styles)
+   ========================================================= */
+
+#recent-pass-activity-list .activity-icon {
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+}
+
+/* =========================================================
+   DRAWER
+   ========================================================= */
+
+.manager-pass-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(5, 10, 48, 0.48);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.manager-pass-drawer-backdrop.is-open {
+  opacity: 1;
+}
+
+.manager-pass-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 401;
+  width: min(460px, 100vw);
+  display: flex;
+  flex-direction: column;
+  background: white;
+  box-shadow: -20px 0 55px rgba(5, 10, 48, 0.2);
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.manager-pass-drawer.is-open {
+  transform: translateX(0);
+}
+
+.manager-pass-drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 22px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.manager-pass-drawer-id {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--rafara-navy);
+}
+
+.manager-pass-drawer-type {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.manager-pass-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 22px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.manager-pass-drawer-foot {
+  display: flex;
+  gap: 10px;
+  padding: 16px 22px;
+  border-top: 1px solid var(--border);
+}
+
+.manager-pass-drawer-foot .btn {
+  flex: 1;
+}
+
+.manager-pass-drawer-section h3 {
+  margin-bottom: 10px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.manager-pass-drawer-status-badge {
+  display: inline-flex;
+  margin-bottom: 18px;
+}
+
+.manager-pass-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border: 1px dashed var(--border-purple);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  text-align: center;
+}
+
+.manager-pass-qr-code {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(45deg, var(--rafara-navy) 0 6px, transparent 6px 12px),
+    white;
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.manager-pass-qr-code i {
+  font-size: 68px;
+  color: var(--rafara-navy);
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.manager-pass-qr strong {
+  font-family: var(--font-head);
+  font-size: 13px;
+}
+
+.manager-pass-qr span {
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.manager-pass-qr .btn {
+  margin-top: 4px;
+}
+
+.manager-pass-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.manager-pass-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding-bottom: 18px;
+}
+
+.manager-pass-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.manager-pass-timeline-dot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.manager-pass-timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rafara-purple);
+  flex: 0 0 10px;
+  margin-top: 3px;
+}
+
+.manager-pass-timeline-line {
+  flex: 1;
+  width: 1px;
+  margin-top: 4px;
+  background: var(--border);
+}
+
+.manager-pass-timeline-item:last-child .manager-pass-timeline-line {
+  display: none;
+}
+
+.manager-pass-timeline-body strong {
+  display: block;
+  font-size: 12px;
+}
+
+.manager-pass-timeline-body p {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.manager-pass-timeline-time {
+  margin-left: auto;
+  padding-left: 10px;
+  color: var(--text-muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.manager-pass-verify-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+  border-radius: 13px;
+  background: var(--green-bg);
+}
+
+.manager-pass-verify-box.is-pending {
+  background: var(--orange-bg);
+}
+
+.manager-pass-verify-box i {
+  font-size: 15px;
+  color: var(--green);
+}
+
+.manager-pass-verify-box.is-pending i {
+  color: var(--orange);
+}
+
+.manager-pass-verify-box strong {
+  display: block;
+  font-size: 12px;
+}
+
+.manager-pass-verify-box span {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-soft);
+  font-size: 10.5px;
+}
+
+/* =========================================================
+   MODALS (Create Pass / Cancel Pass)
+   ========================================================= */
+
+.manager-pass-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(5, 10, 48, 0.5);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.manager-pass-modal-backdrop.is-open {
+  opacity: 1;
+}
+
+.manager-pass-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 501;
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: white;
+  box-shadow: var(--shadow-lg);
+  transform: translate(-50%, -48%) scale(0.97);
+  opacity: 0;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.manager-pass-modal.is-open {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.manager-pass-modal--sm {
+  width: min(420px, calc(100vw - 32px));
+}
+
+.manager-pass-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.manager-pass-modal-head h2 {
+  font-size: 17px;
+}
+
+.manager-pass-modal-body {
+  padding: 20px 22px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.manager-pass-modal-body p {
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.manager-pass-modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 22px;
+  border-top: 1px solid var(--border);
+}
+
+.manager-pass-confirm-id {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+.manager-pass-confirm-id span {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.manager-pass-confirm-id strong {
+  font-family: var(--font-head);
+  color: var(--rafara-purple);
+}
+
+/* Type picker */
+
+.manager-pass-type-picker {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.manager-pass-type-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  color: var(--text-soft);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.manager-pass-type-option i {
+  font-size: 15px;
+}
+
+.manager-pass-type-option:hover {
+  border-color: var(--border-purple);
+  background: var(--rafara-lilac-soft);
+}
+
+.manager-pass-type-option.is-active {
+  border-color: var(--rafara-purple);
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+  box-shadow: inset 0 0 0 1px var(--rafara-purple);
+}
+
+/* Form fields */
+
+.manager-pass-form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.manager-pass-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.manager-pass-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.manager-pass-field label {
+  color: var(--text-soft);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.manager-pass-field input,
+.manager-pass-field textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font-size: 12.5px;
+  font-family: var(--font-body);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manager-pass-field textarea {
+  resize: vertical;
+  min-height: 66px;
+}
+
+.manager-pass-field input:focus,
+.manager-pass-field textarea:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 3px rgba(169, 152, 255, 0.18);
+}
+
+.manager-pass-form-error {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--red-bg);
+  color: var(--red);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   TOAST ITEM
+   ========================================================= */
+
+.manager-pass-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 260px;
+  padding: 13px 15px;
+  border-radius: 13px;
+  background: var(--rafara-navy);
+  color: white;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  animation: manager-pass-toast-in 0.22s ease, manager-pass-toast-out 0.22s ease 2.6s;
+}
+
+.manager-pass-toast i {
+  color: var(--rafara-lilac);
+  font-size: 13px;
+}
+
+.manager-pass-toast--error i {
+  color: #ff9aa2;
+}
+
+@keyframes manager-pass-toast-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes manager-pass-toast-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1150px) {
+  .manager-pass-live-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-pass-breakdown-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .manager-pass-heading {
+    align-items: stretch;
+  }
+
+  .manager-pass-create-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 780px) {
+  .manager-pass-table-scroll {
+    display: none;
+  }
+
+  .manager-pass-cards {
+    display: flex;
+  }
+
+  .manager-pass-filter-row {
+    gap: 10px;
+  }
+
+  .manager-pass-filter-field {
+    min-width: 130px;
+  }
+
+  .manager-pass-form-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-pass-type-picker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .manager-pass-drawer {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .manager-pass-live-panel {
+    padding: 18px;
+  }
+
+  .manager-pass-filters {
+    padding: 15px;
+  }
+
+  .manager-pass-modal-body {
+    padding: 16px 18px;
+  }
+
+  .manager-pass-modal-head,
+  .manager-pass-modal-foot {
+    padding: 16px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manager-pass-live-dot,
+  .manager-pass-access-dot--inside {
+    animation: none;
+  }
+}
