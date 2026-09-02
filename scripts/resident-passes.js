@@ -32,6 +32,12 @@
     "property-exit": "Property Exit Pass"
   };
 
+  const ONE_DAY_PURPOSE_LABELS = {
+    visitor: "Regular Visitor",
+    delivery: "Delivery Pass",
+    ride: "Ride / Pickup Pass"
+  };
+
   const PASS_TYPE_ICONS = {
     "one-day-visitor": "fa-regular fa-calendar-check",
     "multi-day-visitor": "fa-solid fa-calendar-week",
@@ -176,6 +182,36 @@
       createdAt: "2026-08-04"
     },
     {
+      id: "RFP-20446",
+      type: "one-day-visitor",
+      purpose: "delivery",
+      name: "Ibrahim Yusuf",
+      phone: "+234 816 444 2211",
+      status: "active",
+      date: "2026-08-06",
+      arrival: "2:30 PM",
+      host: resident.fullName,
+      deliveryService: "Glovo",
+      deliveryType: "Food / Restaurant",
+      vehicle: "Dispatch bike · KJA 246 AB",
+      createdAt: "2026-08-05"
+    },
+    {
+      id: "RFP-20444",
+      type: "one-day-visitor",
+      purpose: "ride",
+      name: "Musa Ibrahim",
+      phone: "+234 809 555 7788",
+      status: "checked-out",
+      date: "2026-08-04",
+      arrival: "7:40 AM",
+      host: resident.fullName,
+      rideService: "Bolt",
+      tripType: "Pickup",
+      vehicle: "Toyota Corolla · ABC 123 XY",
+      createdAt: "2026-08-04"
+    },
+    {
       id: "RFP-20432",
       type: "property-exit",
       name: "Sofa Set (3-piece)",
@@ -221,6 +257,7 @@
     resident,
     PASS_LIFECYCLES,
     PASS_TYPE_LABELS,
+    ONE_DAY_PURPOSE_LABELS,
     PASS_TYPE_ICONS,
     get passes() { return passes; },
     get recentActivity() { return recentActivity; },
@@ -349,8 +386,13 @@
   function metaRowsForPass(p) {
     const rows = [];
     if (p.type === "one-day-visitor") {
-      rows.push(["Visit Date", H.formatDate(p.date)]);
+      rows.push(["Purpose", D.ONE_DAY_PURPOSE_LABELS[p.purpose] || "Regular Visitor"]);
+      rows.push(["Date", H.formatDate(p.date)]);
       if (p.arrival) rows.push(["Expected Arrival", p.arrival]);
+      if (p.purpose === "delivery" && p.deliveryService) rows.push(["Service", p.deliveryService]);
+      if (p.purpose === "delivery" && p.deliveryType) rows.push(["Delivery Type", p.deliveryType]);
+      if (p.purpose === "ride" && p.rideService) rows.push(["Ride Service", p.rideService]);
+      if (p.purpose === "ride" && p.tripType) rows.push(["Trip Type", p.tripType]);
     } else if (p.type === "multi-day-visitor") {
       rows.push(["Valid", `${H.formatDateShort(p.startDate)} – ${H.formatDateShort(p.endDate)}`]);
     } else if (p.type === "artisan") {
@@ -399,8 +441,10 @@
   }
 
   function passCardHtml(p) {
-    const typeLabel = D.PASS_TYPE_LABELS[p.type];
-    const icon = D.PASS_TYPE_ICONS[p.type];
+    const typeLabel = p.type === "one-day-visitor" && p.purpose && p.purpose !== "visitor"
+      ? D.ONE_DAY_PURPOSE_LABELS[p.purpose]
+      : D.PASS_TYPE_LABELS[p.type];
+    const icon = p.purpose === "delivery" ? "fa-solid fa-box" : p.purpose === "ride" ? "fa-solid fa-car-side" : D.PASS_TYPE_ICONS[p.type];
     const rows = metaRowsForPass(p)
       .map(([label, val]) => `<div class="pass-card-meta-row"><span>${label}</span><span>${H.escapeHtml(val)}</span></div>`)
       .join("");
@@ -817,6 +861,43 @@
 })();
 
 /* ==========================================================================
+   ONE-DAY VISITOR PURPOSE DROPDOWN
+   ======================================================================== */
+
+(function () {
+  "use strict";
+
+  const form = document.getElementById("form-one-day");
+  const purposeSelect = document.getElementById("od-purpose");
+  const help = document.getElementById("od-purpose-help");
+  const groups = form.querySelectorAll("[data-purpose-fields]");
+
+  const helpText = {
+    visitor: "For a normal guest visiting you for the day.",
+    delivery: "For a dispatch rider or delivery person bringing something to you.",
+    ride: "For a ride driver picking you up or dropping you off at the estate."
+  };
+
+  function setPurpose(purpose) {
+    groups.forEach((group) => {
+      const active = group.dataset.purposeFields === purpose;
+      group.hidden = !active;
+      group.querySelectorAll("input, select, textarea").forEach((field) => {
+        field.disabled = !active;
+      });
+    });
+    help.textContent = helpText[purpose] || "Choose why this person is entering the estate.";
+  }
+
+  purposeSelect.addEventListener("change", (e) => setPurpose(e.target.value));
+  setPurpose("");
+
+  form.addEventListener("reset", () => {
+    requestAnimationFrame(() => setPurpose(""));
+  });
+})();
+
+/* ==========================================================================
    FORM SUBMISSIONS — CREATE PASSES (mock, frontend only)
    ======================================================================== */
 
@@ -836,35 +917,57 @@
     M.close(document.getElementById(modalId));
   }
 
-  /* ---- One-Day Visitor ---- */
+  /* ---- One-Day Visitor / Delivery / Ride ---- */
   document.getElementById("form-one-day").addEventListener("submit", (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form["od-name"].value.trim();
-    const phone = form["od-phone"].value.trim();
-    const date = form["od-date"].value;
-    const arrival = form["od-arrival"].value;
-    const vehicle = form["od-vehicle"].value.trim();
-    if (!name || !phone || !date) return;
+    const purpose = form["od-purpose"].value;
+    if (!purpose) return;
 
-    const id = D.nextPassId();
-    D.addPass({
-      id,
+    const date = purpose === "visitor" ? form["od-date"].value :
+      purpose === "delivery" ? form["od-delivery-date"].value : form["od-ride-date"].value;
+    const arrival = purpose === "visitor" ? form["od-arrival"].value :
+      purpose === "delivery" ? form["od-delivery-arrival"].value : form["od-ride-arrival"].value;
+
+    let pass = {
+      id: D.nextPassId(),
       type: "one-day-visitor",
-      name,
-      phone,
+      purpose,
       status: "active",
       date,
       arrival: arrival ? formatTime(arrival) : "",
       host: D.resident.fullName,
-      vehicle,
       createdAt: todayISO()
-    });
-    D.addActivity({ icon: "fa-id-card", title: "Visitor pass created", detail: `${name} · ${H.nowTime()}` });
+    };
 
+    if (purpose === "visitor") {
+      pass.name = form["od-name"].value.trim();
+      pass.phone = form["od-phone"].value.trim();
+      pass.vehicle = form["od-vehicle"].value.trim();
+      if (!pass.name || !pass.phone || !date) return;
+      D.addActivity({ icon: "fa-id-card", title: "Visitor pass created", detail: `${pass.name} · ${H.nowTime()}` });
+    } else if (purpose === "delivery") {
+      pass.name = form["od-delivery-name"].value.trim();
+      pass.phone = form["od-delivery-phone"].value.trim();
+      pass.deliveryService = form["od-delivery-service"].value.trim();
+      pass.deliveryType = form["od-delivery-type"].value;
+      pass.vehicle = form["od-delivery-vehicle"].value.trim();
+      if (!pass.name || !pass.phone || !pass.deliveryType || !date) return;
+      D.addActivity({ icon: "fa-box", title: "Delivery pass created", detail: `${pass.name} · ${H.nowTime()}` });
+    } else {
+      pass.name = form["od-ride-name"].value.trim();
+      pass.phone = form["od-ride-phone"].value.trim();
+      pass.rideService = form["od-ride-service"].value;
+      pass.tripType = form["od-ride-trip"].value === "pickup" ? "Pickup" : "Drop-off";
+      pass.vehicle = form["od-ride-vehicle"].value.trim();
+      if (!pass.name || !pass.phone || !pass.rideService || !form["od-ride-trip"].value || !pass.vehicle || !date) return;
+      D.addActivity({ icon: "fa-car-side", title: "Ride pass created", detail: `${pass.name} · ${H.nowTime()}` });
+    }
+
+    D.addPass(pass);
     D.render();
     resetAndClose(form, "modal-one-day");
-    D.toast("Pass created successfully.", "fa-circle-check");
+    D.toast(`${D.ONE_DAY_PURPOSE_LABELS[purpose]} created successfully.`, "fa-circle-check");
   });
 
   /* ---- Multi-Day Visitor ---- */
@@ -997,13 +1100,19 @@
 
   function typeSpecificSectionHtml(p) {
     if (p.type === "one-day-visitor") {
+      const sectionTitle = p.purpose === "delivery" ? "Delivery" : p.purpose === "ride" ? "Ride / Pickup" : "Visitor";
       return `
         <div class="details-section">
-          <div class="details-section-title">Visitor</div>
+          <div class="details-section-title">${sectionTitle}</div>
+          ${detailRow("Purpose", H.escapeHtml(D.ONE_DAY_PURPOSE_LABELS[p.purpose] || "Regular Visitor"))}
           ${detailRow("Name", H.escapeHtml(p.name))}
           ${detailRow("Phone", H.escapeHtml(p.phone || "—"))}
-          ${detailRow("Visit Date", H.formatDate(p.date))}
+          ${detailRow("Date", H.formatDate(p.date))}
           ${p.arrival ? detailRow("Expected Arrival", p.arrival) : ""}
+          ${p.purpose === "delivery" && p.deliveryService ? detailRow("Delivery Service", H.escapeHtml(p.deliveryService)) : ""}
+          ${p.purpose === "delivery" && p.deliveryType ? detailRow("Delivery Type", H.escapeHtml(p.deliveryType)) : ""}
+          ${p.purpose === "ride" && p.rideService ? detailRow("Ride Service", H.escapeHtml(p.rideService)) : ""}
+          ${p.purpose === "ride" && p.tripType ? detailRow("Trip Type", H.escapeHtml(p.tripType)) : ""}
           ${detailRow("Host", H.escapeHtml(p.host || D.resident.fullName))}
           ${p.vehicle ? detailRow("Vehicle", H.escapeHtml(p.vehicle)) : ""}
         </div>`;

@@ -356,29 +356,138 @@
     </div>
     <form class="modal-body" id="form-one-day" novalidate>
       <div class="form-row">
-        <label for="od-name">Visitor full name</label>
-        <input type="text" id="od-name" name="od-name" placeholder="e.g. John Doe" required>
+        <label for="od-purpose">Access purpose</label>
+        <select id="od-purpose" name="od-purpose" required>
+          <option value="">Select access purpose</option>
+          <option value="visitor">Regular Visitor</option>
+          <option value="delivery">Delivery</option>
+          <option value="ride">Ride / Pickup</option>
+        </select>
+        <p class="form-field-help" id="od-purpose-help">Choose why this person is entering the estate.</p>
       </div>
-      <div class="form-row form-row--split">
-        <div>
-          <label for="od-phone">Visitor phone number</label>
-          <input type="tel" id="od-phone" name="od-phone" placeholder="080..." required>
+
+      <!-- Regular visitor -->
+      <div class="one-day-purpose-fields" data-purpose-fields="visitor">
+        <div class="form-row">
+          <label for="od-name">Visitor full name</label>
+          <input type="text" id="od-name" name="od-name" placeholder="e.g. John Doe">
         </div>
-        <div>
-          <label for="od-date">Visit date</label>
-          <input type="date" id="od-date" name="od-date" required>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-phone">Visitor phone number</label>
+            <input type="tel" id="od-phone" name="od-phone" placeholder="080...">
+          </div>
+          <div>
+            <label for="od-date">Visit date</label>
+            <input type="date" id="od-date" name="od-date" required>
+          </div>
+        </div>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-arrival">Expected arrival</label>
+            <input type="time" id="od-arrival" name="od-arrival">
+          </div>
+          <div>
+            <label for="od-vehicle">Vehicle (optional)</label>
+            <input type="text" id="od-vehicle" name="od-vehicle" placeholder="e.g. Toyota Camry, LSD 234 XY">
+          </div>
         </div>
       </div>
-      <div class="form-row form-row--split">
-        <div>
-          <label for="od-arrival">Expected arrival</label>
-          <input type="time" id="od-arrival" name="od-arrival">
+
+      <!-- Delivery -->
+      <div class="one-day-purpose-fields" data-purpose-fields="delivery" hidden>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-delivery-name">Delivery person's name</label>
+            <input type="text" id="od-delivery-name" name="od-delivery-name" placeholder="e.g. Ibrahim Yusuf">
+          </div>
+          <div>
+            <label for="od-delivery-phone">Delivery phone number</label>
+            <input type="tel" id="od-delivery-phone" name="od-delivery-phone" placeholder="080...">
+          </div>
         </div>
-        <div>
-          <label for="od-vehicle">Vehicle (optional)</label>
-          <input type="text" id="od-vehicle" name="od-vehicle" placeholder="e.g. Toyota Camry, LSD 234 XY">
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-delivery-service">Delivery service</label>
+            <input type="text" id="od-delivery-service" name="od-delivery-service" placeholder="e.g. Glovo, Jumia, local dispatch">
+          </div>
+          <div>
+            <label for="od-delivery-type">Delivery type</label>
+            <select id="od-delivery-type" name="od-delivery-type">
+              <option value="">Select delivery type</option>
+              <option>Food / Restaurant</option>
+              <option>Groceries</option>
+              <option>Package / Parcel</option>
+              <option>Other</option>
+            </select>
+          </div>
         </div>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-delivery-date">Delivery date</label>
+            <input type="date" id="od-delivery-date" name="od-delivery-date">
+          </div>
+          <div>
+            <label for="od-delivery-arrival">Expected arrival</label>
+            <input type="time" id="od-delivery-arrival" name="od-delivery-arrival">
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="od-delivery-vehicle">Vehicle / plate number (optional)</label>
+          <input type="text" id="od-delivery-vehicle" name="od-delivery-vehicle" placeholder="e.g. Dispatch bike · KJA 123 AB">
+        </div>
+        <div class="one-day-context-note"><i class="fa-solid fa-box" aria-hidden="true"></i><span>The delivery is for <strong>you</strong>. Security can use the delivery person's details to verify the rider at the gate.</span></div>
       </div>
+
+      <!-- Ride -->
+      <div class="one-day-purpose-fields" data-purpose-fields="ride" hidden>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-ride-name">Driver's full name</label>
+            <input type="text" id="od-ride-name" name="od-ride-name" placeholder="e.g. Musa Ibrahim">
+          </div>
+          <div>
+            <label for="od-ride-phone">Driver phone number</label>
+            <input type="tel" id="od-ride-phone" name="od-ride-phone" placeholder="080...">
+          </div>
+        </div>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-ride-service">Ride service</label>
+            <select id="od-ride-service" name="od-ride-service">
+              <option value="">Select ride service</option>
+              <option>Uber</option>
+              <option>Bolt</option>
+              <option>InDrive</option>
+              <option>Private / Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="od-ride-trip">Trip type</label>
+            <select id="od-ride-trip" name="od-ride-trip">
+              <option value="">Select trip type</option>
+              <option value="pickup">Pickup</option>
+              <option value="drop-off">Drop-off</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row form-row--split">
+          <div>
+            <label for="od-ride-date">Date</label>
+            <input type="date" id="od-ride-date" name="od-ride-date">
+          </div>
+          <div>
+            <label for="od-ride-arrival">Expected arrival</label>
+            <input type="time" id="od-ride-arrival" name="od-ride-arrival">
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="od-ride-vehicle">Vehicle / plate number</label>
+          <input type="text" id="od-ride-vehicle" name="od-ride-vehicle" placeholder="e.g. Toyota Corolla · ABC 123 XY">
+        </div>
+        <div class="one-day-context-note"><i class="fa-solid fa-car-side" aria-hidden="true"></i><span>This pass is for a driver picking you up or dropping you off. Security can verify the driver, service and vehicle details.</span></div>
+      </div>
+
       <p class="form-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is demo data. Passes are not verified by a backend yet.</p>
       <div class="modal-actions">
         <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
