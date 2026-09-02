@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications · Rafara GatePass — Estate Manager</title>
+  <meta name="description"
+    content="Estate Manager notification center for Rafara GatePass — pass requests, security alerts, and estate updates.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/manager-dashboard.css">
+  <link rel="stylesheet" href="styles/manager-notifications.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="manager-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
+      </div>
+
+      <span class="sidebar-role-chip"><i class="fa-solid fa-building-shield" aria-hidden="true"></i> Estate Manager</span>
+
+      <nav class="sidebar-nav" aria-label="Manager sections">
+        <ul>
+          <li>
+            <a href="manager-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-residents.html" class="nav-item">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Residents</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-units.html" class="nav-item">
+              <i class="fa-solid fa-building" aria-hidden="true"></i>
+              <span>Units</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-security.html" class="nav-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Security</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-artisans.html" class="nav-item">
+              <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+              <span>Artisans</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-passes.html" class="nav-item">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-notifications.html" class="nav-item is-active" aria-current="page">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-settings.html" class="nav-item">
+              <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="manager-profile.html" class="sidebar-profile-link">
+          <span class="avatar" aria-hidden="true">EM</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Estate Manager</span>
+            <span class="profile-role">Millenium Housing Estate,Lagos</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="manager-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="manager-residents.html" class="mobile-nav-item">
+        <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+        <span>Verification</span>
+      </a>
+      <a href="manager-artisans.html" class="mobile-nav-item">
+        <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+        <span>Artisans</span>
+      </a>
+      <a href="manager-passes.html" class="mobile-nav-item">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
+      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false"
+        aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="manager-units.html" class="mobile-sheet-link"><i class="fa-solid fa-building" aria-hidden="true"></i> Units</a>
+        <a href="manager-security.html" class="mobile-sheet-link"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security</a>
+        <a href="manager-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Activity</a>
+        <a href="manager-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications</a>
+        <a href="manager-settings.html" class="mobile-sheet-link"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+        <a href="manager-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
+
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Estate Manager Dashboard</span>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+                <button type="button" class="text-link" id="topbar-mark-all-read-btn">Mark all read</button>
+              </div>
+              <div class="dropdown-panel-body" id="notif-panel-list"></div>
+              <a href="manager-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+            </div>
+          </div>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">EM</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Estate Manager</span>
+                <span class="profile-role">Millenium Housing Estate,Lagos</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="manager-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+              <a href="manager-settings.html" role="menuitem"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="dashboard-content manager-notification-content">
+
+        <!-- PAGE HEADER -->
+        <section class="page-header" aria-label="Notifications header">
+          <div class="page-header-text">
+            <span class="page-breadcrumb">Estate Manager Dashboard</span>
+            <h1>Notifications</h1>
+            <p class="page-desc">Stay updated with important events and actions across your estate.</p>
+          </div>
+        </section>
+
+        <!-- SUMMARY CARDS -->
+        <section class="manager-notification-summary" aria-label="Notification summary" id="notif-summary-grid">
+          <!-- populated by JS -->
+        </section>
+
+        <!-- CONTROLS -->
+        <section class="manager-notification-controls" aria-label="Notification filters">
+          <div class="mn-search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="mn-search-input" placeholder="Search notifications..."
+              aria-label="Search notifications">
+          </div>
+
+          <div class="mn-filter-group">
+            <div class="mn-select-wrap">
+              <select id="mn-status-filter" aria-label="Filter by status">
+                <option value="all">All</option>
+                <option value="unread">Unread</option>
+                <option value="read">Read</option>
+                <option value="important">Important</option>
+              </select>
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </div>
+
+            <div class="mn-select-wrap">
+              <select id="mn-category-filter" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+                <option value="passes">Passes</option>
+                <option value="security">Security</option>
+                <option value="artisans">Artisans</option>
+                <option value="residents">Residents</option>
+                <option value="units">Units</option>
+                <option value="system">System</option>
+              </select>
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn--secondary mn-mark-all-btn" id="mn-mark-all-read-btn">
+            <i class="fa-solid fa-check-double" aria-hidden="true"></i>
+            Mark All as Read
+          </button>
+        </section>
+
+        <!-- NOTIFICATION LIST -->
+        <section class="panel manager-notification-panel" aria-label="Notification list">
+          <div id="mn-list-wrap">
+            <!-- populated by JS: date group headers + notification items, or empty state -->
+          </div>
+
+          <div class="mn-pagination" id="mn-pagination" hidden>
+            <span class="mn-pagination-info" id="mn-pagination-info"></span>
+            <div class="mn-pagination-controls" id="mn-pagination-controls"></div>
+          </div>
+        </section>
+
+        <footer class="dashboard-footer">
+          <p>Rafara — Secure access. Connected communities.</p>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ NOTIFICATION DETAILS DRAWER ============ -->
+  <div class="mn-drawer-backdrop" id="mn-drawer-backdrop" hidden></div>
+  <aside class="mn-drawer" id="mn-drawer" role="dialog" aria-modal="true" aria-labelledby="mn-drawer-title" hidden>
+    <div class="mn-drawer-head">
+      <span class="mn-drawer-eyebrow" id="mn-drawer-category">Notification</span>
+      <button type="button" class="icon-btn mn-drawer-close" id="mn-drawer-close" aria-label="Close details">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="mn-drawer-body">
+      <h2 class="mn-drawer-title" id="mn-drawer-title">Security Alert</h2>
+
+      <div class="mn-drawer-field">
+        <span class="mn-drawer-label">Message</span>
+        <p class="mn-drawer-value" id="mn-drawer-message">—</p>
+      </div>
+
+      <div class="mn-drawer-grid">
+        <div class="mn-drawer-field">
+          <span class="mn-drawer-label">Time</span>
+          <span class="mn-drawer-value" id="mn-drawer-time">—</span>
+        </div>
+        <div class="mn-drawer-field">
+          <span class="mn-drawer-label">Date</span>
+          <span class="mn-drawer-value" id="mn-drawer-date">—</span>
+        </div>
+      </div>
+
+      <div class="mn-drawer-grid" id="mn-drawer-related-grid">
+        <!-- optional related-pass / related-unit / officer / location rows injected by JS -->
+      </div>
+
+      <div class="mn-drawer-field">
+        <span class="mn-drawer-label">Status</span>
+        <span class="mn-drawer-status-badge" id="mn-drawer-status">Unreviewed</span>
+      </div>
+    </div>
+    <div class="mn-drawer-foot">
+      <button type="button" class="btn btn--secondary" id="mn-drawer-action-btn">View Activity</button>
+      <button type="button" class="btn btn--primary" id="mn-drawer-mark-read-btn">Mark as Read</button>
+    </div>
+  </aside>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="scripts/manager-notifications.js"></script>
+</body>
+
+</html>

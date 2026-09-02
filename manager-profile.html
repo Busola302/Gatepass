@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile · Rafara GatePass — Estate Manager</title>
+  <meta name="description"
+    content="Manage your Rafara GatePass account information, security credentials, and preferences.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/manager-dashboard.css">
+  <link rel="stylesheet" href="styles/manager-profile.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="manager-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
+      </div>
+
+      <span class="sidebar-role-chip"><i class="fa-solid fa-building-shield" aria-hidden="true"></i> Estate Manager</span>
+
+      <nav class="sidebar-nav" aria-label="Manager sections">
+        <ul>
+          <li>
+            <a href="manager-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-residents.html" class="nav-item">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Residents</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-units.html" class="nav-item">
+              <i class="fa-solid fa-building" aria-hidden="true"></i>
+              <span>Units</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-security.html" class="nav-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Security</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-artisans.html" class="nav-item">
+              <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+              <span>Artisans</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-passes.html" class="nav-item">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-notifications.html" class="nav-item">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-settings.html" class="nav-item">
+              <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="manager-profile.html" class="sidebar-profile-link is-current">
+          <span class="avatar" aria-hidden="true" id="sidebar-avatar">AB</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Aisha Bello</span>
+            <span class="profile-role">Estate Manager</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="manager-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="manager-residents.html" class="mobile-nav-item">
+        <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+        <span>Verification</span>
+      </a>
+      <a href="manager-artisans.html" class="mobile-nav-item">
+        <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+        <span>Artisans</span>
+      </a>
+      <a href="manager-passes.html" class="mobile-nav-item">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
+      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false"
+        aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="manager-units.html" class="mobile-sheet-link"><i class="fa-solid fa-building" aria-hidden="true"></i> Units</a>
+        <a href="manager-security.html" class="mobile-sheet-link"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security</a>
+        <a href="manager-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Activity</a>
+        <a href="manager-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications</a>
+        <a href="manager-settings.html" class="mobile-sheet-link"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+        <a href="manager-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
+
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Estate Manager Dashboard</span>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+                <button type="button" class="text-link" id="mark-all-read-btn">Mark all read</button>
+              </div>
+              <div class="dropdown-panel-body" id="notif-panel-list">
+                <div class="empty-state">
+                  <i class="fa-solid fa-bell-slash"></i>
+                  <strong>No notifications</strong>
+                  <span>You're all caught up.</span>
+                </div>
+              </div>
+              <a href="manager-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+            </div>
+          </div>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true" id="topbar-avatar">AB</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Aisha Bello</span>
+                <span class="profile-role">Estate Manager</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="manager-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i> Profile</a>
+              <a href="manager-settings.html" role="menuitem"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="dashboard-content rafara-profile-content">
+
+        <!-- PAGE HEADER -->
+        <section class="rafara-profile-pageheader" aria-label="Page heading">
+          <div>
+            <p class="rafara-profile-breadcrumb">Estate Manager Dashboard</p>
+            <h1>Profile</h1>
+            <p class="rafara-profile-lede">Manage your account information, security, and preferences.</p>
+          </div>
+        </section>
+
+        <!-- PROFILE HEADER CARD -->
+        <section class="rafara-profile-hero" aria-label="Profile summary">
+          <div class="rafara-profile-hero-avatar-wrap">
+            <span class="rafara-profile-hero-avatar" id="hero-avatar" aria-hidden="true">AB</span>
+            <button type="button" class="rafara-profile-photo-btn" id="change-photo-btn">
+              <i class="fa-solid fa-camera" aria-hidden="true"></i>
+              Change Photo
+            </button>
+            <input type="file" id="avatar-file-input" accept="image/*" hidden>
+          </div>
+
+          <div class="rafara-profile-hero-body">
+            <div class="rafara-profile-hero-name-row">
+              <h2 id="hero-name">Aisha Bello</h2>
+              <span class="badge badge--verified"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Verified</span>
+            </div>
+            <p class="rafara-profile-hero-role" id="hero-role">Estate Manager</p>
+            <div class="rafara-profile-hero-meta">
+              <span><i class="fa-solid fa-building-shield" aria-hidden="true"></i> <span id="hero-estate">Millenium Housing Estate Ijaiye Ojokoro, Lagos</span></span>
+              <span><i class="fa-solid fa-id-badge" aria-hidden="true"></i> <span id="hero-id">MGR-001</span></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- MAIN TWO-COLUMN LAYOUT -->
+        <div class="rafara-profile-layout">
+
+          <!-- ============ LEFT COLUMN ============ -->
+          <div class="rafara-profile-col-main">
+
+            <!-- PERSONAL INFORMATION -->
+            <section class="panel" aria-labelledby="personal-info-heading">
+              <div class="panel-head">
+                <h2 id="personal-info-heading">Personal Information</h2>
+                <button type="button" class="btn btn--secondary btn--sm" id="edit-profile-btn">
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i> Edit Profile
+                </button>
+              </div>
+              <div class="panel-body">
+                <div class="details-block" id="personal-info-list">
+                  <div class="details-row">
+                    <span>Full Name</span>
+                    <span id="info-name">Aisha Bello</span>
+                  </div>
+                  <div class="details-row">
+                    <span>Email Address</span>
+                    <span id="info-email">manager@rafara.example</span>
+                  </div>
+                  <div class="details-row">
+                    <span>Phone Number</span>
+                    <span id="info-phone">080X XXX XXXX</span>
+                  </div>
+                  <div class="details-row">
+                    <span>Role</span>
+                    <span id="info-role">Estate Manager</span>
+                  </div>
+                  <div class="details-row">
+                    <span>Manager ID</span>
+                    <span id="info-managerid">MGR-001</span>
+                  </div>
+                  <div class="details-row">
+                    <span>Estate</span>
+                    <span id="info-estate">Millenium Housing Estate Ijaiye Ojokoro, Lagos</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ACCOUNT SECURITY -->
+            <section class="panel" aria-labelledby="security-heading">
+              <div class="panel-head">
+                <h2 id="security-heading">Account Security</h2>
+              </div>
+              <div class="panel-body rafara-profile-security-body">
+
+                <div class="rafara-profile-security-row">
+                  <div class="rafara-profile-security-row-text">
+                    <strong>Password</strong>
+                    <span id="password-last-changed">Last changed 30 days ago</span>
+                  </div>
+                  <button type="button" class="btn btn--ghost btn--sm" id="change-password-btn">Change Password</button>
+                </div>
+
+                <div class="rafara-profile-security-row">
+                  <div class="rafara-profile-security-row-text">
+                    <strong>Two-Factor Authentication</strong>
+                    <span id="twofa-status-text">Adds a one-time code when you sign in.</span>
+                  </div>
+                  <div class="rafara-profile-security-row-actions">
+                    <label class="rafara-profile-switch" for="twofa-toggle">
+                      <input type="checkbox" id="twofa-toggle" checked>
+                      <span class="rafara-profile-switch-track" aria-hidden="true"></span>
+                      <span class="sr-only">Toggle two-factor authentication</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="rafara-profile-security-subrow">
+                  <span class="badge badge--active" id="twofa-badge"><i class="fa-solid fa-circle" aria-hidden="true"></i> Enabled</span>
+                  <button type="button" class="text-link" id="manage-2fa-btn">Manage 2FA</button>
+                </div>
+
+                <div class="rafara-profile-security-row">
+                  <div class="rafara-profile-security-row-text">
+                    <strong>Login Verification</strong>
+                    <span>Require additional verification when signing in from a new device.</span>
+                  </div>
+                  <div class="rafara-profile-security-row-actions">
+                    <label class="rafara-profile-switch" for="loginverify-toggle">
+                      <input type="checkbox" id="loginverify-toggle" checked>
+                      <span class="rafara-profile-switch-track" aria-hidden="true"></span>
+                      <span class="sr-only">Toggle login verification</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="rafara-profile-security-row">
+                  <div class="rafara-profile-security-row-text">
+                    <strong>Active Sessions</strong>
+                    <span id="sessions-count-text">2 active sessions</span>
+                  </div>
+                  <button type="button" class="btn btn--ghost btn--sm" id="view-sessions-btn">View Sessions</button>
+                </div>
+
+              </div>
+            </section>
+
+            <!-- NOTIFICATION PREFERENCES -->
+            <section class="panel" aria-labelledby="notif-prefs-heading">
+              <div class="panel-head">
+                <h2 id="notif-prefs-heading">Notification Preferences</h2>
+              </div>
+              <div class="panel-body rafara-profile-toggle-list" id="notif-prefs-list">
+                <!-- populated by JS -->
+              </div>
+              <div class="rafara-profile-panel-footer">
+                <button type="button" class="btn btn--primary btn--sm" id="save-notif-prefs-btn">Save Preferences</button>
+              </div>
+            </section>
+
+            <!-- MANAGER PREFERENCES -->
+            <section class="panel" aria-labelledby="preferences-heading">
+              <div class="panel-head">
+                <h2 id="preferences-heading">Preferences</h2>
+              </div>
+              <div class="panel-body">
+                <div class="rafara-profile-form-grid">
+                  <div class="rafara-profile-field">
+                    <label for="pref-startpage">Dashboard Start Page</label>
+                    <select id="pref-startpage">
+                      <option value="Dashboard">Dashboard</option>
+                      <option value="Passes">Passes</option>
+                      <option value="Activity">Activity</option>
+                    </select>
+                  </div>
+                  <div class="rafara-profile-field">
+                    <label for="pref-dateformat">Date Format</label>
+                    <select id="pref-dateformat">
+                      <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                      <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                    </select>
+                  </div>
+                  <div class="rafara-profile-field">
+                    <label for="pref-timeformat">Time Format</label>
+                    <select id="pref-timeformat">
+                      <option value="12-hour">12-hour</option>
+                      <option value="24-hour">24-hour</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="rafara-profile-security-row rafara-profile-security-row--tight">
+                  <div class="rafara-profile-security-row-text">
+                    <strong>Compact Mode</strong>
+                    <span>Use a more compact dashboard layout.</span>
+                  </div>
+                  <label class="rafara-profile-switch" for="compact-mode-toggle">
+                    <input type="checkbox" id="compact-mode-toggle">
+                    <span class="rafara-profile-switch-track" aria-hidden="true"></span>
+                    <span class="sr-only">Toggle compact mode</span>
+                  </label>
+                </div>
+              </div>
+            </section>
+
+            <!-- ACCOUNT ACTIVITY -->
+            <section class="panel" aria-labelledby="activity-heading">
+              <div class="panel-head">
+                <h2 id="activity-heading">Recent Account Activity</h2>
+                <a href="manager-activity.html" class="text-link">View Full Activity</a>
+              </div>
+              <div class="panel-body">
+                <ol class="activity-timeline" id="account-activity-list"></ol>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- ============ RIGHT COLUMN ============ -->
+          <div class="rafara-profile-col-side">
+
+            <!-- MANAGER SUMMARY -->
+            <section class="panel rafara-profile-summary-card" aria-labelledby="summary-heading" id="summary-card">
+              <div class="panel-head">
+                <h2 id="summary-heading">Estate Manager</h2>
+              </div>
+              <div class="panel-body" id="summary-body">
+                <!-- populated by JS -->
+              </div>
+            </section>
+
+            <!-- ACCOUNT ACTIONS / DANGER ZONE -->
+            <section class="panel rafara-profile-danger-card" aria-labelledby="danger-heading">
+              <div class="panel-head">
+                <h2 id="danger-heading">Account Actions</h2>
+              </div>
+              <div class="panel-body">
+                <div class="rafara-profile-danger-row">
+                  <div class="rafara-profile-security-row-text">
+                    <strong>Sign Out</strong>
+                    <span>Sign out of your Rafara Manager account.</span>
+                  </div>
+                  <button type="button" class="btn btn--danger btn--sm" id="signout-btn">Sign Out</button>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+        </div>
+
+        <footer class="dashboard-footer">
+          <p>Rafara — Secure access. Connected communities.</p>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ EDIT PROFILE MODAL ============ -->
+  <div class="rafara-profile-modal-backdrop" id="edit-profile-modal" hidden>
+    <div class="rafara-profile-modal" role="dialog" aria-modal="true" aria-labelledby="edit-profile-modal-title">
+      <div class="rafara-profile-modal-head">
+        <h3 id="edit-profile-modal-title">Edit Profile</h3>
+        <button type="button" class="rafara-profile-modal-close" data-close-modal="edit-profile-modal" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <form class="rafara-profile-modal-body" id="edit-profile-form" novalidate>
+        <div class="rafara-profile-field">
+          <label for="edit-fullname">Full Name</label>
+          <input type="text" id="edit-fullname" name="fullname" required>
+          <span class="rafara-profile-field-error" id="edit-fullname-error"></span>
+        </div>
+        <div class="rafara-profile-field">
+          <label for="edit-email">Email</label>
+          <input type="email" id="edit-email" name="email" required>
+          <span class="rafara-profile-field-error" id="edit-email-error"></span>
+        </div>
+        <div class="rafara-profile-field">
+          <label for="edit-phone">Phone Number</label>
+          <input type="tel" id="edit-phone" name="phone" required>
+          <span class="rafara-profile-field-error" id="edit-phone-error"></span>
+        </div>
+        <div class="rafara-profile-field">
+          <label for="edit-managerid">Manager ID</label>
+          <input type="text" id="edit-managerid" disabled>
+        </div>
+        <div class="rafara-profile-field">
+          <label for="edit-estate">Estate</label>
+          <input type="text" id="edit-estate" disabled>
+        </div>
+      </form>
+      <div class="rafara-profile-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="edit-profile-modal">Cancel</button>
+        <button type="submit" form="edit-profile-form" class="btn btn--primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CHANGE PASSWORD MODAL ============ -->
+  <div class="rafara-profile-modal-backdrop" id="change-password-modal" hidden>
+    <div class="rafara-profile-modal" role="dialog" aria-modal="true" aria-labelledby="change-password-modal-title">
+      <div class="rafara-profile-modal-head">
+        <h3 id="change-password-modal-title">Change Password</h3>
+        <button type="button" class="rafara-profile-modal-close" data-close-modal="change-password-modal" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <form class="rafara-profile-modal-body" id="change-password-form" novalidate>
+
+        <div class="rafara-profile-field">
+          <label for="current-password">Current Password</label>
+          <div class="rafara-profile-password-input">
+            <input type="password" id="current-password" name="currentPassword" required autocomplete="current-password">
+            <button type="button" class="rafara-profile-password-toggle" data-toggle-password="current-password" aria-label="Show password">
+              <i class="fa-solid fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          <span class="rafara-profile-field-error" id="current-password-error"></span>
+        </div>
+
+        <div class="rafara-profile-field">
+          <label for="new-password">New Password</label>
+          <div class="rafara-profile-password-input">
+            <input type="password" id="new-password" name="newPassword" required autocomplete="new-password">
+            <button type="button" class="rafara-profile-password-toggle" data-toggle-password="new-password" aria-label="Show password">
+              <i class="fa-solid fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <ul class="rafara-profile-requirements" id="password-requirements">
+          <li data-rule="length"><i class="fa-solid fa-circle" aria-hidden="true"></i> At least 8 characters</li>
+          <li data-rule="number"><i class="fa-solid fa-circle" aria-hidden="true"></i> Contains a number</li>
+          <li data-rule="uppercase"><i class="fa-solid fa-circle" aria-hidden="true"></i> Contains an uppercase letter</li>
+        </ul>
+
+        <div class="rafara-profile-field">
+          <label for="confirm-password">Confirm New Password</label>
+          <div class="rafara-profile-password-input">
+            <input type="password" id="confirm-password" name="confirmPassword" required autocomplete="new-password">
+            <button type="button" class="rafara-profile-password-toggle" data-toggle-password="confirm-password" aria-label="Show password">
+              <i class="fa-solid fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          <span class="rafara-profile-field-error" id="confirm-password-error"></span>
+        </div>
+
+      </form>
+      <div class="rafara-profile-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="change-password-modal">Cancel</button>
+        <button type="submit" form="change-password-form" class="btn btn--primary" id="update-password-submit">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2FA MODAL ============ -->
+  <div class="rafara-profile-modal-backdrop" id="twofa-modal" hidden>
+    <div class="rafara-profile-modal" role="dialog" aria-modal="true" aria-labelledby="twofa-modal-title">
+      <div class="rafara-profile-modal-head">
+        <h3 id="twofa-modal-title">Two-Factor Authentication</h3>
+        <button type="button" class="rafara-profile-modal-close" data-close-modal="twofa-modal" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="rafara-profile-modal-body" id="twofa-modal-body">
+        <!-- populated by JS -->
+      </div>
+      <div class="rafara-profile-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="twofa-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SIGN OUT CONFIRM MODAL ============ -->
+  <div class="rafara-profile-modal-backdrop" id="signout-modal" hidden>
+    <div class="rafara-profile-modal rafara-profile-modal--sm" role="dialog" aria-modal="true" aria-labelledby="signout-modal-title">
+      <div class="rafara-profile-modal-head">
+        <h3 id="signout-modal-title">Sign Out</h3>
+        <button type="button" class="rafara-profile-modal-close" data-close-modal="signout-modal" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="rafara-profile-modal-body">
+        <p>Are you sure you want to sign out?</p>
+      </div>
+      <div class="rafara-profile-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="signout-modal">Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-signout-btn">Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ACTIVE SESSIONS DRAWER ============ -->
+  <div class="rafara-profile-drawer-backdrop" id="sessions-drawer-backdrop" hidden>
+    <aside class="rafara-profile-drawer" role="dialog" aria-modal="true" aria-labelledby="sessions-drawer-title">
+      <div class="rafara-profile-drawer-head">
+        <h3 id="sessions-drawer-title">Active Sessions</h3>
+        <button type="button" class="rafara-profile-modal-close" id="close-sessions-drawer" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="rafara-profile-drawer-body" id="sessions-drawer-body">
+        <!-- populated by JS -->
+      </div>
+    </aside>
+  </div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="scripts/manager-dashboard.js"></script>
+  <script src="scripts/manager-profile.js"></script>
+</body>
+
+</html>

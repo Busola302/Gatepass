@@ -1,0 +1,1004 @@
+/* =========================================================
+   RAFARA GATEPASS — ESTATE MANAGER PROFILE
+   Page-specific styles. Builds on styles/manager-dashboard.css
+   (design tokens, sidebar, topbar, .panel, .btn, .badge, .details-row,
+   .activity-timeline, .empty-state, .toast-container are reused as-is).
+   ========================================================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* current page highlight in sidebar footer (Profile has no sidebar nav item) */
+.sidebar-profile-link.is-current {
+  background: rgba(169, 152, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(169, 152, 255, 0.14);
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.rafara-profile-pageheader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.rafara-profile-breadcrumb {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rafara-profile-pageheader h1 {
+  margin-top: 6px;
+  font-size: clamp(23px, 2.2vw, 29px);
+  letter-spacing: -0.02em;
+}
+
+.rafara-profile-lede {
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 13.5px;
+}
+
+/* =========================================================
+   PROFILE HERO CARD
+   ========================================================= */
+
+.rafara-profile-hero {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  padding: 26px 30px;
+
+  border: 1px solid rgba(169, 152, 255, 0.18);
+  border-radius: var(--radius-lg);
+
+  background:
+    radial-gradient(circle at 92% 15%, rgba(169, 152, 255, 0.2), transparent 30%),
+    linear-gradient(135deg, #fff 0%, #faf9ff 100%);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.rafara-profile-hero-avatar-wrap {
+  position: relative;
+  z-index: 1;
+
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.rafara-profile-hero-avatar {
+  width: 96px;
+  height: 96px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a998ff, #4b2e83);
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+  font-family: var(--font-head);
+  font-size: 30px;
+  font-weight: 700;
+
+  box-shadow: 0 12px 28px rgba(75, 46, 131, 0.28);
+  transition: transform 0.25s ease;
+}
+
+.rafara-profile-hero-avatar.has-image {
+  font-size: 0;
+}
+
+.rafara-profile-photo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: white;
+
+  color: var(--rafara-purple);
+  font-size: 11px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.rafara-profile-photo-btn:hover {
+  background: var(--rafara-lilac-soft);
+  border-color: var(--border-purple);
+}
+
+.rafara-profile-hero-body {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.rafara-profile-hero-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rafara-profile-hero-name-row h2 {
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.rafara-profile-hero-role {
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rafara-profile-hero-meta {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+
+.rafara-profile-hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.rafara-profile-hero-meta i {
+  color: var(--rafara-purple);
+}
+
+/* =========================================================
+   TWO-COLUMN LAYOUT
+   ========================================================= */
+
+.rafara-profile-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.85fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.rafara-profile-col-main,
+.rafara-profile-col-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.rafara-profile-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px 18px;
+}
+
+/* =========================================================
+   SECURITY ROWS
+   ========================================================= */
+
+.rafara-profile-security-body {
+  gap: 0;
+}
+
+.rafara-profile-security-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.rafara-profile-security-row--tight {
+  border-bottom: 0;
+  padding-top: 16px;
+}
+
+.rafara-profile-security-row:last-child {
+  border-bottom: 0;
+}
+
+.rafara-profile-security-row-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rafara-profile-security-row-text strong {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.rafara-profile-security-row-text span {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.rafara-profile-security-row-actions {
+  flex-shrink: 0;
+}
+
+.rafara-profile-security-subrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 14px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+/* =========================================================
+   TOGGLE SWITCH
+   ========================================================= */
+
+.rafara-profile-switch {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.rafara-profile-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.rafara-profile-switch-track {
+  width: 42px;
+  height: 24px;
+
+  display: inline-block;
+
+  border-radius: 999px;
+  background: #dfe1ea;
+
+  transition: background 0.2s ease;
+}
+
+.rafara-profile-switch-track::before {
+  content: "";
+  display: block;
+
+  width: 18px;
+  height: 18px;
+  margin: 3px;
+
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 5px rgba(5, 10, 48, 0.25);
+
+  transition: transform 0.2s ease;
+}
+
+.rafara-profile-switch input:checked + .rafara-profile-switch-track {
+  background: var(--rafara-purple);
+}
+
+.rafara-profile-switch input:checked + .rafara-profile-switch-track::before {
+  transform: translateX(18px);
+}
+
+.rafara-profile-switch input:focus-visible + .rafara-profile-switch-track {
+  outline: 3px solid rgba(169, 152, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   NOTIFICATION TOGGLE LIST
+   ========================================================= */
+
+.rafara-profile-toggle-list {
+  gap: 0 !important;
+}
+
+.rafara-profile-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.rafara-profile-toggle-row:last-child {
+  border-bottom: 0;
+}
+
+.rafara-profile-toggle-row-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rafara-profile-toggle-row-text strong {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.rafara-profile-toggle-row-text span {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* =========================================================
+   FORM FIELDS (modal + preferences)
+   ========================================================= */
+
+.rafara-profile-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+.rafara-profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.rafara-profile-form-grid .rafara-profile-field {
+  margin-bottom: 0;
+}
+
+.rafara-profile-field label {
+  color: var(--text-soft);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.rafara-profile-field input,
+.rafara-profile-field select {
+  min-height: 42px;
+  padding: 0 13px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+
+  color: var(--text);
+  font-size: 13px;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rafara-profile-field input:focus,
+.rafara-profile-field select:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 4px rgba(169, 152, 255, 0.18);
+}
+
+.rafara-profile-field input:disabled {
+  background: var(--bg);
+  color: var(--text-muted);
+}
+
+.rafara-profile-field input.has-error {
+  border-color: var(--red);
+}
+
+.rafara-profile-field-error {
+  min-height: 14px;
+  color: var(--red);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   PASSWORD INPUT
+   ========================================================= */
+
+.rafara-profile-password-input {
+  position: relative;
+  display: flex;
+}
+
+.rafara-profile-password-input input {
+  flex: 1;
+  width: 100%;
+  padding-right: 42px;
+}
+
+.rafara-profile-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+
+  width: 30px;
+  height: 30px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.rafara-profile-password-toggle:hover {
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+}
+
+.rafara-profile-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin: -6px 0 14px;
+  padding: 12px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--surface-soft);
+}
+
+.rafara-profile-requirements li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rafara-profile-requirements li i {
+  font-size: 7px;
+  color: var(--text-muted);
+}
+
+.rafara-profile-requirements li.is-met {
+  color: var(--green);
+}
+
+.rafara-profile-requirements li.is-met i {
+  color: var(--green);
+}
+
+.rafara-profile-requirements li.is-met i::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 9px;
+}
+
+/* =========================================================
+   SUMMARY CARD (side)
+   ========================================================= */
+
+.rafara-profile-summary-card .panel-body {
+  gap: 0;
+}
+
+.rafara-profile-summary-estate {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-bottom: 14px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.rafara-profile-summary-estate .avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+}
+
+.rafara-profile-summary-estate strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rafara-profile-summary-estate span {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.rafara-profile-summary-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.rafara-profile-summary-stat {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+
+.rafara-profile-summary-stat strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.rafara-profile-summary-stat span {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+/* =========================================================
+   DANGER / ACCOUNT ACTIONS CARD
+   ========================================================= */
+
+.rafara-profile-danger-card {
+  border-color: rgba(184, 61, 69, 0.18);
+}
+
+.rafara-profile-danger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+.rafara-profile-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  background: rgba(5, 10, 48, 0.5);
+  backdrop-filter: blur(4px);
+
+  animation: rpFadeIn 0.18s ease;
+}
+
+@keyframes rpFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.rafara-profile-modal {
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  border-radius: var(--radius-lg);
+  background: white;
+  box-shadow: var(--shadow-lg);
+
+  animation: rpModalIn 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.rafara-profile-modal--sm {
+  max-width: 380px;
+}
+
+@keyframes rpModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.rafara-profile-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rafara-profile-modal-head h3 {
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.rafara-profile-modal-close {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text-soft);
+}
+
+.rafara-profile-modal-close:hover {
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+}
+
+.rafara-profile-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.rafara-profile-modal-body p {
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.rafara-profile-modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* 2FA modal content */
+.rafara-profile-2fa-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.rafara-profile-2fa-icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+  font-size: 18px;
+}
+
+/* =========================================================
+   SESSIONS DRAWER
+   ========================================================= */
+
+.rafara-profile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(5, 10, 48, 0.45);
+  backdrop-filter: blur(3px);
+  animation: rpFadeIn 0.18s ease;
+}
+
+.rafara-profile-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  max-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: white;
+  box-shadow: var(--shadow-lg);
+
+  animation: rpDrawerIn 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes rpDrawerIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.rafara-profile-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rafara-profile-drawer-head h3 {
+  font-size: 16px;
+}
+
+.rafara-profile-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rafara-profile-session-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.rafara-profile-session-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+  font-size: 14px;
+}
+
+.rafara-profile-session-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.rafara-profile-session-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rafara-profile-session-body strong {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.rafara-profile-session-body p {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.rafara-profile-session-card .btn {
+  margin-top: 10px;
+}
+
+/* =========================================================
+   ERROR STATE (extends .empty-state)
+   ========================================================= */
+
+.rafara-profile-error-state i {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+/* =========================================================
+   COMPACT MODE (applied to <body>)
+   ========================================================= */
+
+body.rafara-profile-compact .dashboard-content {
+  gap: 15px;
+}
+
+body.rafara-profile-compact .panel-head {
+  min-height: 48px;
+  padding: 12px 16px 10px;
+}
+
+body.rafara-profile-compact .panel-body {
+  padding: 10px 16px 14px;
+}
+
+body.rafara-profile-compact .rafara-profile-hero {
+  padding: 18px 22px;
+}
+
+body.rafara-profile-compact .rafara-profile-security-row,
+body.rafara-profile-compact .rafara-profile-toggle-row {
+  padding: 9px 0;
+}
+
+/* =========================================================
+   TOASTS (page-specific look, container reused from dashboard css)
+   ========================================================= */
+
+.rafara-profile-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 250px;
+  max-width: 340px;
+  padding: 13px 16px;
+
+  border-radius: 13px;
+  background: var(--rafara-navy);
+  color: white;
+  box-shadow: var(--shadow-lg);
+
+  font-size: 12.5px;
+  font-weight: 600;
+
+  animation: rpToastIn 0.22s ease;
+}
+
+.rafara-profile-toast i {
+  color: var(--rafara-lilac);
+}
+
+.rafara-profile-toast.is-leaving {
+  animation: rpToastOut 0.18s ease forwards;
+}
+
+@keyframes rpToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rpToastOut {
+  to {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1150px) {
+  .rafara-profile-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .rafara-profile-hero {
+    align-items: flex-start;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 680px) {
+
+  .rafara-profile-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .rafara-profile-hero-avatar {
+    width: 76px;
+    height: 76px;
+    font-size: 24px;
+  }
+
+  .rafara-profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rafara-profile-security-row,
+  .rafara-profile-toggle-row,
+  .rafara-profile-danger-row {
+    flex-wrap: wrap;
+  }
+
+  .rafara-profile-modal {
+    max-height: calc(100vh - 24px);
+  }
+
+  .rafara-profile-modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .rafara-profile-modal {
+    animation: rpModalInMobile 0.22s ease;
+    border-radius: 20px 20px 0 0;
+    max-height: 88vh;
+  }
+
+  @keyframes rpModalInMobile {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .rafara-profile-drawer {
+    max-width: 100%;
+  }
+
+  .rafara-profile-summary-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rafara-profile-modal-backdrop,
+  .rafara-profile-modal,
+  .rafara-profile-drawer-backdrop,
+  .rafara-profile-drawer,
+  .rafara-profile-toast {
+    animation-duration: 0.01ms !important;
+  }
+}
