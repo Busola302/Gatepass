@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passes · Rafara GatePass — Security</title>
+  <meta name="description"
+    content="Security Officer view of access passes for Rafara GatePass — search, filter and inspect passes issued for your estate.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/security-dashboard.css">
+  <link rel="stylesheet" href="styles/security-passes.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="security-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
+      </div>
+
+      <span class="sidebar-role-chip"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security
+        Officer</span>
+
+      <nav class="sidebar-nav" aria-label="Security sections">
+        <ul>
+          <li>
+            <a href="security-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-verify.html" class="nav-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Verify Pass</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-visitors.html" class="nav-item">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Visitors</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-passes.html" class="nav-item is-active" aria-current="page">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-notifications.html" class="nav-item">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-profile.html" class="nav-item">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="security-profile.html" class="sidebar-profile-link">
+          <span class="avatar" aria-hidden="true">EN</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Emeka Nwosu</span>
+            <span class="profile-role">Millenium Housing Estate · Gate 2</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="security-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="security-verify.html" class="mobile-nav-item">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        <span>Verify</span>
+      </a>
+      <a href="security-visitors.html" class="mobile-nav-item">
+        <i class="fa-solid fa-users" aria-hidden="true"></i>
+        <span>Visitors</span>
+      </a>
+      <a href="security-passes.html" class="mobile-nav-item is-active" aria-current="page">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
+      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false"
+        aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="security-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left"
+            aria-hidden="true"></i> Activity</a>
+        <a href="security-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell"
+            aria-hidden="true"></i> Notifications</a>
+        <a href="security-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i>
+          Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
+
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Passes</span>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+                <button type="button" class="text-link" id="mark-all-read-btn">Mark all read</button>
+              </div>
+              <div class="dropdown-panel-body" id="notif-panel-list"></div>
+              <a href="security-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+            </div>
+          </div>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">EN</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Emeka Nwosu</span>
+                <span class="profile-role">Gate 2 · Day Shift</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="security-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i>
+                Profile</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="dashboard-content passes-content">
+
+        <!-- PAGE HEADER -->
+        <section class="page-header" aria-label="Passes">
+          <div class="page-header-text">
+            <h1>Passes</h1>
+            <p>View and monitor access passes issued for your estate.</p>
+          </div>
+          <a href="security-verify.html" class="btn btn--primary page-header-cta">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            Verify a Pass
+          </a>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid" aria-label="Pass statistics" id="passes-stats-grid">
+          <!-- populated by JS -->
+        </section>
+
+        <!-- SEARCH & FILTERS -->
+        <section class="panel filters-panel" aria-label="Search and filters">
+          <div class="panel-body filters-body">
+
+            <div class="passes-search">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <input type="search" id="passes-search-input" placeholder="Search pass code, visitor, resident or unit"
+                autocomplete="off">
+            </div>
+
+            <div class="filters-row">
+
+              <div class="filter-field">
+                <label for="status-filter">Status</label>
+                <select id="status-filter">
+                  <option value="all">All</option>
+                  <option value="active">Active</option>
+                  <option value="upcoming">Upcoming</option>
+                  <option value="expired">Expired</option>
+                  <option value="cancelled">Cancelled</option>
+                  <option value="used">Used</option>
+                  <option value="denied">Denied</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <label for="type-filter">Pass Type</label>
+                <select id="type-filter">
+                  <option value="all">All types</option>
+                  <option value="One-Day Visitor">One-Day Visitor</option>
+                  <option value="Multi-Day Visitor">Multi-Day Visitor</option>
+                  <option value="Artisan">Artisan</option>
+                  <option value="Property Exit">Property Exit</option>
+                  <option value="Ride / Delivery">Ride / Delivery</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <label for="date-filter">Valid on</label>
+                <input type="date" id="date-filter">
+              </div>
+
+              <button type="button" class="btn btn--ghost btn--sm filters-clear-btn" id="filters-clear-btn">
+                <i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i>
+                Clear
+              </button>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- PASSES LIST -->
+        <section class="panel passes-panel" aria-label="Passes list">
+          <div class="panel-head">
+            <h2>All Passes</h2>
+            <span class="passes-count" id="passes-count-label">24 passes</span>
+          </div>
+          <div class="panel-body passes-panel-body" id="passes-list-wrap">
+            <!-- populated by JS -->
+          </div>
+        </section>
+
+        <footer class="dashboard-footer">
+          <p>Rafara — Secure access. Connected communities.</p>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ PASS DETAILS DRAWER ============ -->
+  <div class="drawer" id="pass-drawer" hidden>
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-pass-code">
+      <div class="drawer-head">
+        <div class="drawer-head-text">
+          <span class="drawer-eyebrow">Pass Details</span>
+          <h2 id="drawer-pass-code">—</h2>
+        </div>
+        <button type="button" class="icon-btn drawer-close-btn" data-close-drawer aria-label="Close pass details">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="drawer-body" id="drawer-body">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="scripts/security-passes.js"></script>
+</body>
+
+</html>

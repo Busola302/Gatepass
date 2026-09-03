@@ -1,0 +1,592 @@
+/* =========================================================
+   RAFARA GATEPASS — SECURITY: PASSES PAGE
+   Extends styles/security-dashboard.css. Uses the same
+   tokens, sidebar, topbar, panel, badge and empty-state
+   components already established for the Security Portal.
+   ========================================================= */
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-header-text h1 {
+  font-size: clamp(22px, 2vw, 28px);
+  letter-spacing: -0.02em;
+}
+
+.page-header-text p {
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 13.5px;
+}
+
+.page-header-cta {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   FILTERS PANEL
+   ========================================================= */
+
+.filters-panel {
+  overflow: visible;
+}
+
+.filters-body {
+  padding-top: 18px;
+  gap: 14px;
+}
+
+.passes-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passes-search i {
+  position: absolute;
+  left: 15px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.passes-search input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px 0 39px;
+
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+
+  color: var(--text);
+  font-size: 13.5px;
+}
+
+.passes-search input:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(169, 152, 255, 0.15);
+}
+
+.passes-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.filters-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+
+.filter-field label {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.filter-field select,
+.filter-field input[type="date"] {
+  min-height: 40px;
+  padding: 0 12px;
+
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: white;
+
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.filter-field select:focus,
+.filter-field input[type="date"]:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 4px rgba(169, 152, 255, 0.15);
+}
+
+.filters-clear-btn {
+  margin-left: auto;
+}
+
+/* =========================================================
+   PASSES PANEL
+   ========================================================= */
+
+.passes-panel-body {
+  padding-top: 0;
+}
+
+.passes-count {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   PASSES TABLE (desktop)
+   ========================================================= */
+
+.passes-table {
+  width: 100%;
+}
+
+.passes-table-head {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 1.1fr 0.7fr 1.1fr 1.3fr 0.9fr 0.7fr;
+  gap: 8px;
+
+  padding: 0 20px 10px;
+
+  border-bottom: 1px solid #edf0f5;
+
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.passes-table-row {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 1.1fr 0.7fr 1.1fr 1.3fr 0.9fr 0.7fr;
+  gap: 8px;
+  align-items: center;
+
+  padding: 15px 20px;
+
+  border-bottom: 1px solid #edf0f5;
+  font-size: 12.5px;
+
+  transition: background 0.2s ease;
+}
+
+.passes-table-row:hover {
+  background: #fafaff;
+}
+
+.passes-table-row:last-child {
+  border-bottom: 0;
+}
+
+.pass-code-cell {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--rafara-purple);
+}
+
+.cell-muted {
+  color: var(--text-soft);
+}
+
+.cell-sub {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--text-soft);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.type-chip i {
+  width: 15px;
+  color: var(--rafara-purple);
+  font-size: 11px;
+  text-align: center;
+}
+
+.validity-cell {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.validity-cell strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.validity-cell span {
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.row-action-btn {
+  min-height: 33px;
+  padding: 0 13px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  border: 1px solid var(--border-purple);
+  border-radius: 9px;
+  background: var(--rafara-lilac-soft);
+
+  color: var(--rafara-purple);
+  font-size: 11px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.row-action-btn:hover {
+  background: var(--rafara-lilac);
+  color: var(--rafara-navy);
+  transform: translateY(-1px);
+}
+
+.row-action-btn i {
+  font-size: 10px;
+}
+
+/* status badge additions specific to passes */
+
+.badge--upcoming {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+
+.badge--used {
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+}
+
+.badge--denied {
+  background: var(--red-bg);
+  color: var(--red);
+  box-shadow: inset 0 0 0 1px rgba(184, 61, 69, 0.18);
+}
+
+/* =========================================================
+   MOBILE PASS CARD
+   ========================================================= */
+
+.pass-card {
+  display: none;
+}
+
+/* =========================================================
+   DRAWER (Pass Details)
+   ========================================================= */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 48, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: min(460px, 100vw);
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+
+  transform: translateX(100%);
+  transition: transform 0.26s ease;
+}
+
+.drawer.is-open .drawer-backdrop {
+  opacity: 1;
+}
+
+.drawer.is-open .drawer-panel {
+  transform: translateX(0);
+}
+
+.drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 24px 24px 18px;
+
+  background:
+    radial-gradient(circle at 90% 0%, rgba(169, 152, 255, 0.16), transparent 40%),
+    linear-gradient(135deg, #050a30 0%, #11162f 100%);
+
+  color: white;
+}
+
+.drawer-eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.drawer-head-text h2 {
+  margin-top: 6px;
+  font-size: 21px;
+  letter-spacing: -0.01em;
+}
+
+.drawer-close-btn {
+  flex-shrink: 0;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.drawer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: white;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px 34px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.drawer-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-section {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: white;
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+}
+
+.drawer-section-head {
+  padding: 14px 16px 10px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.drawer-section .details-block {
+  padding: 0 16px 14px;
+}
+
+.drawer-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.drawer-actions .btn {
+  flex: 1;
+}
+
+/* Verification history timeline reuses .activity-timeline */
+
+.drawer-section .activity-timeline {
+  padding: 0 16px 14px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1150px) {
+  .passes-table-head,
+  .passes-table-row {
+    grid-template-columns: 0.9fr 1.1fr 1.1fr 1fr 1.2fr 0.9fr 0.7fr;
+  }
+
+  .passes-table-head span:nth-child(4),
+  .passes-table-row > div:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .filters-clear-btn {
+    margin-left: 0;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 680px) {
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-header-cta {
+    justify-content: center;
+  }
+
+  .filters-body {
+    padding-top: 14px;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-field {
+    min-width: 0;
+  }
+
+  .filters-clear-btn {
+    margin-left: 0;
+  }
+
+  .passes-panel-body {
+    padding: 0 14px 14px;
+  }
+
+  .panel-head .passes-count {
+    display: none;
+  }
+
+  /* hide desktop table, show cards */
+  .passes-table-head {
+    display: none;
+  }
+
+  .passes-table-row {
+    display: none;
+  }
+
+  .pass-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 14px;
+    margin-bottom: 10px;
+
+    border: 1px solid #edf0f5;
+    border-radius: 15px;
+    background: white;
+  }
+
+  .pass-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .pass-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .pass-card-code {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--rafara-purple);
+    font-size: 13.5px;
+  }
+
+  .pass-card-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .pass-card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    font-size: 11.5px;
+  }
+
+  .pass-card-row span:first-child {
+    color: var(--text-muted);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .pass-card-row span:last-child {
+    color: var(--text);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .pass-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #edf0f5;
+  }
+
+  .pass-card-foot .row-action-btn {
+    min-height: 36px;
+    padding: 0 15px;
+  }
+
+  .drawer-panel {
+    width: 100%;
+  }
+
+  .drawer-head {
+    padding: 20px 18px 16px;
+  }
+
+  .drawer-body {
+    padding: 16px 16px 28px;
+  }
+}
