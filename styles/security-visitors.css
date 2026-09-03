@@ -1,0 +1,520 @@
+/* =========================================================
+   RAFARA GATEPASS — SECURITY VISITORS PAGE
+   Extends styles/security-dashboard.css. Reuses existing
+   tokens, panels, badges, and buttons — adds only what the
+   Visitors workspace needs: page header, filters, the
+   visitors table/cards, and the two modals.
+   ========================================================= */
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-header-text h1 {
+  font-size: clamp(21px, 2vw, 27px);
+  letter-spacing: -0.02em;
+}
+
+.page-header-sub {
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-header-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 13px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.page-header-date i {
+  color: var(--rafara-purple);
+}
+
+/* =========================================================
+   FILTER PANEL
+   ========================================================= */
+
+.filter-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  padding: 14px 18px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: white;
+  box-shadow: var(--shadow-xs);
+}
+
+.filter-search {
+  position: relative;
+  flex: 1 1 280px;
+  min-width: 220px;
+}
+
+.filter-search i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.filter-search input {
+  width: 100%;
+  height: 42px;
+
+  padding: 0 14px 0 38px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+
+  color: var(--text);
+  font-size: 13px;
+}
+
+.filter-search input:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(169, 152, 255, 0.14);
+}
+
+.filter-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.filter-controls {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-field span {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.filter-field select,
+.filter-field input[type="date"] {
+  height: 40px;
+  min-width: 140px;
+
+  padding: 0 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+
+  color: var(--text);
+  font-size: 12.5px;
+}
+
+.filter-field select:focus,
+.filter-field input[type="date"]:focus {
+  outline: none;
+  border-color: var(--rafara-lilac);
+  box-shadow: 0 0 0 4px rgba(169, 152, 255, 0.14);
+}
+
+.filter-reset {
+  align-self: center;
+  padding: 0 2px 3px;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   PANEL HEAD COUNT
+   ========================================================= */
+
+.panel-head-count {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   VISITORS TABLE
+   ========================================================= */
+
+.gate-table--visitors .gate-table-head,
+.gate-table--visitors .gate-table-row {
+  grid-template-columns: 1.3fr 1.2fr 0.7fr 1.1fr 0.8fr 0.9fr 0.6fr;
+}
+
+.gate-table-row .gate-table-action {
+  justify-self: end;
+}
+
+.gate-table-view-btn {
+  min-height: 30px;
+  padding: 6px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+
+  color: var(--rafara-purple);
+  font-size: 11px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.gate-table-view-btn:hover {
+  background: var(--rafara-lilac-soft);
+  border-color: var(--border-purple);
+}
+
+/* =========================================================
+   VISITOR STATUS BADGES
+   ======================================================= */
+
+.badge--denied {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+/* =========================================================
+   MODALS
+   ======================================================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 48, 0.5);
+  backdrop-filter: blur(4px);
+  animation: modalBackdropIn 0.18s ease;
+}
+
+@keyframes modalBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-panel {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  border-radius: var(--radius-lg);
+  background: white;
+  box-shadow: var(--shadow-lg);
+
+  animation: modalPanelIn 0.2s ease;
+}
+
+.modal-panel--wide {
+  max-width: 560px;
+}
+
+.modal-panel--sm {
+  max-width: 420px;
+}
+
+@keyframes modalPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 22px 22px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-head-text {
+  min-width: 0;
+}
+
+.modal-eyebrow {
+  display: inline-block;
+  margin-bottom: 5px;
+  color: var(--rafara-purple);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.modal-eyebrow--warn {
+  color: var(--orange);
+}
+
+.modal-head h2 {
+  font-size: 18px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.modal-body {
+  padding: 18px 22px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.modal-lead {
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+
+  padding: 16px 22px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-foot .btn {
+  flex: 0 0 auto;
+}
+
+.modal-foot .btn--block {
+  flex: 1;
+}
+
+/* Details groups inside the visitor modal */
+
+.modal-section-label {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Access history list, reusing the activity timeline look */
+
+.history-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-item {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  padding: 9px 0;
+}
+
+.history-item::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 34px;
+  bottom: -9px;
+
+  width: 1.5px;
+  background: var(--border);
+}
+
+.history-item:last-child::before {
+  display: none;
+}
+
+.history-dot {
+  position: relative;
+  z-index: 1;
+
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+  background: var(--rafara-lilac-soft);
+  color: var(--rafara-purple);
+
+  font-size: 12px;
+}
+
+.history-dot--success {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.history-dot--muted {
+  background: #f1f2f6;
+  color: #686d82;
+}
+
+.history-dot--danger {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.history-body {
+  min-width: 0;
+  flex: 1;
+  padding-top: 3px;
+}
+
+.history-body strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.history-body span {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+/* =========================================================
+   TABLET / MOBILE
+   ======================================================= */
+
+@media (max-width: 900px) {
+  .filter-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filter-controls {
+    align-items: stretch;
+  }
+
+  .filter-field {
+    flex: 1 1 130px;
+  }
+
+  .filter-field select,
+  .filter-field input[type="date"] {
+    width: 100%;
+  }
+
+  .filter-reset {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 680px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-header-actions {
+    justify-content: space-between;
+  }
+
+  .filter-panel {
+    padding: 13px;
+  }
+
+  .modal {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .modal-panel,
+  .modal-panel--wide,
+  .modal-panel--sm {
+    max-width: none;
+    max-height: calc(100vh - 24px);
+    border-radius: 20px 20px 14px 14px;
+  }
+
+  .modal-head {
+    padding: 18px 16px 14px;
+  }
+
+  .modal-body {
+    padding: 14px 16px;
+  }
+
+  .modal-foot {
+    padding: 13px 16px;
+    flex-wrap: wrap;
+  }
+
+  .modal-foot .btn {
+    flex: 1;
+  }
+}

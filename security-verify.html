@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Pass · Rafara GatePass — Security</title>
+  <meta name="description"
+    content="Verify a visitor's Rafara pass and make an access decision before granting entry to the estate.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/security-verify.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="security-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
+      </div>
+
+      <span class="sidebar-role-chip"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security
+        Officer</span>
+
+      <nav class="sidebar-nav" aria-label="Security sections">
+        <ul>
+          <li>
+            <a href="security-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-verify.html" class="nav-item is-active" aria-current="page">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Verify Pass</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-visitors.html" class="nav-item">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Visitors</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-passes.html" class="nav-item">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-notifications.html" class="nav-item">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="security-profile.html" class="nav-item">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="security-profile.html" class="sidebar-profile-link">
+          <span class="avatar" aria-hidden="true">EN</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Emeka Nwosu</span>
+            <span class="profile-role">Millenium Housing Estate · Gate 2</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="security-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="security-verify.html" class="mobile-nav-item is-active" aria-current="page">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        <span>Verify</span>
+      </a>
+      <a href="security-visitors.html" class="mobile-nav-item">
+        <i class="fa-solid fa-users" aria-hidden="true"></i>
+        <span>Visitors</span>
+      </a>
+      <a href="security-passes.html" class="mobile-nav-item">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
+      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn" id="mobile-menu-btn" aria-expanded="false"
+        aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="security-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left"
+            aria-hidden="true"></i> Activity</a>
+        <a href="security-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell"
+            aria-hidden="true"></i> Notifications</a>
+        <a href="security-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i>
+          Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
+
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Verify Pass</span>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+                <button type="button" class="text-link" id="mark-all-read-btn">Mark all read</button>
+              </div>
+              <div class="dropdown-panel-body" id="notif-panel-list"></div>
+              <a href="security-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+            </div>
+          </div>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">EN</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Emeka Nwosu</span>
+                <span class="profile-role">Gate 2 · Day Shift</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="security-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i>
+                Profile</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="page-content">
+
+        <!-- PAGE HEADER -->
+        <section class="page-header" aria-label="Page heading">
+          <h1>Verify Pass</h1>
+          <p>Check a visitor's pass before granting access to the estate.</p>
+        </section>
+
+        <!-- ===== ENTRY: CODE VERIFICATION + QR ===== -->
+        <section class="verify-grid" id="verify-entry-section" aria-label="Verify visitor pass">
+
+          <div class="verify-panel">
+            <div class="verify-panel-head">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <h2>Enter Pass Code</h2>
+            </div>
+            <p class="verify-panel-sub">Enter the visitor's 4-digit pass code to verify their access.</p>
+
+            <form class="verify-form" id="verify-form" novalidate>
+              <label class="verify-label" for="pass-code">Pass Code</label>
+              <div class="verify-input-row">
+                <input type="text" id="pass-code" class="pass-code-input" inputmode="numeric" maxlength="4"
+                  autocomplete="off" placeholder="Enter 4-digit code" aria-describedby="verify-feedback">
+                <button type="submit" class="verify-submit-btn" id="verify-submit-btn" disabled>
+                  <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                  <span id="verify-submit-label">Verify Pass</span>
+                </button>
+              </div>
+              <div class="verify-feedback verify-feedback--error" id="verify-feedback" role="alert" hidden></div>
+              <p class="verify-hint">Try demo codes: 4827 (valid), 7812 (expired), 1934 (cancelled), 2200 (already
+                inside)</p>
+            </form>
+          </div>
+
+          <div class="qr-panel">
+            <div class="qr-panel-head">
+              <div class="qr-panel-head-text">
+                <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+                <h2>Scan QR Code</h2>
+              </div>
+            </div>
+            <p class="qr-panel-sub">QR verification will make visitor check-in even faster.</p>
+            <div class="qr-frame">
+              <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+              <span class="badge badge--soon">Coming Soon</span>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===== VERIFICATION RESULT (dynamic, populated by JS) ===== -->
+        <section id="verify-result-section" aria-label="Verification result" aria-live="polite" hidden>
+          <!-- populated by JS -->
+        </section>
+
+        <!-- ===== RECENT VERIFICATIONS ===== -->
+        <section aria-label="Recent verifications">
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Recent Verifications</h2>
+              <a href="security-activity.html" class="text-link">View Activity</a>
+            </div>
+            <div class="panel-body">
+              <ol class="activity-timeline" id="recent-verify-list"></ol>
+            </div>
+          </div>
+        </section>
+
+        <footer class="page-footer">
+          <p>Rafara — Secure access. Connected communities.</p>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP (mobile drawer) ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ DENY ENTRY MODAL ============ -->
+  <div class="modal-overlay" id="deny-modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="deny-modal-title">
+      <div class="modal-head">
+        <i class="fa-solid fa-ban" aria-hidden="true"></i>
+        <div class="modal-head-text">
+          <h2 id="deny-modal-title">Deny Access?</h2>
+          <p>Are you sure you want to deny this visitor access?</p>
+        </div>
+      </div>
+      <div class="modal-body">
+        <label class="field-label" for="deny-reason">Reason for denial</label>
+        <select class="select-field" id="deny-reason">
+          <option value="Invalid pass">Invalid pass</option>
+          <option value="Expired pass">Expired pass</option>
+          <option value="Pass cancelled">Pass cancelled</option>
+          <option value="Visitor details don't match">Visitor details don't match</option>
+          <option value="Resident unavailable">Resident unavailable</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" id="deny-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn--danger" id="deny-confirm-btn">Confirm Denial</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="scripts/security-verify.js"></script>
+</body>
+
+</html>

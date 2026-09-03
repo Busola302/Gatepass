@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings · Rafara GatePass — Estate Manager</title>
+  <meta name="description"
+    content="Estate-level Rafara settings — access rules, pass configuration, security policy, and manager permissions.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/manager-settings.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sidebar-top">
+        <a href="manager-dashboard.html" class="brand-lockup">
+          <span class="brand-rafara">RAFARA</span>
+          <span class="brand-sep"></span>
+          <span class="brand-product">GatePass</span>
+        </a>
+      </div>
+
+      <span class="sidebar-role-chip"><i class="fa-solid fa-building-shield" aria-hidden="true"></i> Estate
+        Manager</span>
+
+      <nav class="sidebar-nav" aria-label="Manager sections">
+        <ul>
+          <li>
+            <a href="manager-dashboard.html" class="nav-item">
+              <i class="fa-solid fa-grip" aria-hidden="true"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-residents.html" class="nav-item">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              <span>Residents</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-units.html" class="nav-item">
+              <i class="fa-solid fa-building" aria-hidden="true"></i>
+              <span>Units</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-security.html" class="nav-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <span>Security</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-artisans.html" class="nav-item">
+              <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+              <span>Artisans</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-passes.html" class="nav-item">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Passes</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-activity.html" class="nav-item">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Activity</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-notifications.html" class="nav-item">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span>Notifications</span>
+              <span class="nav-badge" id="sidebar-notif-count" hidden>0</span>
+            </a>
+          </li>
+          <li>
+            <a href="manager-settings.html" class="nav-item is-active" aria-current="page">
+              <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="manager-profile.html" class="sidebar-profile-link">
+          <span class="avatar" aria-hidden="true">EM</span>
+          <span class="profile-trigger-text">
+            <span class="profile-name">Estate Manager</span>
+            <span class="profile-role">Millenium Housing Estate,Lagos</span>
+          </span>
+        </a>
+        <button type="button" class="nav-item nav-item--logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ============ MOBILE BOTTOM NAV ============ -->
+    <nav class="mobile-nav" aria-label="Primary">
+      <a href="manager-dashboard.html" class="mobile-nav-item">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="manager-residents.html" class="mobile-nav-item">
+        <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+        <span>Verification</span>
+      </a>
+      <a href="manager-artisans.html" class="mobile-nav-item">
+        <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+        <span>Artisans</span>
+      </a>
+      <a href="manager-passes.html" class="mobile-nav-item">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+        <span>Passes</span>
+      </a>
+      <button type="button" class="mobile-nav-item mobile-nav-item--btn is-active" id="mobile-menu-btn"
+        aria-expanded="false" aria-controls="mobile-menu-sheet" aria-label="More menu">
+        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- ============ MOBILE "MORE" SHEET ============ -->
+    <div class="mobile-sheet" id="mobile-menu-sheet" hidden>
+      <div class="mobile-sheet-backdrop" data-close-mobile-sheet></div>
+      <div class="mobile-sheet-panel" role="dialog" aria-modal="true" aria-label="More options">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <a href="manager-units.html" class="mobile-sheet-link"><i class="fa-solid fa-building" aria-hidden="true"></i>
+          Units</a>
+        <a href="manager-security.html" class="mobile-sheet-link"><i class="fa-solid fa-shield-halved"
+            aria-hidden="true"></i> Security</a>
+        <a href="manager-activity.html" class="mobile-sheet-link"><i class="fa-solid fa-clock-rotate-left"
+            aria-hidden="true"></i> Activity</a>
+        <a href="manager-notifications.html" class="mobile-sheet-link"><i class="fa-solid fa-bell"
+            aria-hidden="true"></i> Notifications</a>
+        <a href="manager-settings.html" class="mobile-sheet-link"><i class="fa-solid fa-gear" aria-hidden="true"></i>
+          Settings</a>
+        <a href="manager-profile.html" class="mobile-sheet-link"><i class="fa-solid fa-user" aria-hidden="true"></i>
+          Profile</a>
+        <button type="button" class="mobile-sheet-link mobile-sheet-link--danger" id="mobile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="main-column">
+
+      <!-- ===== TOP HEADER ===== -->
+      <header class="topbar">
+        <button type="button" class="icon-btn topbar-menu-btn" id="sidebar-toggle-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="sidebar">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="topbar-title">
+          <span class="topbar-eyebrow">Estate Manager Dashboard</span>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="topbar-notif" data-dropdown>
+            <button type="button" class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i>
+              <span class="notif-dot" id="notif-dot" hidden></span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notif-panel" role="menu" hidden>
+              <div class="dropdown-panel-head">
+                <span>Notifications</span>
+              </div>
+              <div class="dropdown-panel-body">
+                <div class="empty-state">
+                  <i class="fa-solid fa-bell-slash"></i>
+                  <strong>No notifications</strong>
+                  <span>You're all caught up.</span>
+                </div>
+              </div>
+              <a href="manager-notifications.html" class="dropdown-panel-foot">View all notifications</a>
+            </div>
+          </div>
+
+          <div class="topbar-profile" data-dropdown>
+            <button type="button" class="profile-trigger" id="profile-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">EM</span>
+              <span class="profile-trigger-text">
+                <span class="profile-name">Estate Manager</span>
+                <span class="profile-role">Millenium Housing Estate,Lagos</span>
+              </span>
+              <i class="fa-solid fa-chevron-down profile-caret" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profile-panel" role="menu" hidden>
+              <a href="manager-profile.html" role="menuitem"><i class="fa-solid fa-user" aria-hidden="true"></i>
+                Profile</a>
+              <a href="manager-settings.html" role="menuitem"><i class="fa-solid fa-gear" aria-hidden="true"></i>
+                Settings</a>
+              <button type="button" role="menuitem" id="dropdown-logout-btn"><i
+                  class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main id="main-content" class="dashboard-content manager-settings-content">
+
+        <!-- PAGE HEAD -->
+        <section class="manager-settings-pagehead">
+          <div>
+            <h1>Settings</h1>
+            <p>Configure how Rafara manages access and security across your estate.</p>
+          </div>
+          <div class="manager-settings-search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="settings-search" placeholder="Search settings..." aria-label="Search settings">
+          </div>
+        </section>
+
+        <!-- SETTINGS LAYOUT -->
+        <section class="manager-settings-shell" aria-label="Settings">
+
+          <!-- SETTINGS NAV (desktop) -->
+          <nav class="manager-settings-nav" id="settings-nav" aria-label="Settings sections">
+            <button type="button" class="manager-settings-nav-item is-active" data-section="general">
+              <i class="fa-solid fa-building-shield" aria-hidden="true"></i><span>General</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="access">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i><span>Access Control</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="pass">
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i><span>Pass Settings</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="visitor">
+              <i class="fa-solid fa-user-group" aria-hidden="true"></i><span>Visitor Rules</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="artisan">
+              <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i><span>Artisan Rules</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="security">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>Security</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="notifications">
+              <i class="fa-solid fa-bell" aria-hidden="true"></i><span>Notifications</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="managers">
+              <i class="fa-solid fa-user-shield" aria-hidden="true"></i><span>Managers &amp; Permissions</span>
+            </button>
+            <button type="button" class="manager-settings-nav-item" data-section="system">
+              <i class="fa-solid fa-sliders" aria-hidden="true"></i><span>System</span>
+            </button>
+          </nav>
+
+          <!-- SETTINGS NAV (mobile dropdown) -->
+          <div class="manager-settings-nav-mobile">
+            <select id="settings-nav-select" aria-label="Settings sections">
+              <option value="general">General</option>
+              <option value="access">Access Control</option>
+              <option value="pass">Pass Settings</option>
+              <option value="visitor">Visitor Rules</option>
+              <option value="artisan">Artisan Rules</option>
+              <option value="security">Security</option>
+              <option value="notifications">Notifications</option>
+              <option value="managers">Managers &amp; Permissions</option>
+              <option value="system">System</option>
+            </select>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </div>
+
+          <!-- SETTINGS CONTENT -->
+          <div class="manager-settings-content-col" id="settings-content">
+
+            <p class="manager-settings-no-results" id="settings-no-results" hidden>
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> No settings found.
+            </p>
+
+            <!-- ===================== GENERAL ===================== -->
+            <section class="manager-settings-panel" data-panel="general" data-title="General Settings">
+              <div class="manager-settings-panel-head">
+                <h2>General Settings</h2>
+                <p>Manage basic information about your estate.</p>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Estate Information">
+                <div class="manager-settings-card-head">
+                  <h3>Estate Information</h3>
+                </div>
+                <form class="manager-settings-form-grid" id="general-form">
+                  <label class="manager-settings-field" data-setting="Estate Name">
+                    <span>Estate Name</span>
+                    <input type="text" name="estateName" id="f-estate-name">
+                  </label>
+                  <label class="manager-settings-field" data-setting="Location">
+                    <span>Location</span>
+                    <input type="text" name="location" id="f-location">
+                  </label>
+                  <label class="manager-settings-field" data-setting="Number of Units">
+                    <span>Number of Units</span>
+                    <input type="text" value="644" readonly>
+                  </label>
+                  <label class="manager-settings-field" data-setting="Estate Manager">
+                    <span>Estate Manager</span>
+                    <input type="text" value="Aisha Bello" readonly>
+                  </label>
+                  <label class="manager-settings-field" data-setting="Estate ID">
+                    <span>Estate ID</span>
+                    <input type="text" value="RAF-EST-001" readonly>
+                  </label>
+                  <label class="manager-settings-field" data-setting="Estate Contact Phone">
+                    <span>Estate Contact Phone</span>
+                    <input type="tel" name="contactPhone" id="f-contact-phone" placeholder="080X XXX XXXX">
+                  </label>
+                  <label class="manager-settings-field manager-settings-field--wide"
+                    data-setting="Estate Contact Email">
+                    <span>Estate Contact Email</span>
+                    <input type="email" name="contactEmail" id="f-contact-email" placeholder="estate@rafara.example">
+                  </label>
+                </form>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--ghost" data-discard-form="general-form">Cancel</button>
+                  <button type="button" class="btn btn--primary" id="save-general-btn">Save Changes</button>
+                </div>
+              </div>
+
+              <div class="manager-settings-card manager-settings-card--status" data-setting-group="Estate Status">
+                <div class="manager-settings-status-row">
+                  <div>
+                    <div class="manager-settings-card-head">
+                      <h3>Estate Status</h3>
+                    </div>
+                    <p class="manager-settings-muted" id="estate-status-desc">Rafara is currently managing access for
+                      this estate.</p>
+                  </div>
+                  <span class="manager-settings-status-pill" id="estate-status-pill">
+                    <i class="fa-solid fa-circle" aria-hidden="true"></i> Active
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===================== ACCESS CONTROL ===================== -->
+            <section class="manager-settings-panel" data-panel="access" data-title="Access Control" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Access Control</h2>
+                <p>Control how visitors and pass holders are verified at estate gates.</p>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Pass Verification">
+                <div class="manager-settings-card-head">
+                  <h3>Pass Verification</h3>
+                </div>
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Require Pass Verification">
+                    <div><strong>Require Pass Verification</strong>
+                      <p>Security personnel must verify a valid pass before granting access.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="requirePassVerification"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Require Active Pass">
+                    <div><strong>Require Active Pass</strong>
+                      <p>Only passes within their valid time period can be accepted.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="requireActivePass"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Block Expired Passes">
+                    <div><strong>Block Expired Passes</strong>
+                      <p>Automatically reject expired access passes.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="blockExpiredPasses"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Block Cancelled Passes">
+                    <div><strong>Block Cancelled Passes</strong>
+                      <p>Cancelled passes cannot be used for access.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="blockCancelledPasses"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Prevent Pass Reuse">
+                    <div><strong>Prevent Pass Reuse</strong>
+                      <p>Prevent a completed one-time pass from being reused.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="preventPassReuse"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Gate Settings">
+                <div class="manager-settings-card-head">
+                  <h3>Gate Settings</h3>
+                  <button type="button" class="btn btn--secondary btn--sm" id="add-gate-btn"><i class="fa-solid fa-plus"
+                      aria-hidden="true"></i> Add Gate</button>
+                </div>
+                <p class="manager-settings-muted">Configure the estate's active access points.</p>
+                <div class="manager-settings-gate-list" id="gate-list"></div>
+              </div>
+            </section>
+
+            <!-- ===================== PASS SETTINGS ===================== -->
+            <section class="manager-settings-panel" data-panel="pass" data-title="Pass Settings" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Pass Settings</h2>
+                <p>Configure how Rafara access passes behave.</p>
+              </div>
+
+              <div class="manager-settings-card">
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Pass ID Prefix">
+                    <div><strong>Pass ID Prefix</strong>
+                      <p>Prefix used for estate access pass IDs.</p>
+                    </div>
+                    <input type="text" class="manager-settings-inline-input" id="pass-id-prefix" value="RFP-"
+                      maxlength="8">
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="QR Verification">
+                    <div><strong>QR Verification</strong>
+                      <p>Allow security personnel to scan QR codes to verify passes.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="qrVerification"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Pass Sharing">
+                    <div><strong>Pass Sharing</strong>
+                      <p>Control whether a generated pass can be transferred to another person.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="passSharing"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Manual Pass ID Verification">
+                    <div><strong>Manual Pass ID Verification</strong>
+                      <p>Security personnel can manually enter a Pass ID when QR scanning is unavailable.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="manualVerification"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Pass Expiry Warning">
+                    <div><strong>Pass Expiry Warning</strong>
+                      <p>When to warn holders before a pass expires.</p>
+                    </div>
+                    <select class="manager-settings-inline-select" id="pass-expiry-warning">
+                      <option>15 minutes before expiry</option>
+                      <option>30 minutes before expiry</option>
+                      <option selected>1 hour before expiry</option>
+                      <option>2 hours before expiry</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" data-save-section="pass"
+                    data-toast="Pass settings updated.">Save Pass Settings</button>
+                </div>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Ride & Delivery Rules">
+                <div class="manager-settings-card-head">
+                  <h3>Ride &amp; Delivery Rules</h3>
+                </div>
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Delivery Access">
+                    <div><strong>Delivery Access</strong>
+                      <p>Allow ride and delivery access.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="deliveryAccess"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Delivery Verification">
+                    <div><strong>Delivery Verification</strong>
+                      <p>Require security verification before entry.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="deliveryVerification"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Delivery Pass Duration">
+                    <div><strong>Delivery Pass Duration</strong>
+                      <p>How long a delivery pass stays valid.</p>
+                    </div>
+                    <select class="manager-settings-inline-select" id="delivery-duration">
+                      <option>15 Minutes</option>
+                      <option selected>30 Minutes</option>
+                      <option>1 Hour</option>
+                      <option>2 Hours</option>
+                    </select>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Delivery Check-Out">
+                    <div><strong>Delivery Check-Out</strong>
+                      <p>Automatically record delivery exit.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="deliveryCheckout"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Property Exit Rules">
+                <div class="manager-settings-card-head">
+                  <h3>Property Exit Rules</h3>
+                </div>
+                <p class="manager-settings-muted">Configure how residents record items leaving the estate.</p>
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Require Property Exit Pass">
+                    <div><strong>Require Property Exit Pass</strong></div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="requirePropertyExitPass"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Security Verification (Property Exit)">
+                    <div><strong>Security Verification</strong>
+                      <p>Security must verify property exit passes.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="propertyExitSecurityVerification"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Record Expected Return">
+                    <div><strong>Record Expected Return</strong>
+                      <p>Require an expected return date.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="recordExpectedReturn"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Manager Review">
+                    <div><strong>Manager Review</strong>
+                      <p>Require manager review for selected property exits.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="managerReviewExit"></button>
+                  </div>
+                </div>
+                <p class="manager-settings-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Property
+                  exit passes are used to document authorized movement of property through the gate.</p>
+              </div>
+            </section>
+
+            <!-- ===================== VISITOR RULES ===================== -->
+            <section class="manager-settings-panel" data-panel="visitor" data-title="Visitor Rules" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Visitor Rules</h2>
+                <p>Define how visitor access works across the estate.</p>
+              </div>
+              <div class="manager-settings-card">
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Resident Visitor Passes">
+                    <div><strong>Resident Visitor Passes</strong>
+                      <p>Allow residents to create visitor passes.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="residentVisitorPasses"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Same-Day Visitors">
+                    <div><strong>Same-Day Visitors</strong>
+                      <p>Allow same-day visitor passes.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="sameDayVisitors"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Multi-Day Passes">
+                    <div><strong>Multi-Day Passes</strong>
+                      <p>Allow residents to create multi-day visitor passes.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="multiDayPasses"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Visitor Check-In">
+                    <div><strong>Visitor Check-In</strong>
+                      <p>Require visitors to be checked in by security.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="visitorCheckIn"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Visitor Check-Out">
+                    <div><strong>Visitor Check-Out</strong>
+                      <p>Record visitor exit when leaving the estate.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="visitorCheckOut"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Maximum Pass Duration">
+                    <div><strong>Maximum Pass Duration</strong></div>
+                    <select class="manager-settings-inline-select" id="visitor-max-duration">
+                      <option>1 Day</option>
+                      <option>3 Days</option>
+                      <option selected>7 Days</option>
+                      <option>14 Days</option>
+                      <option>30 Days</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" data-save-section="visitor"
+                    data-toast="Visitor rules updated.">Save Visitor Rules</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===================== ARTISAN RULES ===================== -->
+            <section class="manager-settings-panel" data-panel="artisan" data-title="Artisan Rules" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Artisan Rules</h2>
+                <p>Control how artisans are registered and verified.</p>
+              </div>
+              <div class="manager-settings-card">
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Artisan Verification Required">
+                    <div><strong>Artisan Verification Required</strong>
+                      <p>Require manager verification before an artisan becomes approved.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="artisanVerificationRequired"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Resident Artisan Requests">
+                    <div><strong>Resident Artisan Requests</strong>
+                      <p>Allow residents to request passes for unregistered artisans.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="residentArtisanRequests"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Registered Artisan Access">
+                    <div><strong>Registered Artisan Access</strong>
+                      <p>Allow approved artisans to receive recurring access.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="registeredArtisanAccess"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Artisan Pass Duration">
+                    <div><strong>Artisan Pass Duration</strong></div>
+                    <select class="manager-settings-inline-select" id="artisan-duration">
+                      <option>1 Day</option>
+                      <option>3 Days</option>
+                      <option selected>7 Days</option>
+                      <option>30 Days</option>
+                    </select>
+                  </div>
+                </div>
+                <p class="manager-settings-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Known and
+                  approved artisans are managed by the estate. Residents can request access for artisans who are not yet
+                  registered.</p>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" data-save-section="artisan"
+                    data-toast="Artisan rules updated.">Save Artisan Rules</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===================== SECURITY ===================== -->
+            <section class="manager-settings-panel" data-panel="security" data-title="Security" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Security</h2>
+                <p>Configure security officer access and gate verification behavior.</p>
+              </div>
+              <div class="manager-settings-card">
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Security Officer Verification">
+                    <div><strong>Security Officer Verification</strong>
+                      <p>Require security officers to verify their identity before using the dashboard.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="officerVerification"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Record Gate Activity">
+                    <div><strong>Record Gate Activity</strong>
+                      <p>Record every pass scan and verification event.</p>
+                    </div>
+                    <button class="toggle-switch is-locked" type="button" role="switch" data-toggle="recordGateActivity"
+                      disabled></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Failed Verification Alerts">
+                    <div><strong>Failed Verification Alerts</strong>
+                      <p>Notify managers after repeated failed access attempts.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="failedVerificationAlerts"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Failed Attempt Threshold">
+                    <div><strong>Failed Attempt Threshold</strong></div>
+                    <select class="manager-settings-inline-select" id="failed-attempt-threshold">
+                      <option>2 attempts</option>
+                      <option selected>3 attempts</option>
+                      <option>5 attempts</option>
+                      <option>10 attempts</option>
+                    </select>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Security Shift Tracking">
+                    <div><strong>Security Shift Tracking</strong>
+                      <p>Track security officer shifts.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="shiftTracking"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Offline Verification">
+                    <div><strong>Offline Verification</strong>
+                      <p>Allow temporary offline verification.</p>
+                    </div>
+                    <span class="manager-settings-pill-soft">Coming with backend</span>
+                  </div>
+                </div>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" data-save-section="security"
+                    data-toast="Security settings updated.">Save Security Settings</button>
+                </div>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Security Alerts">
+                <div class="manager-settings-card-head">
+                  <h3>Security Alerts</h3>
+                </div>
+                <p class="manager-settings-muted">Choose which events trigger an alert.</p>
+                <div class="manager-settings-checkbox-grid" id="alert-checkbox-grid">
+                  <label class="manager-settings-checkbox"><input type="checkbox" data-alert="expiredPassAttempt">
+                    Expired pass attempt</label>
+                  <label class="manager-settings-checkbox"><input type="checkbox" data-alert="cancelledPassAttempt">
+                    Cancelled pass attempt</label>
+                  <label class="manager-settings-checkbox"><input type="checkbox" data-alert="deniedAccess"> Denied
+                    access</label>
+                  <label class="manager-settings-checkbox"><input type="checkbox"
+                      data-alert="repeatedFailedVerification"> Repeated failed verification</label>
+                  <label class="manager-settings-checkbox"><input type="checkbox" data-alert="unrecognizedVisitor">
+                    Unrecognized visitor</label>
+                  <label class="manager-settings-checkbox"><input type="checkbox" data-alert="suspiciousActivity">
+                    Suspicious access activity</label>
+                  <label class="manager-settings-checkbox"><input type="checkbox" data-alert="officerStatusChange">
+                    Security officer status change</label>
+                </div>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" id="save-alert-rules-btn">Save Alert Rules</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===================== NOTIFICATIONS ===================== -->
+            <section class="manager-settings-panel" data-panel="notifications" data-title="Notifications" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Notifications</h2>
+                <p>Estate-level notification rules — separate from your personal notification preferences.</p>
+              </div>
+              <div class="manager-settings-card">
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Pass Requests">
+                    <div><strong>Pass Requests</strong>
+                      <p>Notify managers when residents create pass requests.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="notifyPassRequests"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Security Alerts Notification">
+                    <div><strong>Security Alerts</strong>
+                      <p>Notify managers about important security events.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="notifySecurityAlerts"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Artisan Requests">
+                    <div><strong>Artisan Requests</strong>
+                      <p>Notify managers when artisan verification is requested.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="notifyArtisanRequests"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Expiring Passes">
+                    <div><strong>Expiring Passes</strong>
+                      <p>Notify managers when active passes are approaching expiry.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch"
+                      data-toggle="notifyExpiringPasses"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Daily Estate Summary">
+                    <div><strong>Daily Estate Summary</strong>
+                      <p>Send daily access activity summary.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="dailySummary"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Manager Notifications">
+                    <div><strong>Who should receive estate notifications?</strong></div>
+                    <select class="manager-settings-inline-select" id="notif-recipient">
+                      <option>Estate Manager</option>
+                      <option>All Managers</option>
+                      <option>Manager + Security Supervisor</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" data-save-section="notifications"
+                    data-toast="Notification rules updated.">Save Notification Rules</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===================== MANAGERS & PERMISSIONS ===================== -->
+            <section class="manager-settings-panel" data-panel="managers" data-title="Managers & Permissions" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>Managers &amp; Permissions</h2>
+                <p>Control who can manage Rafara settings and estate operations.</p>
+              </div>
+              <div class="manager-settings-card" data-setting-group="Manager List">
+                <div class="manager-settings-card-head">
+                  <h3>Managers</h3>
+                  <button type="button" class="btn btn--secondary btn--sm" id="invite-manager-btn"><i
+                      class="fa-solid fa-user-plus" aria-hidden="true"></i> Invite Manager</button>
+                </div>
+                <div class="manager-settings-manager-list" id="manager-list"></div>
+              </div>
+            </section>
+
+            <!-- ===================== SYSTEM ===================== -->
+            <section class="manager-settings-panel" data-panel="system" data-title="System" hidden>
+              <div class="manager-settings-panel-head">
+                <h2>System</h2>
+                <p>General system preferences for this estate.</p>
+              </div>
+              <div class="manager-settings-card">
+                <div class="manager-settings-toggle-list">
+                  <div class="manager-settings-toggle-row" data-setting="Automatic Pass Expiration">
+                    <div><strong>Automatic Pass Expiration</strong>
+                      <p>Automatically expire passes when their validity period ends.</p>
+                    </div>
+                    <button class="toggle-switch" type="button" role="switch" data-toggle="autoExpirePasses"></button>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Activity Retention">
+                    <div><strong>Activity Retention</strong></div>
+                    <select class="manager-settings-inline-select" id="activity-retention">
+                      <option>30 Days</option>
+                      <option>90 Days</option>
+                      <option>180 Days</option>
+                      <option selected>1 Year</option>
+                    </select>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Time Zone">
+                    <div><strong>Time Zone</strong></div>
+                    <select class="manager-settings-inline-select" disabled>
+                      <option selected>Africa/Lagos</option>
+                    </select>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Language">
+                    <div><strong>Language</strong></div>
+                    <select class="manager-settings-inline-select" id="system-language">
+                      <option selected>English</option>
+                    </select>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Date Format">
+                    <div><strong>Date Format</strong></div>
+                    <select class="manager-settings-inline-select" id="date-format">
+                      <option selected>DD/MM/YYYY</option>
+                      <option>MM/DD/YYYY</option>
+                    </select>
+                  </div>
+                  <div class="manager-settings-toggle-row" data-setting="Time Format">
+                    <div><strong>Time Format</strong></div>
+                    <select class="manager-settings-inline-select" id="time-format">
+                      <option selected>12-hour</option>
+                      <option>24-hour</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="manager-settings-form-actions">
+                  <button type="button" class="btn btn--primary" data-save-section="system"
+                    data-toast="System settings updated.">Save System Settings</button>
+                </div>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Data & Reports">
+                <div class="manager-settings-card-head">
+                  <h3>Data &amp; Reports</h3>
+                </div>
+                <p class="manager-settings-muted">Export estate records for administrative and operational use.</p>
+                <div class="manager-settings-export-grid">
+                  <div class="manager-settings-export-card">
+                    <div><strong>Pass Records</strong>
+                      <p>Export access pass records</p>
+                    </div>
+                    <button type="button" class="btn btn--ghost btn--sm" data-export="passes">Export</button>
+                  </div>
+                  <div class="manager-settings-export-card">
+                    <div><strong>Activity Logs</strong>
+                      <p>Export estate access activity</p>
+                    </div>
+                    <button type="button" class="btn btn--ghost btn--sm" data-export="activity">Export</button>
+                  </div>
+                  <div class="manager-settings-export-card">
+                    <div><strong>Resident Records</strong>
+                      <p>Export resident information</p>
+                    </div>
+                    <button type="button" class="btn btn--ghost btn--sm" data-export="residents">Export</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="manager-settings-card" data-setting-group="Recent Settings Changes">
+                <div class="manager-settings-card-head">
+                  <h3>Recent Settings Changes</h3>
+                </div>
+                <div class="manager-settings-audit-list" id="audit-list"></div>
+                <div class="manager-settings-form-actions manager-settings-form-actions--start">
+                  <a href="manager-activity.html" class="text-link">View Full Activity</a>
+                </div>
+              </div>
+
+              <div class="manager-settings-card manager-settings-danger-card">
+                <div class="manager-settings-card-head">
+                  <h3><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Danger Zone</h3>
+                </div>
+                <div class="manager-settings-danger-row">
+                  <div>
+                    <strong id="danger-title">Deactivate Estate Access</strong>
+                    <p>Temporarily disable Rafara access management for this estate.</p>
+                  </div>
+                  <button type="button" class="btn btn--danger" id="danger-zone-btn">Deactivate Estate</button>
+                </div>
+                <div class="manager-settings-form-actions manager-settings-form-actions--start"
+                  style="margin-top:14px;">
+                  <button type="button" class="btn btn--ghost btn--sm" id="reset-settings-btn"><i
+                      class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset to Defaults</button>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ UNSAVED CHANGES BANNER ============ -->
+  <div class="manager-settings-unsaved-banner" id="unsaved-banner" hidden>
+    <span><i class="fa-solid fa-circle-info" aria-hidden="true"></i> You have unsaved changes.</span>
+    <div class="manager-settings-unsaved-actions">
+      <button type="button" class="btn btn--ghost btn--sm" id="discard-changes-btn">Discard</button>
+      <button type="button" class="btn btn--primary btn--sm" id="save-changes-btn">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR BACKDROP ============ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ============ GATE MODAL ============ -->
+  <div class="manager-settings-modal-backdrop" id="modal-gate" hidden>
+    <div class="manager-settings-modal" role="dialog" aria-modal="true" aria-labelledby="gate-modal-title">
+      <div class="manager-settings-modal-head">
+        <h3 id="gate-modal-title">Manage Gate</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-gate" aria-label="Close"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="manager-settings-modal-body">
+        <label class="manager-settings-field"><span>Gate Name</span><input type="text" id="gate-name-input"></label>
+        <label class="manager-settings-field"><span>Gate Type</span>
+          <select id="gate-type-input">
+            <option>Primary Entry</option>
+            <option>Secondary Entry</option>
+            <option>Service Gate</option>
+            <option>Emergency Gate</option>
+          </select>
+        </label>
+        <label class="manager-settings-field"><span>Status</span>
+          <select id="gate-status-input">
+            <option>Active</option>
+            <option>Inactive</option>
+          </select>
+        </label>
+        <label class="manager-settings-field"><span>Description</span><textarea id="gate-desc-input"
+            rows="3"></textarea></label>
+      </div>
+      <div class="manager-settings-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-gate">Cancel</button>
+        <button type="button" class="btn btn--primary" id="save-gate-btn">Save Gate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MANAGER PERMISSIONS MODAL ============ -->
+  <div class="manager-settings-modal-backdrop" id="modal-permissions" hidden>
+    <div class="manager-settings-modal manager-settings-modal--lg" role="dialog" aria-modal="true"
+      aria-labelledby="perm-modal-title">
+      <div class="manager-settings-modal-head">
+        <h3 id="perm-modal-title">Manager Permissions</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-permissions" aria-label="Close"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="manager-settings-modal-body">
+        <p class="manager-settings-modal-subject" id="perm-manager-name">—</p>
+        <label class="manager-settings-field"><span>Role</span>
+          <select id="perm-role-input">
+            <option>Estate Manager</option>
+            <option>Assistant Manager</option>
+            <option>Security Supervisor</option>
+            <option>Operations Manager</option>
+          </select>
+        </label>
+        <div class="manager-settings-permission-groups" id="permission-groups"></div>
+      </div>
+      <div class="manager-settings-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-permissions">Cancel</button>
+        <button type="button" class="btn btn--primary" id="save-permissions-btn">Save Permissions</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INVITE MANAGER MODAL ============ -->
+  <div class="manager-settings-modal-backdrop" id="modal-invite" hidden>
+    <div class="manager-settings-modal" role="dialog" aria-modal="true" aria-labelledby="invite-modal-title">
+      <div class="manager-settings-modal-head">
+        <h3 id="invite-modal-title">Invite Manager</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-invite" aria-label="Close"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="manager-settings-modal-body">
+        <label class="manager-settings-field"><span>Full Name</span><input type="text" id="invite-name-input"></label>
+        <label class="manager-settings-field"><span>Email Address</span><input type="email"
+            id="invite-email-input"></label>
+        <label class="manager-settings-field"><span>Role</span>
+          <select id="invite-role-input">
+            <option>Estate Manager</option>
+            <option>Assistant Manager</option>
+            <option>Security Supervisor</option>
+            <option>Operations Manager</option>
+          </select>
+        </label>
+      </div>
+      <div class="manager-settings-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-invite">Cancel</button>
+        <button type="button" class="btn btn--primary" id="send-invite-btn">Send Invitation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESET CONFIRM MODAL ============ -->
+  <div class="manager-settings-modal-backdrop" id="modal-reset" hidden>
+    <div class="manager-settings-modal" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+      <div class="manager-settings-modal-head">
+        <h3 id="reset-modal-title">Reset Settings?</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-reset" aria-label="Close"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="manager-settings-modal-body">
+        <p>This will restore the selected settings section to Rafara's default configuration.</p>
+      </div>
+      <div class="manager-settings-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-reset">Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-reset-btn">Reset Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DEACTIVATE ESTATE MODAL ============ -->
+  <div class="manager-settings-modal-backdrop" id="modal-deactivate" hidden>
+    <div class="manager-settings-modal" role="dialog" aria-modal="true" aria-labelledby="deactivate-modal-title">
+      <div class="manager-settings-modal-head">
+        <h3 id="deactivate-modal-title">Deactivate Estate Access?</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-deactivate" aria-label="Close"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="manager-settings-modal-body">
+        <p>This will prevent Rafara from managing access for this estate until it is reactivated.</p>
+        <label class="manager-settings-field"><span>Type <strong>DEACTIVATE</strong> to confirm</span>
+          <input type="text" id="deactivate-confirm-input" autocomplete="off">
+        </label>
+      </div>
+      <div class="manager-settings-modal-foot">
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-deactivate">Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-deactivate-btn" disabled>Deactivate Estate</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/manager-settings.js"></script>
+</body>
+
+</html>
