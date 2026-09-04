@@ -240,9 +240,9 @@
 
 }
 .sidebar a:hover {
-  color: var(--navy);
-  transform: translateX(20px);
-  transition: color 0.9s ease-in-out, transform 0.9s ease-in-out;
+  color: var(--lavender);
+  transform: translateX(6px);
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 .sidebar-navcta {
   margin-top: 26px;

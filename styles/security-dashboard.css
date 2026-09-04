@@ -2460,6 +2460,103 @@ ol {
     left: 12px;
     bottom: 82px;
   }
+
+  /* =========================================================
+   EXPECTED VISITORS — MOBILE
+   ========================================================= */
+
+  .gate-table {
+    width: 100%;
+  }
+
+  .gate-table-head {
+    display: none;
+  }
+
+  .gate-table-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 14px;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf0f5;
+  }
+
+  .gate-table-row:last-child {
+    border-bottom: 0;
+  }
+
+  .gate-table-row > div {
+    min-width: 0;
+  }
+
+  .gate-table-row > div:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .gate-table-row > div:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .gate-table-row > div:nth-child(3) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .gate-table-row > div:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: right;
+  }
+
+  .gate-table-row > div:nth-child(5) {
+    grid-column: 2;
+    grid-row: 3;
+    text-align: right;
+  }
+
+  .gate-table-row > div:nth-child(6) {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+  }
+
+  .gate-table-row strong {
+    display: block;
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+
+  .gate-table-cell--muted {
+    font-size: 9.5px;
+    line-height: 1.35;
+    color: var(--text-soft);
+    overflow-wrap: anywhere;
+  }
+
+  .gate-table-row > div:nth-child(4)::before {
+    content: "Pass";
+    display: block;
+    margin-bottom: 2px;
+    color: var(--text-muted);
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .gate-table-row > div:nth-child(5)::before {
+    content: "Arrival";
+    display: block;
+    margin-bottom: 2px;
+    color: var(--text-muted);
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
 }
 
 /* =========================================================
@@ -2498,6 +2595,24 @@ ol {
   .pass-code-input {
     font-size: 19px;
     letter-spacing: 5px;
+  }
+
+  .gate-table-row {
+    column-gap: 10px;
+    padding: 12px 0;
+  }
+
+  .gate-table-row strong {
+    font-size: 11px;
+  }
+
+  .gate-table-cell--muted {
+    font-size: 9px;
+  }
+
+  .gate-table-row > div:nth-child(4)::before,
+  .gate-table-row > div:nth-child(5)::before {
+    font-size: 7.5px;
   }
 }
 
