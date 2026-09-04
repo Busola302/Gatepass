@@ -13,7 +13,19 @@
     font-family: 'Inter', sans-serif;
     background: var(--off);
   }
-
+/* footer brand name */
+.brand-footer{
+  color: var(--off);
+   font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+}
+.brand-sep {
+  width: 3px;
+  height: 16px;
+  background: var(--off);
+}
   /* demo-only wrapper so the dark footer has something to sit on when previewed alone */
   .rf-page-demo {
     min-height: 40vh;

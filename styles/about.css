@@ -21,7 +21,13 @@
   padding: 92px 0 82px;
   background: var(--off-white);
 }
-
+.brand-rafara {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  color: var(--navy);
+}
 .about-hero-grid {
   position: absolute;
   inset: 0;
