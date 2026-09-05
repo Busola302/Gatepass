@@ -56,7 +56,7 @@
             </a>
           </li>
           <li>
-            <a href="resident-activity (2).html" class="nav-item">
+            <a href="resident-activity.html" class="nav-item">
               <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
               <span>Activity</span>
             </a>
@@ -387,11 +387,11 @@
     </div>
   </div>
 
-  <!-- ============ MODAL: ONE-DAY VISITOR PASS ============ -->
+  <!-- ============ MODAL: ONE-DAY VISITOR PASS (TYPE SELECT -> DYNAMIC FORM -> REVIEW -> GENERATED) ============ -->
   <div class="modal-overlay" id="modal-one-day" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-one-day-title">
       <div class="modal-head">
-        <button type="button" class="icon-btn modal-back" data-open-modal="modal-visitor-type" aria-label="Back">
+        <button type="button" class="icon-btn modal-back" id="od-back-btn" aria-label="Back">
           <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
         </button>
         <h2 id="modal-one-day-title">One-Day Visitor Pass</h2>
@@ -399,32 +399,208 @@
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
       </div>
-      <form class="modal-body" id="form-one-day" novalidate>
-        <div class="form-row">
-          <label for="od-name">Visitor full name</label>
-          <input type="text" id="od-name" name="od-name" placeholder="e.g. John Doe" required>
-        </div>
-        <div class="form-row form-row--split">
-          <div>
-            <label for="od-phone">Visitor phone number</label>
-            <input type="tel" id="od-phone" name="od-phone" placeholder="080..." required>
+
+      <div class="modal-body">
+
+        <!-- STEP 1: PASS TYPE SELECTION -->
+        <div class="od-step" id="od-step-type">
+          <p class="modal-lede">What type of one-day pass do you want to create?</p>
+          <div class="option-list">
+            <button type="button" class="option-card" data-od-select-type="regular">
+              <span class="option-icon"><i class="fa-solid fa-user" aria-hidden="true"></i></span>
+              <span class="option-text">
+                <strong>Regular Visitor</strong>
+                <span>Friends, family members or other guests</span>
+              </span>
+              <i class="fa-solid fa-chevron-right option-arrow" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="option-card" data-od-select-type="ride">
+              <span class="option-icon"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+              <span class="option-text">
+                <strong>Ride</strong>
+                <span>Ride-hailing, taxi or personal drivers</span>
+              </span>
+              <i class="fa-solid fa-chevron-right option-arrow" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="option-card" data-od-select-type="delivery">
+              <span class="option-icon"><i class="fa-solid fa-box" aria-hidden="true"></i></span>
+              <span class="option-text">
+                <strong>Delivery</strong>
+                <span>Dispatch riders, food or package delivery</span>
+              </span>
+              <i class="fa-solid fa-chevron-right option-arrow" aria-hidden="true"></i>
+            </button>
           </div>
-          <div>
-            <label for="od-date">Visit date</label>
-            <input type="date" id="od-date" name="od-date" required>
+        </div>
+
+        <!-- STEP 2: DYNAMIC FORM -->
+        <form class="od-step" id="form-one-day" novalidate hidden>
+
+          <div class="od-type-banner">
+            <span class="badge badge--verified" id="od-type-banner-badge"></span>
+            <button type="button" class="text-link" data-od-goto="type">Change Type</button>
+          </div>
+
+          <!-- Regular Visitor fields -->
+          <div class="od-fields" id="od-fields-regular" hidden>
+            <div class="form-row">
+              <label for="od-reg-name">Visitor full name</label>
+              <input type="text" id="od-reg-name" name="od-reg-name" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-reg-phone">Visitor phone number</label>
+                <input type="tel" id="od-reg-phone" name="od-reg-phone" placeholder="080..." required>
+              </div>
+              <div>
+                <label for="od-reg-date">Date of visit</label>
+                <input type="date" id="od-reg-date" name="od-reg-date" required>
+              </div>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-reg-time">Expected arrival time</label>
+                <input type="time" id="od-reg-time" name="od-reg-time" required>
+              </div>
+              <div>
+                <label for="od-reg-vehicle">Vehicle information (optional)</label>
+                <input type="text" id="od-reg-vehicle" name="od-reg-vehicle" placeholder="e.g. Toyota Camry, ABC 123 XY">
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="od-reg-purpose">Purpose of visit</label>
+              <input type="text" id="od-reg-purpose" name="od-reg-purpose" placeholder="e.g. Family visit" required>
+            </div>
+          </div>
+
+          <!-- Ride fields -->
+          <div class="od-fields" id="od-fields-ride" hidden>
+            <div class="form-row">
+              <label for="od-ride-name">Driver / rider name</label>
+              <input type="text" id="od-ride-name" name="od-ride-name" placeholder="e.g. Emeka Obi" required>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-ride-phone">Phone number</label>
+                <input type="tel" id="od-ride-phone" name="od-ride-phone" placeholder="080..." required>
+              </div>
+              <div>
+                <label for="od-ride-service">Ride / service type</label>
+                <select id="od-ride-service" name="od-ride-service" required>
+                  <option value="">Select service</option>
+                  <option>Uber</option>
+                  <option>Bolt</option>
+                  <option>Taxi</option>
+                  <option>Personal Driver</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-ride-vehicle-type">Vehicle type</label>
+                <input type="text" id="od-ride-vehicle-type" name="od-ride-vehicle-type" placeholder="e.g. Sedan, SUV, Bike" required>
+              </div>
+              <div>
+                <label for="od-ride-plate">Vehicle plate number</label>
+                <input type="text" id="od-ride-plate" name="od-ride-plate" placeholder="e.g. ABC 123 XY" required>
+              </div>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-ride-time">Expected arrival time</label>
+                <input type="time" id="od-ride-time" name="od-ride-time" required>
+              </div>
+              <div>
+                <label for="od-ride-direction">Pickup or drop-off</label>
+                <select id="od-ride-direction" name="od-ride-direction" required>
+                  <option value="">Select</option>
+                  <option>Pickup</option>
+                  <option>Drop-off</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="od-ride-note">Additional note (optional)</label>
+              <textarea id="od-ride-note" name="od-ride-note" rows="2" placeholder="Anything security should know"></textarea>
+            </div>
+          </div>
+
+          <!-- Delivery fields -->
+          <div class="od-fields" id="od-fields-delivery" hidden>
+            <div class="form-row">
+              <label for="od-del-name">Delivery person name</label>
+              <input type="text" id="od-del-name" name="od-del-name" placeholder="e.g. Chidi Okafor" required>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-del-phone">Phone number</label>
+                <input type="tel" id="od-del-phone" name="od-del-phone" placeholder="080..." required>
+              </div>
+              <div>
+                <label for="od-del-company">Delivery company / platform</label>
+                <input type="text" id="od-del-company" name="od-del-company" placeholder="e.g. Jumia, Chowdeck, Glovo" required>
+              </div>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-del-type">Delivery type</label>
+                <select id="od-del-type" name="od-del-type" required>
+                  <option value="">Select type</option>
+                  <option>Food</option>
+                  <option>Package</option>
+                  <option>Grocery</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="od-del-plate">Vehicle / plate number (optional)</label>
+                <input type="text" id="od-del-plate" name="od-del-plate" placeholder="e.g. ABC 123 XY">
+              </div>
+            </div>
+            <div class="form-row form-row--split">
+              <div>
+                <label for="od-del-time">Expected arrival time</label>
+                <input type="time" id="od-del-time" name="od-del-time" required>
+              </div>
+              <div>
+                <label for="od-del-recipient">Recipient / resident name</label>
+                <input type="text" id="od-del-recipient" name="od-del-recipient" placeholder="e.g. Rahmah Ogunlaja" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="od-del-note">Delivery note (optional)</label>
+              <textarea id="od-del-note" name="od-del-note" rows="2" placeholder="e.g. Leave with the gatehouse"></textarea>
+            </div>
+          </div>
+
+          <p class="form-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is demo data. Passes
+            are not verified by a backend yet.</p>
+          <div class="modal-actions">
+            <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
+            <button type="submit" class="btn btn--primary">Review Pass</button>
+          </div>
+        </form>
+
+        <!-- STEP 3: REVIEW -->
+        <div class="od-step" id="od-step-review" hidden>
+          <p class="modal-lede">Review the details below before generating the pass.</p>
+          <div class="details-block" id="od-review-body"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn--ghost" data-od-goto="form">Edit Details</button>
+            <button type="button" class="btn btn--primary" id="od-generate-btn">Generate One-Day Pass</button>
           </div>
         </div>
-        <div class="form-row">
-          <label for="od-purpose">Purpose of visit (optional)</label>
-          <input type="text" id="od-purpose" name="od-purpose" placeholder="e.g. Family visit">
+
+        <!-- STEP 4: GENERATED PASS -->
+        <div class="od-step" id="od-step-generated" hidden>
+          <div id="od-generated-pass"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn--secondary" data-close-modal>Done</button>
+          </div>
         </div>
-        <p class="form-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is demo data. Passes are
-          not verified by a backend yet.</p>
-        <div class="modal-actions">
-          <button type="button" class="btn btn--ghost" data-close-modal>Cancel</button>
-          <button type="submit" class="btn btn--primary">Create Pass</button>
-        </div>
-      </form>
+
+      </div>
     </div>
   </div>
 

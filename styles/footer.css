@@ -88,6 +88,9 @@
     max-width: 640px;
     margin: 0 auto;
   }
+  .rf-cta-inner h2{
+    color: var(--off);
+  }
   .rf-cta-eyebrow {
     display: inline-flex;
     align-items: center;

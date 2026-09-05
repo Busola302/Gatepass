@@ -32,6 +32,13 @@
     artisan: "fa-solid fa-screwdriver-wrench"
   };
 
+  // One-Day Visitor Pass sub-types: regular | ride | delivery
+  const ONE_DAY_TYPE_META = {
+    regular: { label: "Regular Visitor", icon: "fa-solid fa-user-group" },
+    ride: { label: "Ride", icon: "fa-solid fa-car" },
+    delivery: { label: "Delivery", icon: "fa-solid fa-box" }
+  };
+
   let visitorIdCounter = 118;
 
   // status: "inside" | "expected" | "checked-out" | "expired"
@@ -207,6 +214,7 @@
     DEMO_TODAY,
     VISIT_TYPE_LABELS,
     VISIT_TYPE_ICONS,
+    ONE_DAY_TYPE_META,
     get visitors() { return visitors; },
     nextVisitorId: () => `VIS-${String(++visitorIdCounter).padStart(3, "0")}`,
     addVisitor: (v) => visitors.unshift(v),
@@ -368,6 +376,13 @@
   const D = window.RafaraVisitors;
   const H = D.helpers;
 
+  function cardTypeLabel(v) {
+    if (v.type === "one-day" && v.oneDaySubType && D.ONE_DAY_TYPE_META[v.oneDaySubType]) {
+      return `One-Day · ${D.ONE_DAY_TYPE_META[v.oneDaySubType].label}`;
+    }
+    return D.VISIT_TYPE_LABELS[v.type];
+  }
+
   function metaRowsForInside(v) {
     const rows = [];
     if (v.type === "multi-day") {
@@ -409,7 +424,7 @@
   }
 
   function visitorCardHtml(v, rows) {
-    const typeLabel = D.VISIT_TYPE_LABELS[v.type];
+    const typeLabel = cardTypeLabel(v);
     return `
       <article class="visitor-card" data-visitor-id="${v.id}">
         <div class="visitor-card-top">
@@ -433,7 +448,8 @@
     metaRowsForInside,
     metaRowsForUpcoming,
     visitorCardHtml,
-    formatLastCheckIn
+    formatLastCheckIn,
+    cardTypeLabel
   };
 })();
 
@@ -616,7 +632,7 @@
               ${H.escapeHtml(v.name)}
             </div>
           </td>
-          <td>${D.VISIT_TYPE_LABELS[v.type]}</td>
+          <td>${CT.cardTypeLabel(v)}</td>
           <td>${entry || "—"}</td>
           <td>${exit || "—"}</td>
           <td><span class="badge ${H.statusBadgeClass(v.status)}"><i class="${H.statusIcon(v.status)}" aria-hidden="true"></i>${H.statusLabel(v.status)}</span></td>
@@ -633,7 +649,7 @@
           <div class="history-card-top">
             <div class="visitor-card-heading">
               <span class="visitor-card-name">${H.escapeHtml(v.name)}</span>
-              <span class="visitor-card-type">${D.VISIT_TYPE_LABELS[v.type]}</span>
+              <span class="visitor-card-type">${CT.cardTypeLabel(v)}</span>
             </div>
             <span class="badge ${H.statusBadgeClass(v.status)}"><i class="${H.statusIcon(v.status)}" aria-hidden="true"></i>${H.statusLabel(v.status)}</span>
           </div>
@@ -960,7 +976,8 @@
 })();
 
 /* ==========================================================================
-   FORM SUBMISSIONS — CREATE VISITOR PASS (mock, frontend only)
+   FORM SUBMISSIONS — MULTI-DAY VISITOR PASS (mock, frontend only)
+   (One-Day Pass now runs through the dedicated multi-step flow below.)
    ======================================================================== */
 
 (function () {
@@ -974,34 +991,6 @@
     form.reset();
     M.close(document.getElementById(modalId));
   }
-
-  document.getElementById("form-one-day").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form["od-name"].value.trim();
-    const phone = form["od-phone"].value.trim();
-    const date = form["od-date"].value;
-    const arrival = form["od-arrival"].value;
-    if (!name || !phone || !date) return;
-
-    D.addVisitor({
-      id: D.nextVisitorId(),
-      name,
-      phone,
-      type: "one-day",
-      host: D.resident.fullName,
-      passReference: D.nextVisitorId ? `RFP-2${Math.floor(1000 + Math.random() * 8999)}` : "RFP-NEW",
-      status: date === D.DEMO_TODAY ? "expected" : "expected",
-      date,
-      expectedTime: arrival || "",
-      checkedIn: null,
-      checkedOut: null
-    });
-
-    D.render();
-    resetAndClose(form, "modal-one-day");
-    D.toast("Visitor pass created.", "fa-circle-check");
-  });
 
   document.getElementById("form-multi-day").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -1032,6 +1021,265 @@
 })();
 
 /* ==========================================================================
+   ONE-DAY VISITOR PASS — PASS TYPE SELECTION → DYNAMIC FORM →
+   REVIEW → GENERATE (mock, frontend only)
+   ======================================================================== */
+
+(function () {
+  "use strict";
+
+  const D = window.RafaraVisitors;
+  const H = D.helpers;
+  const M = D.modal;
+  const META = D.ONE_DAY_TYPE_META;
+
+  const odState = {
+    type: null,
+    formData: null
+  };
+
+  function val(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
+
+  function collectFormData(type) {
+    if (type === "regular") {
+      return {
+        name: val("od-r-name"),
+        phone: val("od-r-phone"),
+        date: val("od-r-date"),
+        arrival: val("od-r-arrival"),
+        purpose: val("od-r-purpose"),
+        vehicle: val("od-r-vehicle")
+      };
+    }
+    if (type === "ride") {
+      return {
+        name: val("od-k-name"),
+        phone: val("od-k-phone"),
+        service: val("od-k-service"),
+        vehicleType: val("od-k-vehicle-type"),
+        plate: val("od-k-plate"),
+        arrival: val("od-k-arrival"),
+        direction: val("od-k-direction"),
+        note: val("od-k-note")
+      };
+    }
+    if (type === "delivery") {
+      return {
+        name: val("od-d-name"),
+        phone: val("od-d-phone"),
+        platform: val("od-d-platform"),
+        deliveryType: val("od-d-type"),
+        vehicle: val("od-d-vehicle"),
+        arrival: val("od-d-arrival"),
+        recipient: val("od-d-recipient"),
+        note: val("od-d-note")
+      };
+    }
+    return {};
+  }
+
+  const REQUIRED_FIELDS = {
+    regular: ["name", "phone", "date", "arrival", "purpose"],
+    ride: ["name", "phone", "service", "vehicleType", "plate", "arrival", "direction"],
+    delivery: ["name", "phone", "platform", "deliveryType", "arrival", "recipient"]
+  };
+
+  function validateFormData(type, data) {
+    return (REQUIRED_FIELDS[type] || []).every((key) => data[key]);
+  }
+
+  function reviewRowsHtml(type, data) {
+    const rows = [];
+    if (type === "regular") {
+      rows.push(["Visitor", data.name]);
+      rows.push(["Phone", data.phone]);
+      rows.push(["Date of visit", H.formatDate(data.date)]);
+      if (data.arrival) rows.push(["Expected arrival", H.formatTimeFromHHMM(data.arrival)]);
+      rows.push(["Purpose", data.purpose]);
+      if (data.vehicle) rows.push(["Vehicle", data.vehicle]);
+    } else if (type === "ride") {
+      rows.push(["Driver/rider", data.name]);
+      rows.push(["Phone", data.phone]);
+      rows.push(["Service", data.service]);
+      rows.push(["Vehicle type", data.vehicleType]);
+      rows.push(["Plate number", data.plate]);
+      if (data.arrival) rows.push(["Expected arrival", H.formatTimeFromHHMM(data.arrival)]);
+      rows.push(["Pickup/Drop-off", data.direction]);
+      if (data.note) rows.push(["Note", data.note]);
+    } else if (type === "delivery") {
+      rows.push(["Delivery person", data.name]);
+      rows.push(["Phone", data.phone]);
+      rows.push(["Platform", data.platform]);
+      rows.push(["Delivery type", data.deliveryType]);
+      if (data.vehicle) rows.push(["Vehicle/plate", data.vehicle]);
+      if (data.arrival) rows.push(["Expected arrival", H.formatTimeFromHHMM(data.arrival)]);
+      rows.push(["Recipient", data.recipient]);
+      if (data.note) rows.push(["Note", data.note]);
+    }
+    return rows
+      .map(([l, v]) => `<div class="details-row"><span>${l}</span><span>${H.escapeHtml(v || "—")}</span></div>`)
+      .join("");
+  }
+
+  function goToStep(step) {
+    document.querySelectorAll(".od-step").forEach((el) => (el.hidden = true));
+    document.getElementById(`od-step-${step}`).hidden = false;
+    setBackHandler(step);
+  }
+
+  function setBackHandler(step) {
+    const backBtn = document.getElementById("od-back-btn");
+    if (step === "type") {
+      backBtn.hidden = false;
+      backBtn.onclick = () => M.open("modal-visitor-type");
+    } else if (step === "form") {
+      backBtn.hidden = false;
+      backBtn.onclick = () => goToStep("type");
+    } else if (step === "review") {
+      backBtn.hidden = false;
+      backBtn.onclick = () => goToStep("form");
+    } else if (step === "generated") {
+      backBtn.hidden = true;
+    }
+  }
+
+  function renderTypeBanner() {
+    const meta = META[odState.type];
+    document.getElementById("od-type-banner").innerHTML =
+      `<span class="pass-type-badge"><i class="${meta.icon}" aria-hidden="true"></i> ${meta.label.toUpperCase()}</span>`;
+  }
+
+  function showFieldGroupFor(type) {
+    document.querySelectorAll("[data-od-fields]").forEach((group) => {
+      group.hidden = group.getAttribute("data-od-fields") !== type;
+    });
+  }
+
+  function resetOneDayFlow() {
+    odState.type = null;
+    odState.formData = null;
+    const form = document.getElementById("od-step-form");
+    form.reset();
+    document.getElementById("od-form-error").hidden = true;
+    document.querySelectorAll("[data-od-fields]").forEach((g) => (g.hidden = true));
+    goToStep("type");
+  }
+
+  function renderReview() {
+    const meta = META[odState.type];
+    document.getElementById("od-review-body").innerHTML = `
+      <span class="pass-type-badge"><i class="${meta.icon}" aria-hidden="true"></i> ${meta.label.toUpperCase()}</span>
+      <div class="od-review-card" style="margin-top:14px;">
+        ${reviewRowsHtml(odState.type, odState.formData)}
+      </div>`;
+  }
+
+  function renderGeneratedPass(v) {
+    const meta = META[v.oneDaySubType];
+    document.getElementById("od-generated-body").innerHTML = `
+      <div class="generated-pass">
+        <span class="pass-type-badge"><i class="${meta.icon}" aria-hidden="true"></i> ${meta.label.toUpperCase()}</span>
+        <h3 class="generated-pass-name">${H.escapeHtml(v.name)}</h3>
+        <p class="generated-pass-sub">One-Day Visitor Pass · ${H.formatDate(v.date)}</p>
+        <div class="generated-pass-qr" aria-hidden="true"><i class="fa-solid fa-qrcode"></i></div>
+        <p class="generated-pass-code-label">4-digit verification code</p>
+        <div class="generated-pass-code">${v.verificationCode}</div>
+        <div class="od-review-card" style="text-align:left; margin-top:18px;">
+          <div class="details-row"><span>Pass reference</span><span>${v.passReference}</span></div>
+          ${reviewRowsHtml(v.oneDaySubType, v.oneDayDetails)}
+        </div>
+        <p class="details-note" style="margin-top:14px; text-align:left;">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          Valid for one day only. This is demo data and has not been verified by a backend.
+        </p>
+      </div>`;
+  }
+
+  // Reset the flow to Step 1 every time it's opened fresh from the
+  // "Create Visitor Pass" → "One-Day Visitor" option.
+  document.querySelectorAll('[data-open-modal="modal-one-day"]').forEach((btn) => {
+    btn.addEventListener("click", resetOneDayFlow);
+  });
+
+  // Step 1 → Step 2: choosing a pass type
+  document.querySelectorAll("#od-step-type [data-od-type]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const newType = card.getAttribute("data-od-type");
+      odState.type = newType;
+      odState.formData = null;
+
+      // Reset the dynamic form so fields from a previously selected
+      // type are never carried over or submitted by mistake.
+      document.getElementById("od-step-form").reset();
+      document.getElementById("od-form-error").hidden = true;
+
+      showFieldGroupFor(newType);
+      renderTypeBanner();
+      goToStep("form");
+    });
+  });
+
+  // Step 2 → Step 3: submitting the dynamic form
+  document.getElementById("od-step-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = collectFormData(odState.type);
+    if (!validateFormData(odState.type, data)) {
+      document.getElementById("od-form-error").hidden = false;
+      return;
+    }
+    document.getElementById("od-form-error").hidden = true;
+    odState.formData = data;
+    renderReview();
+    goToStep("review");
+  });
+
+  // Step 3: edit details → back to Step 2 (keeps entered values)
+  document.getElementById("od-review-edit-btn").addEventListener("click", () => {
+    goToStep("form");
+  });
+
+  // Step 3 → Step 4: generate the pass
+  document.getElementById("od-generate-btn").addEventListener("click", () => {
+    const type = odState.type;
+    const data = odState.formData;
+    if (!type || !data) return;
+
+    const passReference = `RFP-2${Math.floor(1000 + Math.random() * 8999)}`;
+    const verificationCode = String(Math.floor(1000 + Math.random() * 9000)).padStart(4, "0");
+    // Regular visitors pick their own visit date; Ride/Delivery passes are
+    // same-day by nature, so they follow the existing one-day validity
+    // rules using today's date — no separate validity system is created.
+    const visitDate = type === "regular" && data.date ? data.date : D.DEMO_TODAY;
+
+    const visitor = {
+      id: D.nextVisitorId(),
+      name: data.name,
+      phone: data.phone,
+      type: "one-day",
+      oneDaySubType: type,
+      host: D.resident.fullName,
+      passReference,
+      verificationCode,
+      status: "expected",
+      date: visitDate,
+      expectedTime: data.arrival || "",
+      checkedIn: null,
+      checkedOut: null,
+      oneDayDetails: data
+    };
+
+    D.addVisitor(visitor);
+    D.render();
+    renderGeneratedPass(visitor);
+    goToStep("generated");
+    D.toast("One-day pass generated.", "fa-circle-check");
+  });
+})();
+
+/* ==========================================================================
    VISITOR DETAILS MODAL
    ======================================================================== */
 
@@ -1041,6 +1289,7 @@
   const D = window.RafaraVisitors;
   const H = D.helpers;
   const M = D.modal;
+  const META = D.ONE_DAY_TYPE_META;
 
   function detailRow(label, value) {
     return `<div class="details-row"><span>${label}</span><span>${value}</span></div>`;
@@ -1048,6 +1297,40 @@
 
   function statusBadgeHtml(status) {
     return `<span class="badge ${H.statusBadgeClass(status)}"><i class="${H.statusIcon(status)}" aria-hidden="true"></i>${H.statusLabel(status)}</span>`;
+  }
+
+  function passTypeBadgeHtml(v) {
+    if (v.type !== "one-day" || !v.oneDaySubType || !META[v.oneDaySubType]) return null;
+    const meta = META[v.oneDaySubType];
+    return `<span class="pass-type-badge"><i class="${meta.icon}" aria-hidden="true"></i> ${meta.label.toUpperCase()}</span>`;
+  }
+
+  function oneDaySubTypeDetailsHtml(v) {
+    if (v.type !== "one-day" || !v.oneDayDetails) return "";
+    const d = v.oneDayDetails;
+    const rows = [];
+    if (v.oneDaySubType === "regular") {
+      if (d.purpose) rows.push(detailRow("Purpose", H.escapeHtml(d.purpose)));
+      if (d.vehicle) rows.push(detailRow("Vehicle", H.escapeHtml(d.vehicle)));
+    } else if (v.oneDaySubType === "ride") {
+      if (d.service) rows.push(detailRow("Service", H.escapeHtml(d.service)));
+      if (d.vehicleType) rows.push(detailRow("Vehicle type", H.escapeHtml(d.vehicleType)));
+      if (d.plate) rows.push(detailRow("Plate number", H.escapeHtml(d.plate)));
+      if (d.direction) rows.push(detailRow("Pickup/Drop-off", H.escapeHtml(d.direction)));
+      if (d.note) rows.push(detailRow("Note", H.escapeHtml(d.note)));
+    } else if (v.oneDaySubType === "delivery") {
+      if (d.platform) rows.push(detailRow("Platform", H.escapeHtml(d.platform)));
+      if (d.deliveryType) rows.push(detailRow("Delivery type", H.escapeHtml(d.deliveryType)));
+      if (d.vehicle) rows.push(detailRow("Vehicle/plate", H.escapeHtml(d.vehicle)));
+      if (d.recipient) rows.push(detailRow("Recipient", H.escapeHtml(d.recipient)));
+      if (d.note) rows.push(detailRow("Note", H.escapeHtml(d.note)));
+    }
+    if (!rows.length) return "";
+    return `
+      <div class="details-section">
+        <div class="details-section-title">Pass Type Details</div>
+        ${rows.join("")}
+      </div>`;
   }
 
   function activityTimelineHtml(activity) {
@@ -1089,6 +1372,8 @@
     const v = D.findVisitor(visitorId);
     if (!v) return;
 
+    const typeBadge = passTypeBadgeHtml(v);
+
     document.getElementById("modal-details-title").textContent = v.name;
     document.getElementById("modal-details-body").innerHTML = `
       <div class="details-section">
@@ -1096,8 +1381,10 @@
         ${detailRow("Name", H.escapeHtml(v.name))}
         ${detailRow("Phone", H.escapeHtml(v.phone || "—"))}
         ${detailRow("Visit Type", D.VISIT_TYPE_LABELS[v.type])}
+        ${typeBadge ? detailRow("Pass Type", typeBadge) : ""}
         ${detailRow("Host", H.escapeHtml(v.host || D.resident.fullName))}
         ${detailRow("Pass Reference", v.passReference)}
+        ${v.verificationCode ? detailRow("Verification Code", v.verificationCode) : ""}
       </div>
       <div class="details-section">
         <div class="details-section-title">Visit Status</div>
@@ -1107,6 +1394,7 @@
         <div class="details-section-title">Pass Validity</div>
         ${detailRow(v.type === "multi-day" ? "Valid" : "Visit date", passValidityHtml(v))}
       </div>
+      ${oneDaySubTypeDetailsHtml(v)}
       <div class="details-section">
         <div class="details-section-title">Visit Activity</div>
         ${v.type === "multi-day"

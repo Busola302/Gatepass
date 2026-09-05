@@ -228,7 +228,7 @@ textarea:focus-visible,
 .brand-sep {
   width: 1px;
   height: 16px;
-  background: var(--rafara-purple);
+  background: var(--rafara-soft-purple);
 }
 
 .brand-product {

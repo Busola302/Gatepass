@@ -1674,6 +1674,99 @@ textarea:focus-visible,
 
 
 /* ==========================================================================
+   ONE-DAY PASS WIZARD (type selection / dynamic form / review / generated pass)
+   ========================================================================== */
+
+.od-type-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pass-category-badge {
+  margin-left: 8px;
+}
+
+.generated-pass {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--rafara-off-white);
+}
+
+.generated-pass-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.generated-pass-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.generated-pass-meta {
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+.generated-pass-body {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.generated-pass-qr {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  padding: 8px;
+}
+
+.generated-pass-qr-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.generated-pass-code {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.generated-pass-code-label {
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.generated-pass-code-value {
+  font-family: monospace;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--rafara-purple);
+}
+
+.generated-pass-ref {
+  margin-top: 4px;
+}
+
+
+/* ==========================================================================
    DETAILS MODAL
    ========================================================================== */
 
@@ -2069,6 +2162,16 @@ textarea:focus-visible,
   .form-row--split {
     flex-direction: column;
     gap: 14px;
+  }
+
+  .generated-pass-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .generated-pass-qr {
+    width: 140px;
+    height: 140px;
   }
 
   .profile-preview {

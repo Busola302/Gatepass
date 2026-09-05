@@ -204,13 +204,13 @@ textarea:focus-visible,
 .brand-sep {
   width: 1px;
   height: 16px;
-  background: var(--rafara-purple);
+  background: var(--rafara-soft-purple);
 }
 .brand-product {
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 15px;
-  color: var(--rafara-purple);
+  color: var(--rafara-soft-purple);
 }
 
 .sidebar-nav {
@@ -1357,6 +1357,96 @@ textarea:focus-visible,
 .details-note i {
   color: var(--rafara-purple);
   margin-top: 1px;
+}
+
+/* ==========================================================================
+   ONE-DAY PASS — TYPE SELECTION / DYNAMIC FORM / REVIEW / GENERATED PASS
+   (reuses existing tokens, badges, option-card and form-row styles above)
+   ========================================================================== */
+
+.od-step[hidden] {
+  display: none;
+}
+
+.od-type-banner {
+  margin-bottom: 16px;
+}
+
+.od-fields[hidden] {
+  display: none;
+}
+
+.field-optional {
+  font-weight: 500;
+  color: var(--ink-faint);
+}
+
+.pass-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--purple-wash);
+  color: var(--rafara-purple);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.od-review-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 16px;
+}
+
+.generated-pass {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+  background: var(--rafara-off-white);
+  text-align: center;
+}
+
+.generated-pass-name {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  margin: 14px 0 2px;
+}
+
+.generated-pass-sub {
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+.generated-pass-qr {
+  width: 148px;
+  height: 148px;
+  margin: 16px auto;
+  background: var(--white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  color: var(--rafara-purple);
+}
+
+.generated-pass-code {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--rafara-purple);
+}
+
+.generated-pass-code-label {
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-bottom: 4px;
 }
 
 /* ==========================================================================

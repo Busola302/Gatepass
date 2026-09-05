@@ -380,6 +380,7 @@
         <div class="pass-card-top">
           <div>
             <span class="pass-type-tag"><i class="${H.passTypeIcon(p.type)}" aria-hidden="true"></i> ${p.typeLabel}</span>
+            ${p.passCategoryLabel ? `<span class="badge badge--verified pass-category-badge">${p.passCategoryLabel}</span>` : ""}
             <div class="pass-card-name">${H.escapeHtml(p.personOrItem)}</div>
           </div>
           <span class="badge ${H.statusBadgeClass(p.status)}"><i class="${H.statusDotIcon(p.status)}" aria-hidden="true"></i>${H.statusLabel(p.status)}</span>
@@ -614,9 +615,9 @@
       return;
     }
     if (e.key !== "Tab") return;
-    const focusables = overlay.querySelectorAll(
-      "input, select, textarea, button, [href]"
-    );
+    const focusables = Array.from(
+      overlay.querySelectorAll("input, select, textarea, button, [href]")
+    ).filter((el) => el.offsetParent !== null);
     if (!focusables.length) return;
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
@@ -847,52 +848,329 @@
     M.close(document.getElementById(modalId));
   }
 
-  /* ---- One-Day Visitor ---- */
-  document.getElementById("form-one-day").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form["od-name"].value.trim();
-    const date = form["od-date"].value;
-    if (!name || !date) return;
+  /* ---- One-Day Visitor Pass: Pass Type -> Dynamic Form -> Review -> Generate ---- */
+  (function () {
+    const M2 = D.modal;
+    const backBtn = document.getElementById("od-back-btn");
+    const titleEl = document.getElementById("modal-one-day-title");
+    const stepType = document.getElementById("od-step-type");
+    const formEl = document.getElementById("form-one-day");
+    const stepReview = document.getElementById("od-step-review");
+    const stepGenerated = document.getElementById("od-step-generated");
+    const typeBanner = document.getElementById("od-type-banner-badge");
+    const reviewBody = document.getElementById("od-review-body");
+    const generatedBody = document.getElementById("od-generated-pass");
 
-    const passId = D.counters.nextPassId();
-    D.mutators.addPass({
-      id: passId,
-      type: "one-day",
-      typeLabel: "One-Day Visitor Pass",
-      personOrItem: name,
-      validText: formatDate(date),
-      status: "active",
-      currentStep: 1
-    });
-    D.mutators.addUpcomingVisitor({
-      id: D.counters.nextVisitorId(),
-      name,
-      visitType: "One-Day Visitor",
-      expected: `${formatDate(date)} · Expected`,
-      host: D.resident.fullName,
-      passStatus: "active"
-    });
-    D.mutators.addActivity({
-      id: D.counters.nextActivityId(),
-      icon: "fa-id-card",
-      title: "Visitor pass created",
-      detail: `One-day pass created for ${name}`,
-      time: nowTime()
-    });
-    D.mutators.addNotification({
-      id: D.counters.nextNotifId(),
-      icon: "fa-id-card",
-      title: "Pass Created",
-      detail: `A one-day visitor pass was created for ${name}.`,
-      time: nowTime(),
-      read: false
+    const CATEGORIES = {
+      regular: { label: "Regular Visitor", badgeLabel: "REGULAR VISITOR", icon: "fa-solid fa-user", fieldsId: "od-fields-regular" },
+      ride: { label: "Ride", badgeLabel: "RIDE", icon: "fa-solid fa-car-side", fieldsId: "od-fields-ride" },
+      delivery: { label: "Delivery", badgeLabel: "DELIVERY", icon: "fa-solid fa-box", fieldsId: "od-fields-delivery" }
+    };
+
+    let currentStep = "type";
+    let currentCategory = null;
+    let reviewData = null;
+
+    function formatTimeStr(t) {
+      if (!t) return "";
+      const [h, m] = t.split(":").map(Number);
+      if (Number.isNaN(h) || Number.isNaN(m)) return t;
+      const d = new Date();
+      d.setHours(h, m, 0, 0);
+      return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    }
+
+    function clearAllFieldValues() {
+      formEl.querySelectorAll(".od-fields input, .od-fields select, .od-fields textarea").forEach((el) => {
+        el.value = "";
+      });
+    }
+
+    function showStep(step) {
+      currentStep = step;
+      stepType.hidden = step !== "type";
+      formEl.hidden = step !== "form";
+      stepReview.hidden = step !== "review";
+      stepGenerated.hidden = step !== "generated";
+      backBtn.hidden = step === "generated";
+      titleEl.textContent =
+        step === "review" ? "Review Pass Details" :
+        step === "generated" ? "Pass Generated" :
+        "One-Day Visitor Pass";
+    }
+
+    function resetWizard() {
+      currentCategory = null;
+      reviewData = null;
+      formEl.reset();
+      Object.values(CATEGORIES).forEach((c) => {
+        document.getElementById(c.fieldsId).hidden = true;
+      });
+      showStep("type");
+    }
+
+    function selectCategory(catKey) {
+      if (currentCategory && currentCategory !== catKey) clearAllFieldValues();
+      currentCategory = catKey;
+      Object.keys(CATEGORIES).forEach((key) => {
+        document.getElementById(CATEGORIES[key].fieldsId).hidden = key !== catKey;
+      });
+      const info = CATEGORIES[catKey];
+      typeBanner.innerHTML = `<i class="${info.icon}" aria-hidden="true"></i> ${info.label}`;
+      showStep("form");
+    }
+
+    function collectFormData() {
+      if (currentCategory === "regular") {
+        return {
+          name: formEl["od-reg-name"].value.trim(),
+          phone: formEl["od-reg-phone"].value.trim(),
+          date: formEl["od-reg-date"].value,
+          time: formEl["od-reg-time"].value,
+          purpose: formEl["od-reg-purpose"].value.trim(),
+          vehicle: formEl["od-reg-vehicle"].value.trim()
+        };
+      }
+      if (currentCategory === "ride") {
+        return {
+          name: formEl["od-ride-name"].value.trim(),
+          phone: formEl["od-ride-phone"].value.trim(),
+          service: formEl["od-ride-service"].value,
+          vehicleType: formEl["od-ride-vehicle-type"].value.trim(),
+          plate: formEl["od-ride-plate"].value.trim(),
+          time: formEl["od-ride-time"].value,
+          direction: formEl["od-ride-direction"].value,
+          note: formEl["od-ride-note"].value.trim()
+        };
+      }
+      // delivery
+      return {
+        name: formEl["od-del-name"].value.trim(),
+        phone: formEl["od-del-phone"].value.trim(),
+        company: formEl["od-del-company"].value.trim(),
+        deliveryType: formEl["od-del-type"].value,
+        plate: formEl["od-del-plate"].value.trim(),
+        time: formEl["od-del-time"].value,
+        recipient: formEl["od-del-recipient"].value.trim(),
+        note: formEl["od-del-note"].value.trim()
+      };
+    }
+
+    function requiredFieldsFilled(data) {
+      if (currentCategory === "regular") {
+        return data.name && data.phone && data.date && data.time && data.purpose;
+      }
+      if (currentCategory === "ride") {
+        return data.name && data.phone && data.service && data.vehicleType && data.plate && data.time && data.direction;
+      }
+      return data.name && data.phone && data.company && data.deliveryType && data.time && data.recipient;
+    }
+
+    function reviewRow(label, value) {
+      if (!value) return "";
+      return `<div class="details-row"><span>${H.escapeHtml(label)}</span><span>${H.escapeHtml(value)}</span></div>`;
+    }
+
+    function buildReviewHtml(data) {
+      const info = CATEGORIES[currentCategory];
+      let rows = `<div class="details-row"><span>Pass type</span><span>${info.badgeLabel}</span></div>`;
+      if (currentCategory === "regular") {
+        rows += reviewRow("Visitor full name", data.name);
+        rows += reviewRow("Visitor phone number", data.phone);
+        rows += reviewRow("Date of visit", formatDate(data.date));
+        rows += reviewRow("Expected arrival time", formatTimeStr(data.time));
+        rows += reviewRow("Purpose of visit", data.purpose);
+        rows += reviewRow("Vehicle information", data.vehicle || "—");
+      } else if (currentCategory === "ride") {
+        rows += reviewRow("Driver / rider name", data.name);
+        rows += reviewRow("Phone number", data.phone);
+        rows += reviewRow("Ride / service type", data.service);
+        rows += reviewRow("Vehicle type", data.vehicleType);
+        rows += reviewRow("Vehicle plate number", data.plate);
+        rows += reviewRow("Expected arrival time", formatTimeStr(data.time));
+        rows += reviewRow("Pickup or drop-off", data.direction);
+        rows += reviewRow("Additional note", data.note || "—");
+      } else {
+        rows += reviewRow("Delivery person name", data.name);
+        rows += reviewRow("Phone number", data.phone);
+        rows += reviewRow("Delivery company / platform", data.company);
+        rows += reviewRow("Delivery type", data.deliveryType);
+        rows += reviewRow("Vehicle / plate number", data.plate || "—");
+        rows += reviewRow("Expected arrival time", formatTimeStr(data.time));
+        rows += reviewRow("Recipient / resident name", data.recipient);
+        rows += reviewRow("Delivery note", data.note || "—");
+      }
+      return rows;
+    }
+
+    /* ---- Fake QR (demo-only, visually representative, not scannable) ---- */
+    function hashStringToSeed(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) {
+        h = (h << 5) - h + str.charCodeAt(i);
+        h |= 0;
+      }
+      return h;
+    }
+    function mulberry32(seed) {
+      return function () {
+        seed |= 0;
+        seed = (seed + 0x6d2b79f5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    function generateFakeQrSvg(seedStr) {
+      const size = 21;
+      const cell = 100 / size;
+      const rand = mulberry32(hashStringToSeed(seedStr));
+      const inFinderZone = (r, c) =>
+        [[0, 0], [0, size - 7], [size - 7, 0]].some(
+          ([zr, zc]) => r >= zr && r < zr + 7 && c >= zc && c < zc + 7
+        );
+      let cells = "";
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (inFinderZone(r, c)) continue;
+          if (rand() > 0.55) {
+            cells += `<rect x="${(c * cell).toFixed(2)}" y="${(r * cell).toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" fill="var(--rafara-navy)" />`;
+          }
+        }
+      }
+      function finder(r0, c0) {
+        return (
+          `<rect x="${(c0 * cell).toFixed(2)}" y="${(r0 * cell).toFixed(2)}" width="${(7 * cell).toFixed(2)}" height="${(7 * cell).toFixed(2)}" fill="var(--rafara-navy)" />` +
+          `<rect x="${((c0 + 1) * cell).toFixed(2)}" y="${((r0 + 1) * cell).toFixed(2)}" width="${(5 * cell).toFixed(2)}" height="${(5 * cell).toFixed(2)}" fill="var(--white)" />` +
+          `<rect x="${((c0 + 2) * cell).toFixed(2)}" y="${((r0 + 2) * cell).toFixed(2)}" width="${(3 * cell).toFixed(2)}" height="${(3 * cell).toFixed(2)}" fill="var(--rafara-navy)" />`
+        );
+      }
+      const finders = finder(0, 0) + finder(0, size - 7) + finder(size - 7, 0);
+      return `<svg viewBox="0 0 100 100" class="generated-pass-qr-svg" role="img" aria-label="Pass verification QR code">
+        <rect x="0" y="0" width="100" height="100" fill="var(--white)" />
+        ${cells}${finders}
+      </svg>`;
+    }
+
+    function generatePassCode() {
+      return String(Math.floor(1000 + Math.random() * 9000));
+    }
+
+    function renderGeneratedPass(pass) {
+      const info = CATEGORIES[pass.passCategory];
+      generatedBody.innerHTML = `
+        <div class="generated-pass">
+          <div class="generated-pass-top">
+            <span class="badge badge--verified"><i class="${info.icon}" aria-hidden="true"></i> ${pass.passCategoryLabel}</span>
+            <span class="badge ${H.statusBadgeClass(pass.status)}"><i class="${H.statusDotIcon(pass.status)}" aria-hidden="true"></i>${H.statusLabel(pass.status)}</span>
+          </div>
+          <h3 class="generated-pass-name">${H.escapeHtml(pass.personOrItem)}</h3>
+          <p class="generated-pass-meta">One-Day Visitor Pass · Valid <strong>${pass.validText}</strong></p>
+          <div class="generated-pass-body">
+            <div class="generated-pass-qr">${generateFakeQrSvg(pass.id + "-" + pass.passCode)}</div>
+            <div class="generated-pass-code">
+              <span class="generated-pass-code-label">4-digit verification code</span>
+              <span class="generated-pass-code-value">${pass.passCode}</span>
+            </div>
+          </div>
+          <p class="pass-ref generated-pass-ref">${pass.id}</p>
+        </div>`;
+    }
+
+    /* ---- Step navigation ---- */
+    backBtn.addEventListener("click", () => {
+      if (currentStep === "type") {
+        M2.open("modal-visitor-type");
+      } else if (currentStep === "form") {
+        showStep("type");
+      } else if (currentStep === "review") {
+        showStep("form");
+      }
     });
 
-    D.render();
-    resetAndCloseAll(form, "modal-one-day");
-    D.toast("Visitor pass created successfully.", "fa-circle-check");
-  });
+    stepType.querySelectorAll("[data-od-select-type]").forEach((btn) => {
+      btn.addEventListener("click", () => selectCategory(btn.getAttribute("data-od-select-type")));
+    });
+
+    formEl.querySelectorAll('[data-od-goto="type"]').forEach((btn) => {
+      btn.addEventListener("click", () => showStep("type"));
+    });
+
+    stepReview.querySelector('[data-od-goto="form"]').addEventListener("click", () => showStep("form"));
+
+    formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!formEl.reportValidity()) return;
+      const data = collectFormData();
+      if (!requiredFieldsFilled(data)) return;
+      reviewData = data;
+      reviewBody.innerHTML = buildReviewHtml(data);
+      showStep("review");
+    });
+
+    document.getElementById("od-generate-btn").addEventListener("click", () => {
+      if (!currentCategory || !reviewData) return;
+      const info = CATEGORIES[currentCategory];
+      const data = reviewData;
+      const personOrItem =
+        currentCategory === "regular" ? data.name :
+        currentCategory === "ride" ? data.name :
+        data.name;
+      const validText =
+        currentCategory === "regular"
+          ? `${formatDate(data.date)}${data.time ? " · " + formatTimeStr(data.time) : ""}`
+          : `Today${data.time ? " · " + formatTimeStr(data.time) : ""}`;
+
+      const passId = D.counters.nextPassId();
+      const pass = {
+        id: passId,
+        type: "one-day",
+        typeLabel: "One-Day Visitor Pass",
+        passCategory: currentCategory,
+        passCategoryLabel: info.badgeLabel,
+        personOrItem,
+        validText,
+        status: "active",
+        currentStep: 1,
+        passCode: generatePassCode()
+      };
+
+      D.mutators.addPass(pass);
+      D.mutators.addUpcomingVisitor({
+        id: D.counters.nextVisitorId(),
+        name: personOrItem,
+        visitType: `One-Day Visitor · ${info.label}`,
+        expected: `${validText} · Expected`,
+        host: D.resident.fullName,
+        passStatus: "active"
+      });
+      D.mutators.addActivity({
+        id: D.counters.nextActivityId(),
+        icon: "fa-id-card",
+        title: "Visitor pass created",
+        detail: `One-day (${info.label}) pass created for ${personOrItem}`,
+        time: nowTime()
+      });
+      D.mutators.addNotification({
+        id: D.counters.nextNotifId(),
+        icon: "fa-id-card",
+        title: "Pass Created",
+        detail: `A one-day ${info.label.toLowerCase()} pass was created for ${personOrItem}.`,
+        time: nowTime(),
+        read: false
+      });
+
+      D.render();
+      renderGeneratedPass(pass);
+      showStep("generated");
+      D.toast("Visitor pass created successfully.", "fa-circle-check");
+    });
+
+    // Entry point: "One-Day Visitor" option card in the pass-type-choice modal
+    // resets the wizard back to step 1 every time it's opened.
+    const entryBtn = document.querySelector('#modal-visitor-type [data-open-modal="modal-one-day"]');
+    if (entryBtn) entryBtn.addEventListener("click", resetWizard);
+  })();
 
   /* ---- Multi-Day Visitor ---- */
   document.getElementById("form-multi-day").addEventListener("submit", (e) => {
@@ -1054,8 +1332,10 @@
     document.getElementById("modal-details-body").innerHTML = `
       <div class="details-block">
         <div class="details-row"><span>Pass reference</span><span>${pass.id}</span></div>
+        ${pass.passCategoryLabel ? `<div class="details-row"><span>Pass category</span><span>${pass.passCategoryLabel}</span></div>` : ""}
         <div class="details-row"><span>Person / item</span><span>${H.escapeHtml(pass.personOrItem)}</span></div>
         <div class="details-row"><span>Valid</span><span>${pass.validText}</span></div>
+        ${pass.passCode ? `<div class="details-row"><span>Verification code</span><span>${pass.passCode}</span></div>` : ""}
         <div class="details-row"><span>Status</span><span><span class="badge ${H.statusBadgeClass(pass.status)}"><i class="${H.statusDotIcon(pass.status)}" aria-hidden="true"></i>${H.statusLabel(pass.status)}</span></span></div>
         <div>
           <p class="modal-lede" style="margin:14px 0 8px;">Pass lifecycle</p>

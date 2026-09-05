@@ -155,13 +155,13 @@ textarea:focus-visible,
 .brand-sep {
   width: 1px;
   height: 16px;
-  background: var(--rafara-purple);
+  background: var(--rafara-soft-purple);
 }
 .brand-product {
   font-family: var(--font-header);
   font-weight: 600;
   font-size: 15px;
-  color: var(--rafara-purple);
+  color: var(--rafara-soft-purple);
 }
 
 .sidebar-nav {
